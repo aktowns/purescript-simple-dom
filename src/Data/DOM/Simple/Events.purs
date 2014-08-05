@@ -12,4 +12,7 @@ foreign import addEventListener
   \       };                                   \
   \     };                                     \
   \  };                                        \
-  \}" :: forall eff reff. String -> (Unit -> (Eff (dom :: DOM | reff) Unit)) -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
+  \}" :: forall eff reff a b. String -> (Eff (dom :: DOM | reff) a) -> HTMLElement -> (Eff (dom :: DOM | eff) b)
+
+ready :: forall eff a b. (Eff (dom :: DOM | eff) a) -> (Eff (dom :: DOM | eff) b)
+ready cb = getDocument globalWindow >>= (addEventListener "DOMContentLoaded" cb)
