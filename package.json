@@ -1,0 +1,16 @@
+{
+  "name": "purescript-simple-dom",
+  "version": "0.1.0",
+  "description": "learning",
+  "main": "",
+  "private": true,
+  "author": "Ashley Towns",
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-execute": "~0.1.5",
+    "grunt-purescript": "~0.5.0"
+  }
+}
