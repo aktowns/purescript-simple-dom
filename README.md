@@ -42,3 +42,15 @@
     setInnerHTML :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) Unit
 
     setInnerText :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) Unit
+
+
+## Module Data.DOM.Simple.Events
+
+### Types
+
+    data JavascriptContext :: *
+
+
+### Values
+
+    addEventListener :: forall eff reff. HTMLElement -> String -> (JavascriptContext -> Eff (dom :: DOM | reff) Unit) -> Eff (dom :: DOM | eff) Unit
