@@ -13,32 +13,32 @@
 
 ### Values
 
-    contentWindow :: forall eff. HTMLElement -> Eff (contentWindow :: DOM | eff) HTMLWindow
+    contentWindow :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) HTMLWindow
 
-    getAttribute :: forall eff. HTMLElement -> String -> Eff (getAttribute :: DOM | eff) String
+    getAttribute :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) String
 
-    getDocument :: forall eff. HTMLWindow -> Eff (getDocument :: DOM | eff) HTMLElement
+    getDocument :: forall eff. HTMLWindow -> Eff (dom :: DOM | eff) HTMLElement
 
-    getElementById :: forall eff. HTMLElement -> String -> Eff (getElementById :: DOM | eff) HTMLElement
+    getElementById :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) HTMLElement
 
-    getElementsByClassName :: forall eff. HTMLElement -> String -> Eff (getElementsByClassName :: DOM | eff) [HTMLElement]
+    getElementsByClassName :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) [HTMLElement]
 
-    getElementsByName :: forall eff. HTMLElement -> String -> Eff (getElementsByName :: DOM | eff) [HTMLElement]
+    getElementsByName :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) [HTMLElement]
 
     globalWindow :: HTMLWindow
 
-    hasAttribute :: forall eff. HTMLElement -> String -> Eff (hasAttribute :: DOM | eff) Boolean
+    hasAttribute :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) Boolean
 
-    innerHTML :: forall eff. HTMLElement -> Eff (innerHTML :: DOM | eff) String
+    innerHTML :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) String
 
-    innerText :: forall eff. HTMLElement -> Eff (innerText :: DOM | eff) String
+    innerText :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) String
 
-    querySelector :: forall eff. HTMLElement -> String -> Eff (querySelector :: DOM | eff) HTMLElement
+    querySelector :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) HTMLElement
 
-    querySelectorAll :: forall eff. HTMLElement -> String -> Eff (querySelectorAll :: DOM | eff) [HTMLElement]
+    querySelectorAll :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) [HTMLElement]
 
-    setAttribute :: forall eff. HTMLElement -> String -> String -> Eff (setAttribute :: DOM | eff) Unit
+    setAttribute :: forall eff. HTMLElement -> String -> String -> Eff (dom :: DOM | eff) Unit
 
-    setInnerHTML :: forall eff. HTMLElement -> String -> Eff (innerHTML :: DOM | eff) Unit
+    setInnerHTML :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) Unit
 
-    setInnerText :: forall eff. HTMLElement -> String -> Eff (innerText :: DOM | eff) Unit
+    setInnerText :: forall eff. HTMLElement -> String -> Eff (dom :: DOM | eff) Unit
