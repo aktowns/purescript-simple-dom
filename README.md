@@ -51,3 +51,19 @@
     addEventListener :: forall eff reff a b. String -> Eff (dom :: DOM | reff) a -> HTMLElement -> Eff (dom :: DOM | eff) b
 
     ready :: forall eff a b. Eff (dom :: DOM | eff) a -> Eff (dom :: DOM | eff) b
+
+    removeEventListener :: forall eff reff a b. String -> Eff (dom :: DOM | reff) a -> HTMLElement -> Eff (dom :: DOM | eff) b
+
+
+## Module Data.DOM.Simple.JSON
+
+### Types
+
+    data JSONObject :: *
+
+
+### Values
+
+    parse :: forall eff. String -> Eff (dom :: DOM | eff) JSONObject
+
+    stringify :: forall eff a. a -> Eff (dom :: DOM | eff) String
