@@ -14,7 +14,7 @@ foreign import stringify
   \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 
 foreign import parse
-  "function getDocument(str) { \
+  "function parse(str) { \
   \  return function () {      \
   \    return JSON.parse(str); \
   \  };                        \
