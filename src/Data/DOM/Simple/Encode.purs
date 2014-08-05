@@ -9,8 +9,8 @@ foreign import encodeURI :: String -> String
 foreign import decodeURI :: String -> String
 
 foreign import paramatize
-  "function paramatize(obj) {                    \
-  \  return Object.keys(obj).map(function(key) { \
-  \    return key + '=' + obj[key];              \
-  \  }).join('&');                               \
+  "function paramatize(obj) {                           \
+  \  return Object.keys(obj).map(function(key) {        \
+  \    return key + '=' + encodeURIComponent(obj[key]); \
+  \  }).join('&');                                      \
   \}" :: forall a. a -> String
