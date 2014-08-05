@@ -1,7 +1,7 @@
 module Data.DOM.Simple.Events where
 
 import Control.Monad.Eff
-import Data.Dom.Simple.Element
+import Data.DOM.Simple.Element
 
 foreign import addEventListener
   "function addEventListener(targ) {           \

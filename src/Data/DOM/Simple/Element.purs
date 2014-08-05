@@ -1,4 +1,4 @@
-module Data.Dom.Simple.Element where
+module Data.DOM.Simple.Element where
 
 import Control.Monad.Eff
 

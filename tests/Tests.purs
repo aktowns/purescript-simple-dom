@@ -6,7 +6,7 @@ import Data.Maybe
 import Debug.Trace
 
 -- Import the library's module(s)
-import qualified Data.Dom.Simple.Element as E
+import qualified Data.DOM.Simple.Element as E
 
 -- Import Test.QuickCheck, which supports property-based testing
 import Test.QuickCheck

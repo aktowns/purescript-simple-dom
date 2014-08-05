@@ -1,16 +1,25 @@
 module Data.DOM.Simple.Encode where
 
 import Control.Monad.Eff
-import Data.Dom.Simple.Element
+import Data.DOM.Simple.Element
 
 foreign import encodeURIComponent :: String -> String
 foreign import decodeURIComponent :: String -> String
 foreign import encodeURI :: String -> String
 foreign import decodeURI :: String -> String
 
+-- | Given an object, convert it into URL parameters.
 foreign import paramatize
   "function paramatize(obj) {                           \
   \  return Object.keys(obj).map(function(key) {        \
   \    return key + '=' + encodeURIComponent(obj[key]); \
   \  }).join('&');                                      \
   \}" :: forall a. a -> String
+
+-- | Given an object, convert it into a JSON string
+foreign import toJsonString
+  "function stringify(obj) {        \
+  \  return function () {           \
+  \    return JSON.stringify(obj);  \
+  \  };                             \
+  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
