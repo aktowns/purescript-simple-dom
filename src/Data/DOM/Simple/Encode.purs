@@ -13,4 +13,4 @@ foreign import paramatize
   \  return Object.keys(obj).map(function(key) { \
   \    return key + '=' + obj[key];              \
   \  }).join('&');                               \
-  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
+  \}" :: forall a. a -> String

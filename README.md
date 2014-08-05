@@ -56,7 +56,7 @@
 
     encodeURIComponent :: String -> String
 
-    paramatize :: forall eff a. a -> Eff (dom :: DOM | eff) String
+    paramatize :: forall a. a -> String
 
 
 ## Module Data.DOM.Simple.Events
