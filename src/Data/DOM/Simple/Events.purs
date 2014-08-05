@@ -9,7 +9,9 @@ foreign import addEventListener
   "function addEventListener(targ) {           \
   \  return function (cb) {                    \
   \     return function (src) {                \
-  \       src.addEventListener(targ, cb);      \
+  \       return function () {                 \
+  \         src.addEventListener(targ, cb);    \
+  \       };                                   \
   \     };                                     \
   \  };                                        \
   \}" :: forall eff reff. String -> (JavascriptContext -> (Eff (dom :: DOM | reff) Unit)) -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
