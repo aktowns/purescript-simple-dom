@@ -7,7 +7,7 @@ foreign import data HTMLElement :: *
 foreign import data HTMLWindow :: *
 
 foreign import globalWindow
-  "globalWindow = return window;" :: HTMLWindow
+  "var globalWindow = window;" :: HTMLWindow
 
 foreign import getDocument
   "function getDocument(win) { \
