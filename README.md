@@ -46,11 +46,6 @@
 
 ## Module Data.DOM.Simple.Events
 
-### Types
-
-    data JavascriptContext :: *
-
-
 ### Values
 
-    addEventListener :: forall eff reff. String -> (JavascriptContext -> Eff (dom :: DOM | reff) Unit) -> HTMLElement -> Eff (dom :: DOM | eff) Unit
+    addEventListener :: forall eff reff. String -> (Unit -> Eff (dom :: DOM | reff) Unit) -> HTMLElement -> Eff (dom :: DOM | eff) Unit
