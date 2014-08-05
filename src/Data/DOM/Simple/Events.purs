@@ -6,10 +6,10 @@ import Data.Dom.Simple.Element
 foreign import data JavascriptContext :: *
 
 foreign import addEventListener
-  "function addEventListener(src) {              \
-  \  return function (targ) {                    \
-  \     return function (cb) {                   \
-  \       src.addEventListener(targ, cb);        \
-  \     };                                       \
-  \  };                                          \
-  \}" :: forall eff reff. HTMLElement -> String -> (JavascriptContext -> (Eff (dom :: DOM | reff) Unit)) -> (Eff (dom :: DOM | eff) Unit)
+  "function addEventListener(targ) {           \
+  \  return function (cb) {                    \
+  \     return function (src) {                \
+  \       src.addEventListener(targ, cb);      \
+  \     };                                     \
+  \  };                                        \
+  \}" :: forall eff reff. String -> (JavascriptContext -> (Eff (dom :: DOM | reff) Unit)) -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)

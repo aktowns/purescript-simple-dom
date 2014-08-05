@@ -15,62 +15,62 @@ foreign import getDocument
   \}" :: forall eff. HTMLWindow -> (Eff (dom :: DOM | eff) HTMLElement)
 
 foreign import getElementById
-  "function getElementById(src) {           \
-  \  return function (targ_id) {            \
+  "function getElementById(targ_id) {       \
+  \  return function (src) {                \
   \     return src.getElementById(targ_id); \
   \  };                                     \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) HTMLElement)
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) HTMLElement)
 
 foreign import getElementsByClassName
-  "function getElementsByClassName(src) {           \
-  \  return function (targ_id) {                    \
+  "function getElementsByClassName(targ_id) {       \
+  \  return function (src) {                        \
   \    return src.getElementsByClassName(targ_id);  \
   \  }                                              \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) [HTMLElement])
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) [HTMLElement])
 
 foreign import getElementsByName
-  "function getElementsByName(src) {                \
-  \  return function (targ_id) {                    \
+  "function getElementsByName(targ_id) {            \
+  \  return function (src) {                        \
   \    return src.getElementsByName(targ_id);       \
   \  };                                             \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) [HTMLElement])
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) [HTMLElement])
 
 foreign import querySelector
-  "function querySelector(src) {            \
-  \  return function (selector) {           \
+  "function querySelector(selector) {       \
+  \  return function (src) {                \
   \    return src.querySelector(selector);  \
   \  };                                     \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) HTMLElement)
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) HTMLElement)
 
 foreign import querySelectorAll
-  "function querySelectorAll(src) {             \
-  \  return function (selector) {               \
+  "function querySelectorAll(selector) {        \
+  \  return function (src) {                    \
   \    return src.querySelectorAll(selector);   \
   \  };                                         \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) [HTMLElement])
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) [HTMLElement])
 
 foreign import getAttribute
-  "function getAttribute(src) {             \
-  \  return function (name) {               \
+  "function getAttribute(name) {            \
+  \  return function (src) {                \
   \    return src.getAttribute(name);       \
   \  };                                     \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) String)
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) String)
 
 foreign import setAttribute
-  "function setAttribute(src) {             \
-  \  return function (name) {               \
-  \    return function (value) {            \
+  "function setAttribute(name) {            \
+  \  return function (value) {              \
+  \    return function (src) {              \
   \      src.getAttribute(name);            \
   \    };                                   \
   \  };                                     \
-  \}" :: forall eff. HTMLElement -> String -> String -> (Eff (dom :: DOM | eff) Unit)
+  \}" :: forall eff. String -> String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import hasAttribute
-  "function hasAttribute(src) {             \
-  \  return function (name) {               \
+  "function hasAttribute(name) {            \
+  \  return function (src) {                \
   \    return src.hasAttribute(name);       \
   \  };                                     \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) Boolean)
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Boolean)
 
 foreign import innerHTML
   "function innerHTML(src) {                \
@@ -78,11 +78,11 @@ foreign import innerHTML
   \}" :: forall eff. HTMLElement -> (Eff (dom :: DOM | eff) String)
 
 foreign import setInnerHTML
-  "function setInnerHTML(src) {             \
-  \  return function (value) {              \
+  "function setInnerHTML(value) {           \
+  \  return function (src) {                \
   \    src.innerHTML = value;               \
   \  };                                     \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) Unit)
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import innerText
   "function innerText(src) {                \
@@ -90,11 +90,11 @@ foreign import innerText
   \}" :: forall eff. HTMLElement -> (Eff (dom :: DOM | eff) String)
 
 foreign import setInnerText
-  "function setInnerText(src) {             \
-  \  return function (value) {              \
+  "function setInnerText(value) {           \
+  \  return function (src) {                \
   \    src.innerText = value;               \
   \  };                                     \
-  \}" :: forall eff. HTMLElement -> String -> (Eff (dom :: DOM | eff) Unit)
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import contentWindow
   "function contentWindow(obj) {  \
