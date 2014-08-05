@@ -44,6 +44,19 @@
     setInnerText :: forall eff. String -> HTMLElement -> Eff (dom :: DOM | eff) Unit
 
 
+## Module Data.DOM.Simple.Encode
+
+### Values
+
+    decodeURI :: String -> String
+
+    decodeURIComponent :: String -> String
+
+    encodeURI :: String -> String
+
+    encodeURIComponent :: String -> String
+
+
 ## Module Data.DOM.Simple.Events
 
 ### Values
