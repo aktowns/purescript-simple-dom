@@ -8,18 +8,24 @@
 
     data HTMLElement :: *
 
+    data HTMLWindow :: *
+
 
 ### Values
 
-    document :: HTMLElement
+    contentWindow :: forall eff. HTMLElement -> Eff (contentWindow :: DOM | eff) HTMLWindow
 
     getAttribute :: forall eff. HTMLElement -> String -> Eff (getAttribute :: DOM | eff) String
+
+    getDocument :: forall eff. HTMLWindow -> Eff (getDocument :: DOM | eff) HTMLElement
 
     getElementById :: forall eff. HTMLElement -> String -> Eff (getElementById :: DOM | eff) HTMLElement
 
     getElementsByClassName :: forall eff. HTMLElement -> String -> Eff (getElementsByClassName :: DOM | eff) [HTMLElement]
 
     getElementsByName :: forall eff. HTMLElement -> String -> Eff (getElementsByName :: DOM | eff) [HTMLElement]
+
+    globalWindow :: HTMLWindow
 
     hasAttribute :: forall eff. HTMLElement -> String -> Eff (hasAttribute :: DOM | eff) Boolean
 

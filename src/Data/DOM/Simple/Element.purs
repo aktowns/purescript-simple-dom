@@ -4,8 +4,14 @@ import Control.Monad.Eff
 
 foreign import data DOM :: !
 foreign import data HTMLElement :: *
+foreign import data HTMLWindow :: *
 
-foreign import document "window.document" :: HTMLElement
+foreign import globalWindow "window" :: HTMLWindow
+
+foreign import getDocument
+  "function getDocument(win) { \
+  \  return win.document;      \
+  \}" :: forall eff. HTMLWindow -> (Eff (getDocument :: DOM | eff) HTMLElement)
 
 foreign import getElementById
   "function getElementById(src) {           \
@@ -88,3 +94,8 @@ foreign import setInnerText
   \    src.innerText = value;               \
   \  };                                     \
   \}" :: forall eff. HTMLElement -> String -> (Eff (innerText :: DOM | eff) Unit)
+
+foreign import contentWindow
+  "function contentWindow(obj) {  \
+  \  return obj.contentWindow;    \
+  \}" :: forall eff. HTMLElement -> (Eff (contentWindow :: DOM | eff) HTMLWindow)
