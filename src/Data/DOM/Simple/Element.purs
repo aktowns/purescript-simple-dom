@@ -75,7 +75,7 @@ foreign import setAttribute
   \  return function (value) {              \
   \    return function (src) {              \
   \      return function () {               \
-  \        src.getAttribute(name);          \
+  \        src.setAttribute(name, value);   \
   \      };                                 \
   \    };                                   \
   \  };                                     \
