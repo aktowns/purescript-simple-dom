@@ -35,6 +35,8 @@
 
 ### Values
 
+    children :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) [HTMLElement]
+
     contentWindow :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) HTMLWindow
 
     getAttribute :: forall eff. String -> HTMLElement -> Eff (dom :: DOM | eff) String

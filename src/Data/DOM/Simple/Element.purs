@@ -99,6 +99,13 @@ foreign import removeAttribute
   \  };                                     \
   \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
 
+foreign import children
+  "function children(src) {                 \
+  \    return function () {                 \
+  \      return src.children;               \
+  \  };                                     \
+  \}" :: forall eff. HTMLElement -> (Eff (dom :: DOM | eff) [HTMLElement])
+
 foreign import innerHTML
   "function innerHTML(src) {                \
   \  return function () {                   \
