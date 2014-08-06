@@ -83,26 +83,39 @@
 
 ## Module Data.DOM.Simple.Events
 
+### Types
+
+    data DOMEvent :: *
+
+    data JavascriptContext :: *
+
+
 ### Type Classes
 
-    class EventBindable b where
-      addEventListener :: forall t ta a. String -> Eff (dom :: DOM | t) a -> b -> Eff (dom :: DOM | ta) Unit
-      removeEventListener :: forall t ta a. String -> Eff (dom :: DOM | t) a -> b -> Eff (dom :: DOM | ta) Unit
+    class EventTarget b where
+      addEventListener :: forall t ta a. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
+      removeEventListener :: forall t ta a. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
 
 
 ### Type Class Instances
 
-    instance eventBindableHTMLElement :: EventBindable HTMLElement
+    instance eventTargetHTMLElement :: EventTarget HTMLElement
 
-    instance eventBindableHTMLWindow :: EventBindable HTMLWindow
+    instance eventTargetHTMLWindow :: EventTarget HTMLWindow
 
-    instance eventBindableXMLHttpRequest :: EventBindable XMLHttpRequest
+    instance eventTargetXMLHttpRequest :: EventTarget XMLHttpRequest
 
 
 ### Values
 
+    eventTarget :: forall t. DOMEvent -> Eff (dom :: DOM | t) JavascriptContext
+
+    eventTargetHTML :: forall t. DOMEvent -> Eff (dom :: DOM | t) HTMLElement
+
+    preventDefault :: forall t. DOMEvent -> Eff (dom :: DOM | t) Unit
+
     ready :: forall t ta a b. Eff (dom :: DOM | t) a -> Eff (dom :: DOM | ta) Unit
 
-    unsafeAddEventListener :: forall t ta a b. String -> Eff (dom :: DOM | t) a -> b -> Eff (dom :: DOM | ta) Unit
+    unsafeAddEventListener :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
 
-    unsafeRemoveEventListener :: forall t ta a b. String -> Eff (dom :: DOM | t) a -> b -> Eff (dom :: DOM | ta) Unit
+    unsafeRemoveEventListener :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
