@@ -15,6 +15,8 @@
 
     send :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 
+    setRequestHeader :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+
 
 ## Module Data.DOM.Simple.Element
 

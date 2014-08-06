@@ -30,3 +30,14 @@ foreign import send
   \    obj.send();          \
   \  };                     \
   \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import setRequestHeader
+  "function setRequestHeader(key) {           \
+  \   return function (value) {               \
+  \     return function (obj) {               \
+  \       return function () {                \
+  \         obj.setRequestHeader(key, value); \
+  \       }                                   \
+  \     }                                     \
+  \   }                                       \
+  \}" :: forall eff. String -> String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)

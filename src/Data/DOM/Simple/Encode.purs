@@ -18,7 +18,7 @@ foreign import paramatize
 
 -- | Given an object, convert it into a JSON string
 foreign import toJsonString
-  "function stringify(obj) {        \
+  "function toJsonString(obj) {        \
   \  return function () {           \
   \    return JSON.stringify(obj);  \
   \  };                             \
