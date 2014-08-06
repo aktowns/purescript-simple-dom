@@ -9,48 +9,56 @@ Module documentation is available [here](API.md)
 
 
 ### Some Examples
-    -- Set the contents of an iframe to arbitary html content
-    setContents contents = do
-      doc <- getDocument globalWindow                           -- doc = window.document
-      iframe <- querySelector "#siteFrame" doc                  -- iframe = doc.querySelector("#siteFrame")
-      iframeDoc <- (contentWindow iframe) >>= getDocument       -- iframeDoc = iframe.contentWindow.document
-      querySelector "html" iframeDoc >>= setInnerHTML contents  -- iframeDoc.querySelector("html").innerHTML = contents
 
 
-    -- Change all a href's on a page and add the original link as a data attribute
-    modifyLinkTarget link = do
-      attr <- getAttribute "href" link                    -- attr = link.getAttribute("href")
-      setAttribute "href" "#" link                        -- link.setAttribute("href", "#")
-      setAttribute "data-target" attr link                -- link.setAttribute("data-target", attr)
-      return link
-
-    modifyLinks page = do
-      links <- querySelectorAll "a" page                  -- links = [HTMLElement]
-      sequence $ A.map modifyLinkTarget links             -- links.map(modifyLinkTarget)
+```haskell
+-- Set the contents of an iframe to arbitary html content
+setContents contents = do
+  doc <- getDocument globalWindow                           -- doc = window.document
+  iframe <- querySelector "#siteFrame" doc                  -- iframe = doc.querySelector("#siteFrame")
+  iframeDoc <- (contentWindow iframe) >>= getDocument       -- iframeDoc = iframe.contentWindow.document
+  querySelector "html" iframeDoc >>= setInnerHTML contents  -- iframeDoc.querySelector("html").innerHTML = contents
+```
 
 
-    -- Place some content from an API call into a div
-    -- Convert the evt content into text for the callback
-    handleRequest :: forall t b. (String -> Eff (dom :: DOM | t) Unit) -> Events.DOMEvent -> (Eff (dom :: DOM | t) Unit)
-    handleRequest callback evt =
-      target <- Events.eventTarget event
-      text <- AJAX.responseText target
-      callback text
+```haskell
+-- Change all a href's on a page and add the original link as a data attribute
+modifyLinkTarget link = do
+  attr <- getAttribute "href" link                    -- attr = link.getAttribute("href")
+  setAttribute "href" "#" link                        -- link.setAttribute("href", "#")
+  setAttribute "data-target" attr link                -- link.setAttribute("data-target", attr)
+  return link
 
-    -- Construct and perform AJAX request for the specified url
-    makeGetRequest :: forall t ta b. String -> (String -> Eff (dom :: DOM | ta) Unit) -> (Eff (dom :: DOM | t) Unit)
-    makeGetRequest url callback = do
-      req <- AJAX.makeXMLHttpRequest
-      Events.addEventListener "load" (handleRequest callback) req
-      AJAX.open "get" url req
-      AJAX.setRequestHeader "Content-Type" "application/json" req
-      AJAX.send req
+modifyLinks page = do
+  links <- querySelectorAll "a" page                  -- links = [HTMLElement]
+  sequence $ A.map modifyLinkTarget links             -- links.map(modifyLinkTarget)
+```
 
-    -- retrieve the content and place it inside the div
-    requestContent :: (Eff (dom :: DOM | t) Unit)
-    requestContent = do
-      let url = "http://myendpoint.com/"
-      doc <- getDocument globalWindow
 
-      makeGetRequest url $ \resp -> do
-        querySelector "#myDiv" doc >>= setInnerHtml resp
+```haskell
+-- Place some content from an API call into a div
+-- Convert the evt content into text for the callback
+handleRequest :: forall t b. (String -> Eff (dom :: DOM | t) Unit) -> Events.DOMEvent -> (Eff (dom :: DOM | t) Unit)
+handleRequest callback evt =
+  target <- Events.eventTarget event
+  text <- AJAX.responseText target
+  callback text
+
+-- Construct and perform AJAX request for the specified url
+makeGetRequest :: forall t ta b. String -> (String -> Eff (dom :: DOM | ta) Unit) -> (Eff (dom :: DOM | t) Unit)
+makeGetRequest url callback = do
+  req <- AJAX.makeXMLHttpRequest
+  Events.addEventListener "load" (handleRequest callback) req
+  AJAX.open "get" url req
+  AJAX.setRequestHeader "Content-Type" "application/json" req
+  AJAX.send req
+
+-- retrieve the content and place it inside the div
+requestContent :: (Eff (dom :: DOM | t) Unit)
+requestContent = do
+  let url = "http://myendpoint.com/"
+  doc <- getDocument globalWindow
+
+  makeGetRequest url $ \resp -> do
+    querySelector "#myDiv" doc >>= setInnerHtml resp
+```
