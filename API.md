@@ -12,6 +12,8 @@
 
     open :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 
+    overrideMimeType :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | eff) String
+
     responseText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
 
     send :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Unit

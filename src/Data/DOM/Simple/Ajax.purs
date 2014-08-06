@@ -68,3 +68,12 @@ foreign import getResponseHeader
   \    };                                   \
   \  };                                     \
   \}" :: forall eff. String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
+
+foreign import overrideMimeType
+  "function overrideMimeType(mime) {        \
+  \  return function (obj) {                \
+  \    return function () {                 \
+  \      return obj.overrideMimeType(mine); \
+  \    };                                   \
+  \  };                                     \
+  \}" :: forall eff. String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
