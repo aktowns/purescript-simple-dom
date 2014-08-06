@@ -90,6 +90,15 @@ foreign import hasAttribute
   \  };                                     \
   \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Boolean)
 
+foreign import removeAttribute
+  "function removeAttribute(name) {         \
+  \  return function (src) {                \
+  \    return function () {                 \
+  \      src.removeAttribute(name);         \
+  \    };                                   \
+  \  };                                     \
+  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
+
 foreign import innerHTML
   "function innerHTML(src) {                \
   \  return function () {                   \

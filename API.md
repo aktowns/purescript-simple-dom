@@ -59,6 +59,8 @@
 
     querySelectorAll :: forall eff. String -> HTMLElement -> Eff (dom :: DOM | eff) [HTMLElement]
 
+    removeAttribute :: forall eff. String -> HTMLElement -> Eff (dom :: DOM | eff) Unit
+
     setAttribute :: forall eff. String -> String -> HTMLElement -> Eff (dom :: DOM | eff) Unit
 
     setInnerHTML :: forall eff. String -> HTMLElement -> Eff (dom :: DOM | eff) Unit
