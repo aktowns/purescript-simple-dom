@@ -3,7 +3,8 @@ module Data.DOM.Simple.Events where
 import Control.Monad.Eff
 
 import Data.DOM.Simple.Types
-import Data.DOM.Simple.Element(getDocument, globalWindow, Element)
+import Data.DOM.Simple.Element(globalWindow, Element)
+import Data.DOM.Simple.Document(getDocument)
 import Data.DOM.Simple.Ajax
 import Data.DOM.Simple.Unsafe.Events
 

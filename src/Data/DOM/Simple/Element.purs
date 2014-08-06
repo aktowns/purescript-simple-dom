@@ -47,33 +47,6 @@ instance htmlElement :: Element HTMLElement where
   classToggle             = unsafeClassToggle
   classContains           = unsafeClassContains
 
-instance htmlDocumentElement :: Element HTMLDocument where
-  getElementById          = unsafeGetElementById
-  getElementsByClassName  = unsafeGetElementsByClassName
-  getElementsByName       = unsafeGetElementsByName
-  querySelector           = unsafeQuerySelector
-  querySelectorAll        = unsafeQuerySelectorAll
-  getAttribute            = unsafeGetAttribute
-  setAttribute            = unsafeSetAttribute
-  hasAttribute            = unsafeHasAttribute
-  removeAttribute         = unsafeRemoveAttribute
-  children                = unsafeChildren
-  innerHTML               = unsafeInnerHTML
-  setInnerHTML            = unsafeSetInnerHTML
-  textContent             = unsafeTextContent
-  setTextContent          = unsafeSetTextContent
-  contentWindow           = unsafeContentWindow
-  classRemove             = unsafeClassRemove
-  classAdd                = unsafeClassAdd
-  classToggle             = unsafeClassToggle
-  classContains           = unsafeClassContains
 
 foreign import globalWindow
   "var globalWindow = window;" :: HTMLWindow
-
-foreign import getDocument
-  "function getDocument(win) { \
-  \  return function () {      \
-  \    return win.document;    \
-  \  };                        \
-  \}" :: forall eff. HTMLWindow -> (Eff (dom :: DOM | eff) HTMLDocument)
