@@ -2,41 +2,14 @@ module Data.DOM.Simple.Events where
 
 import Control.Monad.Eff
 
-import Data.DOM.Simple.Element
+import Data.DOM.Simple.Types
+import Data.DOM.Simple.Element(getDocument, globalWindow, Element)
 import Data.DOM.Simple.Ajax
-
-foreign import data DOMEvent :: *
-foreign import data JavascriptContext :: *
+import Data.DOM.Simple.Unsafe.Events
 
 class EventTarget b where
   addEventListener    :: forall t ta a. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
   removeEventListener :: forall t ta a. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
-
-foreign import unsafeAddEventListener
-  "function unsafeAddEventListener(targ) {              \
-  \  return function (cb) {                             \
-  \     return function (src) {                         \
-  \       return function () {                          \
-  \         src.addEventListener(targ, function(evt) {  \
-  \           cb(evt)();                                \
-  \         });                                         \
-  \       };                                            \
-  \     };                                              \
-  \  };                                                 \
-  \}" :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
-
-foreign import unsafeRemoveEventListener
-  "function unsafeRemoveEventListener(targ) {               \
-  \  return function (cb) {                                 \
-  \     return function (src) {                             \
-  \       return function () {                              \
-  \         src.removeEventListener(targ, function (evt) {  \
-  \           cb(evt)();                                    \
-  \         });                                             \
-  \       };                                                \
-  \     };                                                  \
-  \  };                                                     \
-  \}" :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
 
 foreign import eventTarget
   "function eventTarget(event) { \
@@ -56,6 +29,10 @@ instance eventTargetHTMLElement :: EventTarget HTMLElement where
   addEventListener = unsafeAddEventListener
   removeEventListener = unsafeRemoveEventListener
 
+instance eventTargetHTMLDocument :: EventTarget HTMLDocument where
+  addEventListener = unsafeAddEventListener
+  removeEventListener = unsafeRemoveEventListener
+
 instance eventTargetHTMLWindow :: EventTarget HTMLWindow where
   addEventListener = unsafeAddEventListener
   removeEventListener = unsafeRemoveEventListener
@@ -63,7 +40,6 @@ instance eventTargetHTMLWindow :: EventTarget HTMLWindow where
 instance eventTargetXMLHttpRequest :: EventTarget XMLHttpRequest where
   addEventListener = unsafeAddEventListener
   removeEventListener = unsafeRemoveEventListener
-
 
 ready :: forall t ta. (Eff (dom :: DOM | t) Unit) -> (Eff (dom :: DOM | ta) Unit)
 ready cb = getDocument globalWindow >>= (addEventListener "DOMContentLoaded" $ \_ -> cb)

@@ -2,9 +2,59 @@ module Data.DOM.Simple.Element where
 
 import Control.Monad.Eff
 
-foreign import data DOM :: !
-foreign import data HTMLElement :: *
-foreign import data HTMLWindow :: *
+import Data.DOM.Simple.Unsafe.Element
+import Data.DOM.Simple.Types
+
+class Element b where
+  getElementById         :: forall eff. String -> b -> (Eff (dom :: DOM | eff) HTMLElement)
+  getElementsByClassName :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
+  getElementsByName      :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
+  querySelector          :: forall eff. String -> b -> (Eff (dom :: DOM | eff) HTMLElement)
+  querySelectorAll       :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
+  getAttribute           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) String)
+  setAttribute           :: forall eff. String -> String -> b -> (Eff (dom :: DOM | eff) Unit)
+  hasAttribute           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Boolean)
+  removeAttribute        :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  children               :: forall eff. b -> (Eff (dom :: DOM | eff) [HTMLElement])
+  innerHTML              :: forall eff. b -> (Eff (dom :: DOM | eff) String)
+  setInnerHTML           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  innerText              :: forall eff. b -> (Eff (dom :: DOM | eff) String)
+  setInnerText           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  contentWindow          :: forall eff. b -> (Eff (dom :: DOM | eff) HTMLWindow)
+
+instance htmlElement :: Element HTMLElement where
+  getElementById          = unsafeGetElementById
+  getElementsByClassName  = unsafeGetElementsByClassName
+  getElementsByName       = unsafeGetElementsByName
+  querySelector           = unsafeQuerySelector
+  querySelectorAll        = unsafeQuerySelectorAll
+  getAttribute            = unsafeGetAttribute
+  setAttribute            = unsafeSetAttribute
+  hasAttribute            = unsafeHasAttribute
+  removeAttribute         = unsafeRemoveAttribute
+  children                = unsafeChildren
+  innerHTML               = unsafeInnerHTML
+  setInnerHTML            = unsafeSetInnerHTML
+  innerText               = unsafeInnerText
+  setInnerText            = unsafeSetInnerText
+  contentWindow           = unsafeContentWindow
+
+instance htmlDocumentElement :: Element HTMLDocument where
+  getElementById          = unsafeGetElementById
+  getElementsByClassName  = unsafeGetElementsByClassName
+  getElementsByName       = unsafeGetElementsByName
+  querySelector           = unsafeQuerySelector
+  querySelectorAll        = unsafeQuerySelectorAll
+  getAttribute            = unsafeGetAttribute
+  setAttribute            = unsafeSetAttribute
+  hasAttribute            = unsafeHasAttribute
+  removeAttribute         = unsafeRemoveAttribute
+  children                = unsafeChildren
+  innerHTML               = unsafeInnerHTML
+  setInnerHTML            = unsafeSetInnerHTML
+  innerText               = unsafeInnerText
+  setInnerText            = unsafeSetInnerText
+  contentWindow           = unsafeContentWindow
 
 foreign import globalWindow
   "var globalWindow = window;" :: HTMLWindow
@@ -14,133 +64,4 @@ foreign import getDocument
   \  return function () {      \
   \    return win.document;    \
   \  };                        \
-  \}" :: forall eff. HTMLWindow -> (Eff (dom :: DOM | eff) HTMLElement)
-
-foreign import getElementById
-  "function getElementById(targ_id) {         \
-  \  return function (src) {                  \
-  \    return function () {                   \
-  \      return src.getElementById(targ_id);  \
-  \    };                                     \
-  \  };                                       \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) HTMLElement)
-
-foreign import getElementsByClassName
-  "function getElementsByClassName(targ_id) {         \
-  \  return function (src) {                          \
-  \    return function () {                           \
-  \      return src.getElementsByClassName(targ_id);  \
-  \    };                                             \
-  \  }                                                \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) [HTMLElement])
-
-foreign import getElementsByName
-  "function getElementsByName(targ_id) {            \
-  \  return function (src) {                        \
-  \    return function () {                         \
-  \      return src.getElementsByName(targ_id);     \
-  \    };                                           \
-  \  };                                             \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) [HTMLElement])
-
-foreign import querySelector
-  "function querySelector(selector) {         \
-  \  return function (src) {                  \
-  \    return function () {                   \
-  \      return src.querySelector(selector);  \
-  \    };                                     \
-  \  };                                       \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) HTMLElement)
-
-foreign import querySelectorAll
-  "function querySelectorAll(selector) {        \
-  \  return function (src) {                    \
-  \    return function () {                     \
-  \      return src.querySelectorAll(selector); \
-  \    };                                       \
-  \  };                                         \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) [HTMLElement])
-
-foreign import getAttribute
-  "function getAttribute(name) {            \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      return src.getAttribute(name);     \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) String)
-
-foreign import setAttribute
-  "function setAttribute(name) {            \
-  \  return function (value) {              \
-  \    return function (src) {              \
-  \      return function () {               \
-  \        src.setAttribute(name, value);   \
-  \      };                                 \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff. String -> String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
-
-foreign import hasAttribute
-  "function hasAttribute(name) {            \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      return src.hasAttribute(name);     \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Boolean)
-
-foreign import removeAttribute
-  "function removeAttribute(name) {         \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.removeAttribute(name);         \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
-
-foreign import children
-  "function children(src) {                 \
-  \    return function () {                 \
-  \      return src.children;               \
-  \  };                                     \
-  \}" :: forall eff. HTMLElement -> (Eff (dom :: DOM | eff) [HTMLElement])
-
-foreign import innerHTML
-  "function innerHTML(src) {                \
-  \  return function () {                   \
-  \    return src.innerHTML;                \
-  \  };                                     \
-  \}" :: forall eff. HTMLElement -> (Eff (dom :: DOM | eff) String)
-
-foreign import setInnerHTML
-  "function setInnerHTML(value) {           \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.innerHTML = value;             \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
-
-foreign import innerText
-  "function innerText(src) {                \
-  \  return function () {                   \
-  \    return src.innerText;                \
-  \  };                                     \
-  \}" :: forall eff. HTMLElement -> (Eff (dom :: DOM | eff) String)
-
-foreign import setInnerText
-  "function setInnerText(value) {           \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.innerText = value;             \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff. String -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
-
-foreign import contentWindow
-  "function contentWindow(obj) {  \
-  \  return function () {         \
-  \    return obj.contentWindow;  \
-  \  };                           \
-  \}" :: forall eff. HTMLElement -> (Eff (dom :: DOM | eff) HTMLWindow)
+  \}" :: forall eff. HTMLWindow -> (Eff (dom :: DOM | eff) HTMLDocument)
