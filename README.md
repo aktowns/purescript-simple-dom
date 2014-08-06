@@ -43,17 +43,17 @@ modifyLinks page = do
 ```haskell
 -- Convert the evt content into text for the callback
 handleRequest callback evt =
-  target <- Events.eventTarget event
-  text <- AJAX.responseText target
+  target <- eventTarget event
+  text <- responseText target
   callback text
 
 -- Construct and perform AJAX request for the specified url
 makeGetRequest url callback = do
-  req <- AJAX.makeXMLHttpRequest
+  req <- makeXMLHttpRequest
   Events.addEventListener "load" (handleRequest callback) req
-  AJAX.open "get" url req
-  AJAX.setRequestHeader "Content-Type" "application/json" req
-  AJAX.send req
+  open "get" url req
+  setRequestHeader "Content-Type" "application/json" req
+  send req
 
 -- retrieve the content and place it inside the div
 requestContent = do
