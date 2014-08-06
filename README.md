@@ -1,4 +1,4 @@
-## purescript-dom-simple
+## purescript-simple-dom
 
 A hopefully easy to use library for dealing with the DOM and general javascript APIs.  
 Minimal dependencies, and aiming to be as close to the javascript api as possible.  
