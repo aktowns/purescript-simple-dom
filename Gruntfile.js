@@ -25,7 +25,7 @@ module.exports = function(grunt) {
     docgen: {
       readme: {
         src: ["src/**/*.purs"],
-        dest: "Readme.md"
+        dest: "API.md"
       }
     },
 
