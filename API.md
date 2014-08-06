@@ -13,6 +13,8 @@
 
     open :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 
+    responseText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
+
     send :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 
     sendWithPayload :: forall eff a. a -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
@@ -108,9 +110,7 @@
 
 ### Values
 
-    eventTarget :: forall t. DOMEvent -> Eff (dom :: DOM | t) JavascriptContext
-
-    eventTargetHTML :: forall t. DOMEvent -> Eff (dom :: DOM | t) HTMLElement
+    eventTarget :: forall t a. DOMEvent -> Eff (dom :: DOM | t) a
 
     preventDefault :: forall t. DOMEvent -> Eff (dom :: DOM | t) Unit
 
