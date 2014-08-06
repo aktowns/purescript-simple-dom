@@ -1,4 +1,6 @@
-## purescript-simple-dom
+# purescript-simple-dom
+
+## About
 
 A hopefully easy to use library for dealing with the DOM and general javascript APIs.  
 Minimal dependencies, and aiming to be as close to the javascript api as possible.  
@@ -7,8 +9,7 @@ Very much a WIP, and learning as i go.
 
 Module documentation is available [here](API.md)
 
-
-### Some Examples
+## Some Examples
 
 #### Set the contents of an iframe to arbitary html content
 
