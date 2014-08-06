@@ -11,7 +11,7 @@
 
     makeXMLHttpRequest :: forall eff. Eff (dom :: DOM | eff) XMLHttpRequest
 
-    open :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+    open :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 
     send :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 

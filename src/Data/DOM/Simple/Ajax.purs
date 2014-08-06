@@ -22,7 +22,7 @@ foreign import open
   \      };                               \
   \    };                                 \
   \  };                                   \
-  \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
+  \}" :: forall eff. String -> String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import send
   "function send(obj) {     \
