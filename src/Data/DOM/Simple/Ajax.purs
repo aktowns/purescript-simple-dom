@@ -29,6 +29,15 @@ foreign import send
   \  };                     \
   \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
 
+foreign import sendWithPayload
+  "function sendWithPayload(payload) {  \
+  \  return function (obj) {            \
+  \    return function () {             \
+  \      obj.send(payload);             \
+  \    };                               \
+  \  };                                 \
+  \}" :: forall eff a. a -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
+
 foreign import setRequestHeader
   "function setRequestHeader(key) {           \
   \   return function (value) {               \
