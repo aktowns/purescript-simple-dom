@@ -10,9 +10,9 @@ Module documentation is available [here](API.md)
 
 ### Some Examples
 
+#### Set the contents of an iframe to arbitary html content
 
 ```haskell
--- Set the contents of an iframe to arbitary html content
 setContents contents = do
   -- doc = window.document
   doc <- getDocument globalWindow
@@ -24,9 +24,9 @@ setContents contents = do
   querySelector "html" iframeDoc >>= setInnerHTML contents
 ```
 
+#### Change all a href's on a page and add the original link as a data attribute
 
 ```haskell
--- Change all a href's on a page and add the original link as a data attribute
 modifyLinkTarget link = do
   attr <- getAttribute "href" link       -- attr = link.getAttribute("href")
   setAttribute "href" "#" link           -- link.setAttribute("href", "#")
@@ -38,9 +38,9 @@ modifyLinks page = do
   sequence $ A.map modifyLinkTarget links -- links.map(modifyLinkTarget)
 ```
 
+#### Place some content from an API call into a div
 
 ```haskell
--- Place some content from an API call into a div
 -- Convert the evt content into text for the callback
 handleRequest callback evt =
   target <- Events.eventTarget event
