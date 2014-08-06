@@ -34,8 +34,8 @@
       children :: forall eff. b -> Eff (dom :: DOM | eff) [HTMLElement]
       innerHTML :: forall eff. b -> Eff (dom :: DOM | eff) String
       setInnerHTML :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
-      innerText :: forall eff. b -> Eff (dom :: DOM | eff) String
-      setInnerText :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
+      textContent :: forall eff. b -> Eff (dom :: DOM | eff) String
+      setTextContent :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
       contentWindow :: forall eff. b -> Eff (dom :: DOM | eff) HTMLWindow
 
 
@@ -138,8 +138,6 @@
 
     unsafeInnerHTML :: forall eff a. a -> Eff (dom :: DOM | eff) String
 
-    unsafeInnerText :: forall eff a. a -> Eff (dom :: DOM | eff) String
-
     unsafeQuerySelector :: forall eff a. String -> a -> Eff (dom :: DOM | eff) HTMLElement
 
     unsafeQuerySelectorAll :: forall eff a. String -> a -> Eff (dom :: DOM | eff) [HTMLElement]
@@ -150,7 +148,9 @@
 
     unsafeSetInnerHTML :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
 
-    unsafeSetInnerText :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
+    unsafeSetTextContent :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
+
+    unsafeTextContent :: forall eff a. a -> Eff (dom :: DOM | eff) String
 
 
 ## Module Data.DOM.Simple.Unsafe.Events
