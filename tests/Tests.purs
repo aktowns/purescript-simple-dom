@@ -7,6 +7,7 @@ import Debug.Trace
 
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Element
+import Data.DOM.Simple.Document
 import Data.DOM.Simple.Encode
 import Data.DOM.Simple.Ajax
 import Data.DOM.Simple.Events
@@ -23,6 +24,19 @@ foreign import tagname
 
 main = do
   document <- getDocument globalWindow
+
+  trace "Able to get the title of a document"
+
+  docTitle <- title document
+
+  quickCheck' 1 $ docTitle == "testTitle"
+
+  trace "Able to set the title of a document"
+
+  setTitle "modifiedTitle" document
+  docTitle1 <- title document
+
+  quickCheck' 1 $ docTitle1 == "modifiedTitle"
 
   trace "Able to look up elements"
 

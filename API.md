@@ -25,6 +25,27 @@
     statusText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
 
 
+## Module Data.DOM.Simple.Document
+
+### Type Classes
+
+    class Document b where
+      title :: forall eff. b -> Eff (dom :: DOM | eff) String
+      setTitle :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
+
+
+### Type Class Instances
+
+    instance htmlDocument :: Document HTMLDocument
+
+    instance htmlDocumentElement :: Element HTMLDocument
+
+
+### Values
+
+    getDocument :: forall eff. HTMLWindow -> Eff (dom :: DOM | eff) HTMLDocument
+
+
 ## Module Data.DOM.Simple.Element
 
 ### Type Classes
@@ -53,14 +74,10 @@
 
 ### Type Class Instances
 
-    instance htmlDocumentElement :: Element HTMLDocument
-
     instance htmlElement :: Element HTMLElement
 
 
 ### Values
-
-    getDocument :: forall eff. HTMLWindow -> Eff (dom :: DOM | eff) HTMLDocument
 
     globalWindow :: HTMLWindow
 
@@ -128,6 +145,15 @@
     data JavascriptContext :: *
 
     data XMLHttpRequest :: *
+
+
+## Module Data.DOM.Simple.Unsafe.Document
+
+### Values
+
+    unsafeSetTitle :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
+
+    unsafeTitle :: forall eff a. a -> Eff (dom :: DOM | eff) String
 
 
 ## Module Data.DOM.Simple.Unsafe.Element
