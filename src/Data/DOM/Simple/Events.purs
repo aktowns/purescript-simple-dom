@@ -10,7 +10,7 @@ class EventBindable b where
   removeEventListener :: forall t ta a. String -> (Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
 
 foreign import unsafeAddEventListener
-  "function addEventListener(targ) {           \
+  "function unsafeAddEventListener(targ) {     \
   \  return function (cb) {                    \
   \     return function (src) {                \
   \       return function () {                 \
@@ -21,7 +21,7 @@ foreign import unsafeAddEventListener
   \}" :: forall t ta a b. String -> (Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
 
 foreign import unsafeRemoveEventListener
-  "function removeEventListener(targ) {         \
+  "function unsafeRemoveEventListener(targ) {   \
   \  return function (cb) {                     \
   \     return function (src) {                 \
   \       return function () {                  \
