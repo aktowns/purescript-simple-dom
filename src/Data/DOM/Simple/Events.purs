@@ -1,9 +1,15 @@
 module Data.DOM.Simple.Events where
 
 import Control.Monad.Eff
-import Data.DOM.Simple.Element
 
-foreign import addEventListener
+import Data.DOM.Simple.Element
+import Data.DOM.Simple.Ajax
+
+class EventBindable b where
+  addEventListener    :: forall t ta a. String -> (Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
+  removeEventListener :: forall t ta a. String -> (Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
+
+foreign import unsafeAddEventListener
   "function addEventListener(targ) {           \
   \  return function (cb) {                    \
   \     return function (src) {                \
@@ -12,9 +18,9 @@ foreign import addEventListener
   \       };                                   \
   \     };                                     \
   \  };                                        \
-  \}" :: forall eff reff a b. String -> (Eff (dom :: DOM | reff) a) -> HTMLElement -> (Eff (dom :: DOM | eff) b)
+  \}" :: forall t ta a b. String -> (Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
 
-foreign import removeEventListener
+foreign import unsafeRemoveEventListener
   "function removeEventListener(targ) {         \
   \  return function (cb) {                     \
   \     return function (src) {                 \
@@ -23,8 +29,19 @@ foreign import removeEventListener
   \       };                                    \
   \     };                                      \
   \  };                                         \
-  \}" :: forall eff reff a b. String -> (Eff (dom :: DOM | reff) a) -> HTMLElement -> (Eff (dom :: DOM | eff) b)
+  \}" :: forall t ta a b. String -> (Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
 
+instance eventBindableHTMLElement :: EventBindable HTMLElement where
+  addEventListener = unsafeAddEventListener
+  removeEventListener = unsafeRemoveEventListener
 
-ready :: forall eff a b. (Eff (dom :: DOM | eff) a) -> (Eff (dom :: DOM | eff) b)
+instance eventBindableHTMLWindow :: EventBindable HTMLWindow where
+  addEventListener = unsafeAddEventListener
+  removeEventListener = unsafeRemoveEventListener
+
+instance eventBindableXMLHttpRequest :: EventBindable XMLHttpRequest where
+  addEventListener = unsafeAddEventListener
+  removeEventListener = unsafeRemoveEventListener
+
+ready :: forall t ta a b. (Eff (dom :: DOM | t) a) -> (Eff (dom :: DOM | ta) Unit)
 ready cb = getDocument globalWindow >>= (addEventListener "DOMContentLoaded" cb)

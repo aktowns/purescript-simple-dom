@@ -2,7 +2,6 @@ module Data.DOM.Simple.Ajax where
 
 import Control.Monad.Eff
 import Data.DOM.Simple.Element
-import Data.DOM.Simple.Events
 
 foreign import data XMLHttpRequest :: *
 
