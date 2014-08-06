@@ -5,20 +5,53 @@ import Data.Maybe
 
 import Debug.Trace
 
--- Import the library's module(s)
-import qualified Data.DOM.Simple.Element as E
+import Data.DOM.Simple.Types
+import Data.DOM.Simple.Element
 
--- Import Test.QuickCheck, which supports property-based testing
 import Test.QuickCheck
 
--- Main.main is the entry point of the application
---
--- In the case of the test suite, Main.main will use QuickCheck to test a collection
--- of properties that we expect of the diffs function.
-main = do
+foreign import inspect
+  "function inspect(msg) { console.log(msg.textContent); }"
+  :: forall a. a -> Unit
 
-  -- Use quickCheck' to override the number of tests to perform.
-  -- In this case, we only need to run the test once, since there is
-  -- only one empty list.
+main = do
+  document <- getDocument globalWindow
+
   trace "Able to look up elements"
-  -- quickCheck $ E.getElementById E.document "#testing"
+
+  testDiv1 <- getElementById "test1" document
+  testDiv1Contents <- textContent testDiv1
+
+  quickCheck' 1 $ testDiv1Contents == "testContent1"
+
+  testDiv2 <- querySelector ".test2" document
+  testDiv2Contents <- textContent testDiv2
+
+  quickCheck' 1 $ testDiv2Contents == "testContent2"
+
+  testDiv3 <- querySelector "test3" document
+  testDiv3Contents <- textContent testDiv3
+
+  quickCheck' 1 $ testDiv3Contents == "testContent3"
+
+  trace "Able to modify an elements contents"
+
+  setTextContent "Hello" testDiv1
+  testDiv1Contents' <- textContent testDiv1
+
+  quickCheck' 1 $ testDiv1Contents' == "Hello"
+
+  trace "Able to set an attribute on an element"
+
+  setAttribute "data-test" "hello" testDiv1
+  testDiv1Attribute <- getAttribute "data-test" testDiv1
+
+  quickCheck' 1 $ testDiv1Attribute == "hello"
+
+  trace "Able to remove an attribute from an element"
+
+  testDiv1HasAttribute <- hasAttribute "data-test" testDiv1
+  quickCheck' 1 $ testDiv1HasAttribute == true
+  removeAttribute "data-test" testDiv1
+  testDiv1HasAttribute' <- hasAttribute "data-test" testDiv1
+  quickCheck' 1 $ testDiv1HasAttribute' == false
