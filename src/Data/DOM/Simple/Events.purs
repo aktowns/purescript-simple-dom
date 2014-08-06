@@ -38,10 +38,6 @@ foreign import unsafeRemoveEventListener
   \  };                                                     \
   \}" :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
 
-
--- TODO: This is silly, HTMLElement should become a typeclass
--- and we can just expose all the element methods via that
--- otherwise we're going to end up with a lot of variations like this
 foreign import eventTarget
   "function eventTarget(event) { \
   \  return function () {         \
