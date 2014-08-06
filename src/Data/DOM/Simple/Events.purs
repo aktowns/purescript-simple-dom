@@ -71,5 +71,5 @@ instance eventTargetXMLHttpRequest :: EventTarget XMLHttpRequest where
   removeEventListener = unsafeRemoveEventListener
 
 
-ready :: forall t ta a b. (Eff (dom :: DOM | t) a) -> (Eff (dom :: DOM | ta) Unit)
-ready cb = getDocument globalWindow >>= (addEventListener "DOMContentLoaded" (\_ -> cb))
+ready :: forall t ta. (Eff (dom :: DOM | t) Unit) -> (Eff (dom :: DOM | ta) Unit)
+ready cb = getDocument globalWindow >>= (addEventListener "DOMContentLoaded" $ \_ -> cb)

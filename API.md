@@ -114,7 +114,7 @@
 
     preventDefault :: forall t. DOMEvent -> Eff (dom :: DOM | t) Unit
 
-    ready :: forall t ta a b. Eff (dom :: DOM | t) a -> Eff (dom :: DOM | ta) Unit
+    ready :: forall t ta. Eff (dom :: DOM | t) Unit -> Eff (dom :: DOM | ta) Unit
 
     unsafeAddEventListener :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
 
