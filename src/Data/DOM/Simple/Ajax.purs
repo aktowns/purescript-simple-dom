@@ -8,9 +8,7 @@ foreign import data XMLHttpRequest :: *
 
 foreign import makeXMLHttpRequest
   "function makeXMLHttpRequest() {  \
-  \  return function() {            \
-  \    return new XMLHttpRequest(); \
-  \  }                              \
+  \  return new XMLHttpRequest();   \
   \}" :: forall eff. (Eff (dom :: DOM | eff) XMLHttpRequest)
 
 foreign import open
