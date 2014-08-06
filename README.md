@@ -14,10 +14,14 @@ Module documentation is available [here](API.md)
 ```haskell
 -- Set the contents of an iframe to arbitary html content
 setContents contents = do
-  doc <- getDocument globalWindow                          -- doc = window.document
-  iframe <- querySelector "#siteFrame" doc                 -- iframe = doc.querySelector("#siteFrame")
-  iframeDoc <- (contentWindow iframe) >>= getDocument      -- iframeDoc = iframe.contentWindow.document
-  querySelector "html" iframeDoc >>= setInnerHTML contents -- iframeDoc.querySelector("html").innerHTML = contents
+  -- doc = window.document
+  doc <- getDocument globalWindow
+  -- iframe = doc.querySelector("#siteFrame")
+  iframe <- querySelector "#siteFrame" doc
+  -- iframeDoc = iframe.contentWindow.document
+  iframeDoc <- (contentWindow iframe) >>= getDocument
+  -- iframeDoc.querySelector("html").innerHTML = contents
+  querySelector "html" iframeDoc >>= setInnerHTML contents
 ```
 
 
