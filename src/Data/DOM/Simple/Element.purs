@@ -18,8 +18,8 @@ class Element b where
   children               :: forall eff. b -> (Eff (dom :: DOM | eff) [HTMLElement])
   innerHTML              :: forall eff. b -> (Eff (dom :: DOM | eff) String)
   setInnerHTML           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
-  innerText              :: forall eff. b -> (Eff (dom :: DOM | eff) String)
-  setInnerText           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  textContent            :: forall eff. b -> (Eff (dom :: DOM | eff) String)
+  setTextContent         :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
   contentWindow          :: forall eff. b -> (Eff (dom :: DOM | eff) HTMLWindow)
 
 instance htmlElement :: Element HTMLElement where
@@ -35,8 +35,8 @@ instance htmlElement :: Element HTMLElement where
   children                = unsafeChildren
   innerHTML               = unsafeInnerHTML
   setInnerHTML            = unsafeSetInnerHTML
-  innerText               = unsafeInnerText
-  setInnerText            = unsafeSetInnerText
+  textContent             = unsafeTextContent
+  setTextContent          = unsafeSetTextContent
   contentWindow           = unsafeContentWindow
 
 instance htmlDocumentElement :: Element HTMLDocument where
@@ -52,8 +52,8 @@ instance htmlDocumentElement :: Element HTMLDocument where
   children                = unsafeChildren
   innerHTML               = unsafeInnerHTML
   setInnerHTML            = unsafeSetInnerHTML
-  innerText               = unsafeInnerText
-  setInnerText            = unsafeSetInnerText
+  textContent             = unsafeTextContent
+  setTextContent          = unsafeSetTextContent
   contentWindow           = unsafeContentWindow
 
 foreign import globalWindow

@@ -110,18 +110,18 @@ foreign import unsafeSetInnerHTML
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeInnerText
-  "function unsafeInnerText(src) {          \
+foreign import unsafeTextContent
+  "function unsafeTextContent(src) {        \
   \  return function () {                   \
-  \    return src.innerText;                \
+  \    return src.textContent;              \
   \  };                                     \
   \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 
-foreign import unsafeSetInnerText
-  "function unsafeSetInnerText(value) {     \
+foreign import unsafeSetTextContent
+  "function unsafeSetTextContent(value) {   \
   \  return function (src) {                \
   \    return function () {                 \
-  \      src.innerText = value;             \
+  \      src.textContent = value;           \
   \    };                                   \
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
