@@ -52,3 +52,19 @@ foreign import setRequestHeader
   \     }                                     \
   \   }                                       \
   \}" :: forall eff. String -> String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import getAllResponseHeaders
+  "function getAllResponseHeaders(obj) {     \
+  \  return function () {                    \
+  \    return obj.getAllResponseHeaders();   \
+  \  };                                      \
+  \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
+
+foreign import getResponseHeader
+  "function getResponseHeader(key) {        \
+  \  return function (obj) {                \
+  \    return function () {                 \
+  \      return obj.getResponseHeader(key); \
+  \    };                                   \
+  \  };                                     \
+  \}" :: forall eff. String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) String)

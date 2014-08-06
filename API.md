@@ -4,6 +4,10 @@
 
 ### Values
 
+    getAllResponseHeaders :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
+
+    getResponseHeader :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | eff) String
+
     makeXMLHttpRequest :: forall eff. Eff (dom :: DOM | eff) XMLHttpRequest
 
     open :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
@@ -92,9 +96,9 @@
 
 ### Values
 
-    eventTarget :: forall t a. DOMEvent -> Eff (dom :: DOM | t) a
+    eventTarget :: forall eff a. DOMEvent -> Eff (dom :: DOM | eff) a
 
-    preventDefault :: forall t. DOMEvent -> Eff (dom :: DOM | t) Unit
+    preventDefault :: forall eff. DOMEvent -> Eff (dom :: DOM | eff) Unit
 
     ready :: forall t ta. Eff (dom :: DOM | t) Unit -> Eff (dom :: DOM | ta) Unit
 
@@ -157,6 +161,6 @@
 
 ### Values
 
-    unsafeAddEventListener :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
+    unsafeAddEventListener :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | eff) Unit
 
-    unsafeRemoveEventListener :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
+    unsafeRemoveEventListener :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | eff) Unit
