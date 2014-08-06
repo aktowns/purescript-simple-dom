@@ -132,3 +132,40 @@ foreign import unsafeContentWindow
   \    return obj.contentWindow;        \
   \  };                                 \
   \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLWindow)
+
+
+foreign import unsafeClassAdd
+  "function unsafeClassAdd(value) {         \
+  \  return function (src) {                \
+  \    return function () {                 \
+  \      src.classList.add(value);          \
+  \    };                                   \
+  \  };                                     \
+  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import unsafeClassRemove
+  "function unsafeClassRemove(value) {      \
+  \  return function (src) {                \
+  \    return function () {                 \
+  \      src.classList.remove(value);       \
+  \    };                                   \
+  \  };                                     \
+  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import unsafeClassToggle
+  "function unsafeClassToggle(value) {      \
+  \  return function (src) {                \
+  \    return function () {                 \
+  \      src.classList.toggle(value);       \
+  \    };                                   \
+  \  };                                     \
+  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import unsafeClassContains
+  "function unsafeClassContains(value) {        \
+  \  return function (src) {                    \
+  \    return function () {                     \
+  \      return src.classList.contains(value);  \
+  \    };                                       \
+  \  };                                         \
+  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Boolean)

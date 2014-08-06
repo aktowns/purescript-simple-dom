@@ -45,6 +45,10 @@
       textContent :: forall eff. b -> Eff (dom :: DOM | eff) String
       setTextContent :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
       contentWindow :: forall eff. b -> Eff (dom :: DOM | eff) HTMLWindow
+      classRemove :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
+      classAdd :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
+      classToggle :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
+      classContains :: forall eff. String -> b -> Eff (dom :: DOM | eff) Boolean
 
 
 ### Type Class Instances
@@ -131,6 +135,14 @@
 ### Values
 
     unsafeChildren :: forall eff a. a -> Eff (dom :: DOM | eff) [HTMLElement]
+
+    unsafeClassAdd :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
+
+    unsafeClassContains :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Boolean
+
+    unsafeClassRemove :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
+
+    unsafeClassToggle :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
 
     unsafeContentWindow :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLWindow
 

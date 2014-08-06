@@ -21,6 +21,10 @@ class Element b where
   textContent            :: forall eff. b -> (Eff (dom :: DOM | eff) String)
   setTextContent         :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
   contentWindow          :: forall eff. b -> (Eff (dom :: DOM | eff) HTMLWindow)
+  classRemove            :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  classAdd               :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  classToggle            :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  classContains          :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Boolean)
 
 instance htmlElement :: Element HTMLElement where
   getElementById          = unsafeGetElementById
@@ -38,6 +42,10 @@ instance htmlElement :: Element HTMLElement where
   textContent             = unsafeTextContent
   setTextContent          = unsafeSetTextContent
   contentWindow           = unsafeContentWindow
+  classRemove             = unsafeClassRemove
+  classAdd                = unsafeClassAdd
+  classToggle             = unsafeClassToggle
+  classContains           = unsafeClassContains
 
 instance htmlDocumentElement :: Element HTMLDocument where
   getElementById          = unsafeGetElementById
@@ -55,6 +63,10 @@ instance htmlDocumentElement :: Element HTMLDocument where
   textContent             = unsafeTextContent
   setTextContent          = unsafeSetTextContent
   contentWindow           = unsafeContentWindow
+  classRemove             = unsafeClassRemove
+  classAdd                = unsafeClassAdd
+  classToggle             = unsafeClassToggle
+  classContains           = unsafeClassContains
 
 foreign import globalWindow
   "var globalWindow = window;" :: HTMLWindow

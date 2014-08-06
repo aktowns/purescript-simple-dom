@@ -72,5 +72,14 @@ main = do
   testDiv1HasAttribute' <- hasAttribute "data-test" testDiv1
   quickCheck' 1 $ testDiv1HasAttribute' == false
 
+  -- Unavailable in Zombie
+  -- trace "Able to add a class"
+
+  --hasTestClass1 <- classContains "testClass" testDiv1
+  -- quickCheck' 1 $ hasTestClass1 == false
+
+  -- classAdd "testClass" testDiv1
+  -- hasTestClass2 <- classContains "testClass" testDiv1
+  -- quickCheck' 1 $ hasTestClass2 == true
 
   trace "Done"
