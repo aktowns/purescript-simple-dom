@@ -22,6 +22,8 @@
 
     setRequestHeader :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 
+    statusText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
+
 
 ## Module Data.DOM.Simple.Element
 

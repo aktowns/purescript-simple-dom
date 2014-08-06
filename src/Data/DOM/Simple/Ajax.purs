@@ -42,6 +42,13 @@ foreign import responseText
   \  };                                 \
   \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
 
+foreign import statusText
+  "function statusText(obj) {         \
+  \    return function () {           \
+  \      return obj.statusText;       \
+  \  };                               \
+  \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
+
 foreign import setRequestHeader
   "function setRequestHeader(key) {           \
   \   return function (value) {               \
