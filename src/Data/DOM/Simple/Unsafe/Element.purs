@@ -111,7 +111,7 @@ foreign import unsafeSetInnerHTML
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeInnerText
-  "function innerText(src) {                \
+  "function unsafeInnerText(src) {          \
   \  return function () {                   \
   \    return src.innerText;                \
   \  };                                     \
