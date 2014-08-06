@@ -23,7 +23,15 @@ setContents contents = do
   iframeDoc <- (contentWindow iframe) >>= getDocument
   -- iframeDoc.querySelector("html").innerHTML = contents
   querySelector "html" iframeDoc >>= setInnerHTML contents
+
+-- or a little shorter
+setContents' contents = do
+  getDocument globalWindow >>= querySelector "#siteFrame" >>=
+    contentWindow >>= getDocument >>= querySelector "html" >>=
+      setInnerHTML contents
 ```
+
+
 
 #### Change all a href's on a page and add the original link as a data attribute
 
