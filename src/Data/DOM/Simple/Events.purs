@@ -16,14 +16,14 @@ foreign import eventTarget
   \  return function () {         \
   \    return event.target;       \
   \  };                           \
-  \}" :: forall t a. DOMEvent -> (Eff (dom :: DOM | t) a)
+  \}" :: forall eff a. DOMEvent -> (Eff (dom :: DOM | eff) a)
 
 foreign import preventDefault
   "function preventDefault(event) { \
   \  return function () {           \
   \    event.preventDefault();      \
   \  }                              \
-  \}" :: forall t. DOMEvent -> (Eff (dom :: DOM | t) Unit)
+  \}" :: forall eff. DOMEvent -> (Eff (dom :: DOM | eff) Unit)
 
 instance eventTargetHTMLElement :: EventTarget HTMLElement where
   addEventListener = unsafeAddEventListener

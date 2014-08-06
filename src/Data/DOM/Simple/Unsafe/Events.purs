@@ -15,7 +15,7 @@ foreign import unsafeAddEventListener
   \       };                                            \
   \     };                                              \
   \  };                                                 \
-  \}" :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
+  \}" :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeRemoveEventListener
   "function unsafeRemoveEventListener(targ) {               \
@@ -28,4 +28,4 @@ foreign import unsafeRemoveEventListener
   \       };                                                \
   \     };                                                  \
   \  };                                                     \
-  \}" :: forall t ta a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | ta) Unit)
+  \}" :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> (Eff (dom :: DOM | eff) Unit)
