@@ -249,4 +249,6 @@
 
 ### Values
 
+    getLocationValue :: String -> String -> Maybe String
+
     globalWindow :: HTMLWindow

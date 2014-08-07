@@ -5,6 +5,10 @@ import Control.Monad.Eff
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Unsafe.Window
 
+import Data.Maybe
+import qualified Data.Array as Array
+import qualified Data.String as String
+
 class Location b where
   getLocation :: forall eff. b -> (Eff (dom :: DOM | eff) String)
   setLocation :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
@@ -25,3 +29,14 @@ instance domLocation :: Location DOMLocation where
 
 foreign import globalWindow
   "var globalWindow = window;" :: HTMLWindow
+
+
+getLocationValue :: String -> String -> Maybe String
+getLocationValue input key =
+  let kvParser value = case value of
+        [x, y] | x == key -> Just y
+        _ -> Nothing
+    in
+  let sanitizedInput = if ((String.indexOf "?" input) == 0) then (String.drop 1 input) else input in
+    let kv = Array.map (String.split "=") (String.split "&" sanitizedInput) in
+      Array.head $ Array.mapMaybe kvParser kv
