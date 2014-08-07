@@ -40,6 +40,7 @@ main = do
   docTitle <- title doc
   quickCheck' 1 $ docTitle == "testTitle"
 
+  -- attrib <- "#testDiv1" `getAttribute` "hello"
 
   trace "Able to set the title of a document"
 

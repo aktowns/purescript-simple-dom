@@ -215,6 +215,8 @@
 
     unsafeDocument :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLDocument
 
+    unsafeLocation :: forall eff a. a -> Eff (dom :: DOM | eff) String
+
 
 ## Module Data.DOM.Simple.Window
 
@@ -222,6 +224,7 @@
 
     class Window b where
       document :: forall eff. b -> Eff (dom :: DOM | eff) HTMLDocument
+      location :: forall eff. b -> Eff (dom :: DOM | eff) String
 
 
 ### Type Class Instances

@@ -10,3 +10,10 @@ foreign import unsafeDocument
   \    return win.document;          \
   \  };                              \
   \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLDocument)
+
+foreign import unsafeLocation
+  "function unsafeLocation(win) {    \
+  \  return function () {            \
+  \    return win.location;          \
+  \  };                              \
+  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
