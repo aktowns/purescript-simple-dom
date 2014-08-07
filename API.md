@@ -25,6 +25,32 @@
     statusText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
 
 
+## Module Data.DOM.Simple.Arrows
+
+### Type Classes
+
+    class DOMArrows b where
+      (#<-) :: forall eff. b -> Tuple String String -> Eff (dom :: DOM | eff) Unit
+      (#->) :: forall eff. b -> String -> Eff (dom :: DOM | eff) String
+      (?->) :: forall eff. b -> String -> Eff (dom :: DOM | eff) HTMLElement
+      (%<-) :: forall eff. b -> String -> Eff (dom :: DOM | eff) Unit
+      (@<-) :: forall eff. b -> String -> Eff (dom :: DOM | eff) Unit
+
+    class DOMArrowsEff b where
+      (#<=) :: forall eff. Eff (dom :: DOM | eff) b -> Tuple String String -> Eff (dom :: DOM | eff) Unit
+      (#=>) :: forall eff. Eff (dom :: DOM | eff) b -> String -> Eff (dom :: DOM | eff) String
+      (?=>) :: forall eff. Eff (dom :: DOM | eff) b -> String -> Eff (dom :: DOM | eff) HTMLElement
+      (%<=) :: forall eff. Eff (dom :: DOM | eff) b -> String -> Eff (dom :: DOM | eff) Unit
+      (@<=) :: forall eff. Eff (dom :: DOM | eff) b -> String -> Eff (dom :: DOM | eff) Unit
+
+
+### Type Class Instances
+
+    instance arrowsEffHTMLElement :: (Element a) => DOMArrowsEff a
+
+    instance arrowsHTMLElement :: (Element a) => DOMArrows a
+
+
 ## Module Data.DOM.Simple.Document
 
 ### Type Classes
