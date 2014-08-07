@@ -74,6 +74,11 @@
     instance htmlElement :: Element HTMLElement
 
 
+### Values
+
+    setAttributes :: forall eff a. (Element a) => [T.Tuple String String] -> a -> Eff (dom :: DOM | eff) Unit
+
+
 ## Module Data.DOM.Simple.Encode
 
 ### Values

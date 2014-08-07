@@ -5,6 +5,10 @@ import Control.Monad.Eff
 import Data.DOM.Simple.Unsafe.Element
 import Data.DOM.Simple.Types
 
+import qualified Data.Array as A
+import qualified Data.Tuple as T
+import Data.Foldable(for_)
+
 class Element b where
   getElementById         :: forall eff. String -> b -> (Eff (dom :: DOM | eff) HTMLElement)
   getElementsByClassName :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
@@ -46,3 +50,6 @@ instance htmlElement :: Element HTMLElement where
   classAdd                = unsafeClassAdd
   classToggle             = unsafeClassToggle
   classContains           = unsafeClassContains
+
+setAttributes :: forall eff a. (Element a) => [(T.Tuple String String)] -> a -> (Eff (dom :: DOM | eff) Unit)
+setAttributes xs el = for_ xs (\kv -> setAttribute (T.fst kv) (T.snd kv) el)

@@ -1,7 +1,9 @@
 {
   "name": "purescript-simple-dom",
   "description": "learning",
-  "keywords": ["purescript"],
+  "keywords": [
+    "purescript"
+  ],
   "ignore": [
     "**/.*",
     "bower_components",
@@ -16,12 +18,13 @@
   ],
   "main": [],
   "dependencies": {
-    "purescript-arrays"               : "*",
-    "purescript-maybe"                : "*",
-    "purescript-foldable-traversable" : "*"
+    "purescript-arrays": "*",
+    "purescript-maybe": "*",
+    "purescript-foldable-traversable": "*",
+    "purescript-tuples": "~0.1.2"
   },
   "devDependencies": {
-    "purescript-math"                 : "*",
-    "purescript-quickcheck"           : "*"
+    "purescript-math": "*",
+    "purescript-quickcheck": "*"
   }
 }
