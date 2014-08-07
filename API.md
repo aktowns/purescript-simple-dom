@@ -133,6 +133,8 @@
 
     data DOMEvent :: *
 
+    data DOMLocation :: *
+
     data HTMLDocument :: *
 
     data HTMLElement :: *
@@ -215,19 +217,32 @@
 
     unsafeDocument :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLDocument
 
-    unsafeLocation :: forall eff a. a -> Eff (dom :: DOM | eff) String
+    unsafeGetLocation :: forall eff a. a -> Eff (dom :: DOM | eff) String
+
+    unsafeGetSearchLocation :: forall eff a. a -> Eff (dom :: DOM | eff) String
+
+    unsafeLocation :: forall eff a. a -> Eff (dom :: DOM | eff) DOMLocation
+
+    unsafeSetLocation :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
 
 
 ## Module Data.DOM.Simple.Window
 
 ### Type Classes
 
+    class Location b where
+      getLocation :: forall eff. b -> Eff (dom :: DOM | eff) String
+      setLocation :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
+      search :: forall eff. b -> Eff (dom :: DOM | eff) String
+
     class Window b where
       document :: forall eff. b -> Eff (dom :: DOM | eff) HTMLDocument
-      location :: forall eff. b -> Eff (dom :: DOM | eff) String
+      location :: forall eff. b -> Eff (dom :: DOM | eff) DOMLocation
 
 
 ### Type Class Instances
+
+    instance domLocation :: Location DOMLocation
 
     instance htmlWindow :: Window HTMLWindow
 
