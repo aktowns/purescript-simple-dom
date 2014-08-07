@@ -3,6 +3,7 @@ module Main where
 import Data.Array
 import Data.Maybe
 
+import Control.Monad.Eff
 import Debug.Trace
 
 import Data.DOM.Simple.Types
@@ -23,14 +24,22 @@ foreign import tagname
   "function tagname(obj) { return obj.tagName; }"
   :: forall a. a -> String
 
+checkTagName shouldBe element = do
+  let name = tagname element
+  quickCheck' 1 $ name == shouldBe
+
+checkContents shouldBe element = do
+  contents <- textContent (element :: HTMLElement)
+  quickCheck' 1 $ contents == shouldBe
+
 main = do
   doc <- document globalWindow
 
   trace "Able to get the title of a document"
 
   docTitle <- title doc
-
   quickCheck' 1 $ docTitle == "testTitle"
+
 
   trace "Able to set the title of a document"
 
@@ -39,38 +48,37 @@ main = do
 
   quickCheck' 1 $ docTitle1 == "modifiedTitle"
 
+
+  trace "Able to get the body element of a document"
+
+  docBody <- body doc
+
+  checkTagName "BODY" docBody
+
   trace "Able to look up elements"
 
   testDiv1 <- getElementById "test1" doc
 
-  quickCheck' 1 $ tagname testDiv1 == "DIV"
-
-  testDiv1Contents <- textContent testDiv1
-
-  quickCheck' 1 $ testDiv1Contents == "testContent1"
+  checkTagName "DIV" testDiv1
+  checkContents "testContent1" testDiv1
 
   testDiv2 <- querySelector ".test2" doc
 
-  quickCheck' 1 $ tagname testDiv2 == "DIV"
-
-  testDiv2Contents <- textContent testDiv2
-
-  quickCheck' 1 $ testDiv2Contents == "testContent2"
+  checkTagName "DIV" testDiv2
+  checkContents "testContent2" testDiv2
 
   testDiv3 <- querySelector "test3" doc
 
-  quickCheck' 1 $ tagname testDiv3 == "TEST3"
+  checkTagName "TEST3" testDiv3
+  checkContents "testContent3" testDiv3
 
-  testDiv3Contents <- textContent testDiv3
-
-  quickCheck' 1 $ testDiv3Contents == "testContent3"
 
   trace "Able to modify an elements contents"
 
   setTextContent "Hello" testDiv1
-  testDiv1Contents' <- textContent testDiv1
 
-  quickCheck' 1 $ testDiv1Contents' == "Hello"
+  checkContents "Hello" testDiv1
+
 
   trace "Able to set an attribute on an element"
 
@@ -78,6 +86,7 @@ main = do
   testDiv1Attribute <- getAttribute "data-test" testDiv1
 
   quickCheck' 1 $ testDiv1Attribute == "hello"
+
 
   trace "Able to remove an attribute from an element"
 
@@ -96,5 +105,3 @@ main = do
   -- classAdd "testClass" testDiv1
   -- hasTestClass2 <- classContains "testClass" testDiv1
   -- quickCheck' 1 $ hasTestClass2 == true
-
-  trace "Done"

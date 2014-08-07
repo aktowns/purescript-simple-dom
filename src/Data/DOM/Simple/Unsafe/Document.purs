@@ -19,3 +19,19 @@ foreign import unsafeSetTitle
   \    };                             \
   \  };                               \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import unsafeBody
+  "function unsafeBody(src) {         \
+  \  return function () {             \
+  \    return src.body;               \
+  \  };                               \
+  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLElement)
+
+foreign import unsafeSetBody
+  "function unsafeSetBody(value) {    \
+  \  return function (src) {          \
+  \    return function () {           \
+  \      src.body = value;            \
+  \    };                             \
+  \  };                               \
+  \}" :: forall eff a. HTMLElement -> a -> (Eff (dom :: DOM | eff) Unit)
