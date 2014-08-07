@@ -35,10 +35,3 @@ instance htmlDocumentElement :: Element HTMLDocument where
 instance htmlDocument :: Document HTMLDocument where
   title                   = unsafeTitle
   setTitle                = unsafeSetTitle
-
-foreign import getDocument
-  "function getDocument(win) { \
-  \  return function () {      \
-  \    return win.document;    \
-  \  };                        \
-  \}" :: forall eff. HTMLWindow -> (Eff (dom :: DOM | eff) HTMLDocument)

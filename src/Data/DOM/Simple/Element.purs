@@ -46,7 +46,3 @@ instance htmlElement :: Element HTMLElement where
   classAdd                = unsafeClassAdd
   classToggle             = unsafeClassToggle
   classContains           = unsafeClassContains
-
-
-foreign import globalWindow
-  "var globalWindow = window;" :: HTMLWindow

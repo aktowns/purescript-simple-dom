@@ -3,8 +3,7 @@ module Data.DOM.Simple.Events where
 import Control.Monad.Eff
 
 import Data.DOM.Simple.Types
-import Data.DOM.Simple.Element(globalWindow, Element)
-import Data.DOM.Simple.Document(getDocument)
+import Data.DOM.Simple.Window(document, globalWindow)
 import Data.DOM.Simple.Ajax
 import Data.DOM.Simple.Unsafe.Events
 
@@ -43,4 +42,4 @@ instance eventTargetXMLHttpRequest :: EventTarget XMLHttpRequest where
   removeEventListener = unsafeRemoveEventListener
 
 ready :: forall t ta. (Eff (dom :: DOM | t) Unit) -> (Eff (dom :: DOM | ta) Unit)
-ready cb = getDocument globalWindow >>= (addEventListener "DOMContentLoaded" $ \_ -> cb)
+ready cb = document globalWindow >>= (addEventListener "DOMContentLoaded" $ \_ -> cb)

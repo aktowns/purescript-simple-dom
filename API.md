@@ -41,11 +41,6 @@
     instance htmlDocumentElement :: Element HTMLDocument
 
 
-### Values
-
-    getDocument :: forall eff. HTMLWindow -> Eff (dom :: DOM | eff) HTMLDocument
-
-
 ## Module Data.DOM.Simple.Element
 
 ### Type Classes
@@ -75,11 +70,6 @@
 ### Type Class Instances
 
     instance htmlElement :: Element HTMLElement
-
-
-### Values
-
-    globalWindow :: HTMLWindow
 
 
 ## Module Data.DOM.Simple.Encode
@@ -206,3 +196,28 @@
     unsafeAddEventListener :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | eff) Unit
 
     unsafeRemoveEventListener :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | eff) Unit
+
+
+## Module Data.DOM.Simple.Unsafe.Window
+
+### Values
+
+    unsafeDocument :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLDocument
+
+
+## Module Data.DOM.Simple.Window
+
+### Type Classes
+
+    class Window b where
+      document :: forall eff. b -> Eff (dom :: DOM | eff) HTMLDocument
+
+
+### Type Class Instances
+
+    instance htmlWindow :: Window HTMLWindow
+
+
+### Values
+
+    globalWindow :: HTMLWindow

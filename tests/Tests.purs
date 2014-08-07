@@ -8,6 +8,7 @@ import Debug.Trace
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Element
 import Data.DOM.Simple.Document
+import Data.DOM.Simple.Window
 import Data.DOM.Simple.Encode
 import Data.DOM.Simple.Ajax
 import Data.DOM.Simple.Events
@@ -23,24 +24,24 @@ foreign import tagname
   :: forall a. a -> String
 
 main = do
-  document <- getDocument globalWindow
+  doc <- document globalWindow
 
   trace "Able to get the title of a document"
 
-  docTitle <- title document
+  docTitle <- title doc
 
   quickCheck' 1 $ docTitle == "testTitle"
 
   trace "Able to set the title of a document"
 
-  setTitle "modifiedTitle" document
-  docTitle1 <- title document
+  setTitle "modifiedTitle" doc
+  docTitle1 <- title doc
 
   quickCheck' 1 $ docTitle1 == "modifiedTitle"
 
   trace "Able to look up elements"
 
-  testDiv1 <- getElementById "test1" document
+  testDiv1 <- getElementById "test1" doc
 
   quickCheck' 1 $ tagname testDiv1 == "DIV"
 
@@ -48,7 +49,7 @@ main = do
 
   quickCheck' 1 $ testDiv1Contents == "testContent1"
 
-  testDiv2 <- querySelector ".test2" document
+  testDiv2 <- querySelector ".test2" doc
 
   quickCheck' 1 $ tagname testDiv2 == "DIV"
 
@@ -56,7 +57,7 @@ main = do
 
   quickCheck' 1 $ testDiv2Contents == "testContent2"
 
-  testDiv3 <- querySelector "test3" document
+  testDiv3 <- querySelector "test3" doc
 
   quickCheck' 1 $ tagname testDiv3 == "TEST3"
 
