@@ -25,7 +25,7 @@ import Data.DOM.Simple.Unsafe.Sugar
 class DOMArrows b where
   (#<-) :: forall eff. b -> (Tuple String String) -> (Eff (dom :: DOM | eff) Unit)
   (<-#) :: forall eff. b -> String -> (Eff (dom :: DOM | eff) String)
-  (<-?) :: forall eff. b -> String -> (Eff (dom :: DOM | eff) HTMLElement)
+  (<-?) :: forall eff. b -> String -> (Eff (dom :: DOM | eff) (Maybe HTMLElement))
   (%<-) :: forall eff. b -> String -> (Eff (dom :: DOM | eff) Unit)
   (@<-) :: forall eff. b -> String -> (Eff (dom :: DOM | eff) Unit)
 

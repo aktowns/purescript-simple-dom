@@ -5,12 +5,12 @@ import Control.Monad.Eff
 import Data.DOM.Simple.Types
 
 foreign import unsafeGetElementById
-  "function unsafeGetElementById(targ_id) {   \
-  \  return function (src) {                  \
-  \    return function () {                   \
-  \      return src.getElementById(targ_id);  \
-  \    };                                     \
-  \  };                                       \
+  "function unsafeGetElementById(targ_id) {      \
+  \  return function (src) {                     \
+  \    return function () {                      \
+  \      return src.getElementById(targ_id);     \
+  \    };                                        \
+  \  };                                          \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
 
 foreign import unsafeGetElementsByClassName

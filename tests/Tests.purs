@@ -17,7 +17,7 @@ import Data.DOM.Simple.Events
 import Test.QuickCheck
 
 foreign import inspect
-  "function inspect(msg) { console.log(msg.textContent); }"
+  "function inspect(msg) { console.log(msg); }"
   :: forall a. a -> Unit
 
 foreign import tagname
@@ -58,17 +58,17 @@ main = do
 
   trace "Able to look up elements"
 
-  testDiv1 <- getElementById "test1" doc
+  Just testDiv1 <- getElementById "test1" doc
 
   checkTagName "DIV" testDiv1
   checkContents "testContent1" testDiv1
 
-  testDiv2 <- querySelector ".test2" doc
+  Just testDiv2 <- querySelector ".test2" doc
 
   checkTagName "DIV" testDiv2
   checkContents "testContent2" testDiv2
 
-  testDiv3 <- querySelector "test3" doc
+  Just testDiv3 <- querySelector "test3" doc
 
   checkTagName "TEST3" testDiv3
   checkContents "testContent3" testDiv3

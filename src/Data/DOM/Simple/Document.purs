@@ -4,6 +4,7 @@ import Control.Monad.Eff
 
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Element
+import Data.DOM.Simple.Unsafe.Utils(ensure, showImpl)
 import Data.DOM.Simple.Unsafe.Element
 import Data.DOM.Simple.Unsafe.Document
 
@@ -14,10 +15,10 @@ class Document b where
   setBody   :: forall eff. HTMLElement -> b -> (Eff (dom :: DOM | eff) Unit)
 
 instance htmlDocumentElement :: Element HTMLDocument where
-  getElementById          = unsafeGetElementById
+  getElementById id el    = (unsafeGetElementById id el) >>= (return <<< ensure)
   getElementsByClassName  = unsafeGetElementsByClassName
   getElementsByName       = unsafeGetElementsByName
-  querySelector           = unsafeQuerySelector
+  querySelector sel el    = (unsafeQuerySelector sel el) >>= (return <<< ensure)
   querySelectorAll        = unsafeQuerySelectorAll
   getAttribute            = unsafeGetAttribute
   setAttribute            = unsafeSetAttribute
@@ -39,3 +40,6 @@ instance htmlDocument :: Document HTMLDocument where
   setTitle                = unsafeSetTitle
   body                    = unsafeBody
   setBody                 = unsafeSetBody
+
+instance showHtmlDocument :: Show HTMLDocument where
+  show = showImpl

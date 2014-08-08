@@ -42,16 +42,18 @@
 
     instance htmlDocumentElement :: Element HTMLDocument
 
+    instance showHtmlDocument :: Show HTMLDocument
+
 
 ## Module Data.DOM.Simple.Element
 
 ### Type Classes
 
     class Element b where
-      getElementById :: forall eff. String -> b -> Eff (dom :: DOM | eff) HTMLElement
+      getElementById :: forall eff. String -> b -> Eff (dom :: DOM | eff) (Maybe HTMLElement)
       getElementsByClassName :: forall eff. String -> b -> Eff (dom :: DOM | eff) [HTMLElement]
       getElementsByName :: forall eff. String -> b -> Eff (dom :: DOM | eff) [HTMLElement]
-      querySelector :: forall eff. String -> b -> Eff (dom :: DOM | eff) HTMLElement
+      querySelector :: forall eff. String -> b -> Eff (dom :: DOM | eff) (Maybe HTMLElement)
       querySelectorAll :: forall eff. String -> b -> Eff (dom :: DOM | eff) [HTMLElement]
       getAttribute :: forall eff. String -> b -> Eff (dom :: DOM | eff) String
       setAttribute :: forall eff. String -> String -> b -> Eff (dom :: DOM | eff) Unit
@@ -72,6 +74,8 @@
 ### Type Class Instances
 
     instance htmlElement :: Element HTMLElement
+
+    instance showHtmlElement :: Show HTMLElement
 
 
 ### Values
@@ -132,7 +136,7 @@
     class DOMArrows b where
       (#<-) :: forall eff. b -> Tuple String String -> Eff (dom :: DOM | eff) Unit
       (<-#) :: forall eff. b -> String -> Eff (dom :: DOM | eff) String
-      (<-?) :: forall eff. b -> String -> Eff (dom :: DOM | eff) HTMLElement
+      (<-?) :: forall eff. b -> String -> Eff (dom :: DOM | eff) (Maybe HTMLElement)
       (%<-) :: forall eff. b -> String -> Eff (dom :: DOM | eff) Unit
       (@<-) :: forall eff. b -> String -> Eff (dom :: DOM | eff) Unit
 
@@ -142,6 +146,8 @@
     instance arrowsEffHTMLElement :: (Element a) => DOMArrows (Eff eff a)
 
     instance arrowsHTMLElement :: (Element a) => DOMArrows a
+
+    instance arrowsMaybeHTMLElement :: (Element a) => DOMArrows (Maybe a)
 
 
 ## Module Data.DOM.Simple.Types
@@ -235,6 +241,15 @@
 ### Values
 
     dirtyKindDomRecast :: forall eff effn a. (Element a) => Eff eff a -> Eff (dom :: DOM | effn) a
+
+
+## Module Data.DOM.Simple.Unsafe.Utils
+
+### Values
+
+    ensure :: forall a. a -> Maybe a
+
+    showImpl :: forall a. a -> String
 
 
 ## Module Data.DOM.Simple.Unsafe.Window
