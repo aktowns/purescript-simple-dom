@@ -25,32 +25,6 @@
     statusText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
 
 
-## Module Data.DOM.Simple.Arrows
-
-### Type Classes
-
-    class DOMArrows b where
-      (#<-) :: forall eff. b -> Tuple String String -> Eff (dom :: DOM | eff) Unit
-      (#->) :: forall eff. b -> String -> Eff (dom :: DOM | eff) String
-      (?->) :: forall eff. b -> String -> Eff (dom :: DOM | eff) HTMLElement
-      (%<-) :: forall eff. b -> String -> Eff (dom :: DOM | eff) Unit
-      (@<-) :: forall eff. b -> String -> Eff (dom :: DOM | eff) Unit
-
-    class DOMArrowsEff b where
-      (#<=) :: forall eff. Eff (dom :: DOM | eff) b -> Tuple String String -> Eff (dom :: DOM | eff) Unit
-      (#=>) :: forall eff. Eff (dom :: DOM | eff) b -> String -> Eff (dom :: DOM | eff) String
-      (?=>) :: forall eff. Eff (dom :: DOM | eff) b -> String -> Eff (dom :: DOM | eff) HTMLElement
-      (%<=) :: forall eff. Eff (dom :: DOM | eff) b -> String -> Eff (dom :: DOM | eff) Unit
-      (@<=) :: forall eff. Eff (dom :: DOM | eff) b -> String -> Eff (dom :: DOM | eff) Unit
-
-
-### Type Class Instances
-
-    instance arrowsEffHTMLElement :: (Element a) => DOMArrowsEff a
-
-    instance arrowsHTMLElement :: (Element a) => DOMArrows a
-
-
 ## Module Data.DOM.Simple.Document
 
 ### Type Classes
@@ -151,6 +125,25 @@
     ready :: forall t ta. Eff (dom :: DOM | t) Unit -> Eff (dom :: DOM | ta) Unit
 
 
+## Module Data.DOM.Simple.Sugar
+
+### Type Classes
+
+    class DOMArrows b where
+      (#<-) :: forall eff. b -> Tuple String String -> Eff (dom :: DOM | eff) Unit
+      (<-#) :: forall eff. b -> String -> Eff (dom :: DOM | eff) String
+      (<-?) :: forall eff. b -> String -> Eff (dom :: DOM | eff) HTMLElement
+      (%<-) :: forall eff. b -> String -> Eff (dom :: DOM | eff) Unit
+      (@<-) :: forall eff. b -> String -> Eff (dom :: DOM | eff) Unit
+
+
+### Type Class Instances
+
+    instance arrowsEffHTMLElement :: (Element a) => DOMArrows (Eff eff a)
+
+    instance arrowsHTMLElement :: (Element a) => DOMArrows a
+
+
 ## Module Data.DOM.Simple.Types
 
 ### Types
@@ -235,6 +228,13 @@
     unsafeAddEventListener :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | eff) Unit
 
     unsafeRemoveEventListener :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | eff) Unit
+
+
+## Module Data.DOM.Simple.Unsafe.Sugar
+
+### Values
+
+    dirtyKindDomRecast :: forall eff effn a. (Element a) => Eff eff a -> Eff (dom :: DOM | effn) a
 
 
 ## Module Data.DOM.Simple.Unsafe.Window
