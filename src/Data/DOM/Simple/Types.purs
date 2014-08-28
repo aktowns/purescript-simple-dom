@@ -11,3 +11,4 @@ foreign import data XMLHttpRequest    :: *
 foreign import data DOMEvent          :: *
 foreign import data DOMLocation       :: *
 foreign import data JavascriptContext :: *
+foreign import data Timeout           :: *

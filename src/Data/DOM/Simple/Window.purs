@@ -15,12 +15,22 @@ class Location b where
   search      :: forall eff. b -> (Eff (dom :: DOM | eff) String)
 
 class Window b where
-  document    :: forall eff. b -> (Eff (dom :: DOM | eff) HTMLDocument)
-  location :: forall eff. b -> (Eff (dom :: DOM | eff) DOMLocation)
+  document     :: forall eff. b -> (Eff (dom :: DOM | eff) HTMLDocument)
+  location     :: forall eff. b -> (Eff (dom :: DOM | eff) DOMLocation)
+  setTimeout   :: forall eff. b -> Number -> Eff eff Unit -> (Eff (dom :: DOM | eff) Timeout)
+  setInterval  :: forall eff. b -> Number -> Eff eff Unit -> (Eff (dom :: DOM | eff) Timeout)
+  clearTimeout :: forall eff. b -> Timeout -> (Eff (dom :: DOM | eff) Unit)
+  innerWidth   :: forall eff. b -> (Eff (dom :: DOM | eff) Number)
+  innerHeight  :: forall eff. b -> (Eff (dom :: DOM | eff) Number)
 
 instance htmlWindow :: Window HTMLWindow where
   document = unsafeDocument
   location = unsafeLocation
+  setTimeout   = unsafeSetTimeout
+  setInterval  = unsafeSetInterval
+  clearTimeout = unsafeClearTimeout
+  innerWidth   = unsafeInnerWidth
+  innerHeight  = unsafeInnerHeight
 
 instance domLocation :: Location DOMLocation where
   getLocation = unsafeGetLocation
