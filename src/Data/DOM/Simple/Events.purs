@@ -81,19 +81,17 @@ instance mouseEventTargetHTMLElement :: MouseEventTarget HTMLElement where
 
 {- Keyboard Events -}
 
-data KeyboardEventType = KeydownEvent | BeforeInputEvent | InputEvent | KeyupEvent
+data KeyboardEventType = KeydownEvent | KeypressEvent | KeyupEvent
 
 instance keyboardEventTypeShow :: Show KeyboardEventType where
   show KeydownEvent     = "keydown"
-  show BeforeInputEvent = "beforeinput"
-  show InputEvent       = "input"
+  show KeypressEvent       = "keypress"
   show KeyupEvent       = "keyup"
 
 instance keyboardEventTypeRead :: Read KeyboardEventType where
-  read "keydown"     = KeydownEvent
-  read "beforeinput" = BeforeInputEvent
-  read "input"       = InputEvent
-  read "keyup"       = KeyupEvent
+  read "keydown"  = KeydownEvent
+  read "keypress" = KeypressEvent
+  read "keyup"    = KeyupEvent
 
 data KeyLocation = KeyLocationStandard | KeyLocationLeft | KeyLocationRight | KeyLocationNumpad
 
