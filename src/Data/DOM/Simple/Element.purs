@@ -59,3 +59,12 @@ instance showHtmlElement :: Show HTMLElement where
 
 setAttributes :: forall eff a. (Element a) => [(T.Tuple String String)] -> a -> (Eff (dom :: DOM | eff) Unit)
 setAttributes xs el = for_ xs (\kv -> setAttribute (T.fst kv) (T.snd kv) el)
+
+click :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit
+click = unsafeClick
+
+focus :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit
+focus = unsafeFocus
+
+blur :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit
+blur = unsafeBlur

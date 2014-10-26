@@ -64,6 +64,7 @@ foreign import unsafeSetAttribute
   \    return function (src) {              \
   \      return function () {               \
   \        src.setAttribute(name, value);   \
+  \        return {};                       \
   \      };                                 \
   \    };                                   \
   \  };                                     \
@@ -83,6 +84,7 @@ foreign import unsafeRemoveAttribute
   \  return function (src) {                \
   \    return function () {                 \
   \      src.removeAttribute(name);         \
+  \      return {};                         \
   \    };                                   \
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
@@ -106,6 +108,7 @@ foreign import unsafeSetInnerHTML
   \  return function (src) {                \
   \    return function () {                 \
   \      src.innerHTML = value;             \
+  \      return {};                         \
   \    };                                   \
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
@@ -122,6 +125,7 @@ foreign import unsafeSetTextContent
   \  return function (src) {                \
   \    return function () {                 \
   \      src.textContent = value;           \
+  \      return {};                         \
   \    };                                   \
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
@@ -139,6 +143,7 @@ foreign import unsafeClassAdd
   \  return function (src) {                \
   \    return function () {                 \
   \      src.classList.add(value);          \
+  \      return {};                         \
   \    };                                   \
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
@@ -148,6 +153,7 @@ foreign import unsafeClassRemove
   \  return function (src) {                \
   \    return function () {                 \
   \      src.classList.remove(value);       \
+  \      return {};                         \
   \    };                                   \
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
@@ -157,6 +163,7 @@ foreign import unsafeClassToggle
   \  return function (src) {                \
   \    return function () {                 \
   \      src.classList.toggle(value);       \
+  \      return {};                         \
   \    };                                   \
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
@@ -169,3 +176,27 @@ foreign import unsafeClassContains
   \    };                                       \
   \  };                                         \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Boolean)
+
+foreign import unsafeClick """
+  function unsafeClick(src) {
+    return function () {
+      src.click();
+      return {};
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import unsafeFocus """
+  function unsafeFocus(src) {
+    return function () {
+      src.focus();
+      return {};
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import unsafeBlur """
+  function unsafeBlur(src) {
+    return function () {
+      src.blur();
+      return {};
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) Unit)
