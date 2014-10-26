@@ -80,6 +80,12 @@
 
 ### Values
 
+    blur :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit
+
+    click :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit
+
+    focus :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit
+
     setAttributes :: forall eff a. (Element a) => [T.Tuple String String] -> a -> Eff (dom :: DOM | eff) Unit
 
 
@@ -102,31 +108,118 @@
 
 ## Module Data.DOM.Simple.Events
 
+### Types
+
+    data KeyLocation where
+      KeyLocationStandard :: KeyLocation
+      KeyLocationLeft :: KeyLocation
+      KeyLocationRight :: KeyLocation
+      KeyLocationNumpad :: KeyLocation
+
+    data KeyboardEventType where
+      KeydownEvent :: KeyboardEventType
+      KeypressEvent :: KeyboardEventType
+      KeyupEvent :: KeyboardEventType
+
+    data MouseEventType where
+      MouseMoveEvent :: MouseEventType
+      MouseOverEvent :: MouseEventType
+      MouseEnterEvent :: MouseEventType
+      MouseOutEvent :: MouseEventType
+      MouseLeaveEvent :: MouseEventType
+
+    data UIEventType where
+      LoadEvent :: UIEventType
+      UnloadEvent :: UIEventType
+      AbortEvent :: UIEventType
+      ErrorEvent :: UIEventType
+      SelectEvent :: UIEventType
+      ResizeEvent :: UIEventType
+      ScrollEvent :: UIEventType
+
+
 ### Type Classes
 
-    class EventTarget b where
-      addEventListener :: forall t ta a. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
-      removeEventListener :: forall t ta a. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | ta) Unit
+    class Event e where
+      eventTarget :: forall eff a. e -> Eff (dom :: DOM | eff) a
+      stopPropagation :: forall eff. e -> Eff (dom :: DOM | eff) Unit
+      preventDefault :: forall eff. e -> Eff (dom :: DOM | eff) Unit
+
+    class (Event e) <= KeyboardEvent e where
+      keyboardEventType :: forall eff. e -> Eff (dom :: DOM | eff) KeyboardEventType
+      key :: forall eff. e -> Eff (dom :: DOM | eff) String
+      keyCode :: forall eff. e -> Eff (dom :: DOM | eff) Number
+      keyLocation :: forall eff. e -> Eff (dom :: DOM | eff) KeyLocation
+      altKey :: forall eff. e -> Eff (dom :: DOM | eff) Boolean
+      ctrlKey :: forall eff. e -> Eff (dom :: DOM | eff) Boolean
+      metaKey :: forall eff. e -> Eff (dom :: DOM | eff) Boolean
+      shiftKey :: forall eff. e -> Eff (dom :: DOM | eff) Boolean
+
+    class KeyboardEventTarget b where
+      addKeyboardEventListener :: forall e t ta. (KeyboardEvent e) => KeyboardEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
+      removeKeyboardEventListener :: forall e t ta. (KeyboardEvent e) => KeyboardEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
+
+    class (Event e) <= MouseEvent e where
+      mouseEventType :: forall eff. e -> Eff (dom :: DOM | eff) MouseEventType
+      screenX :: forall eff. e -> Eff (dom :: DOM | eff) Number
+      screenY :: forall eff. e -> Eff (dom :: DOM | eff) Number
+
+    class MouseEventTarget b where
+      addMouseEventListener :: forall e t ta. (MouseEvent e) => MouseEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
+      removeMouseEventListener :: forall e t ta. (MouseEvent e) => MouseEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
+
+    class Read s where
+      read :: String -> s
+
+    class (Event e) <= UIEvent e where
+      view :: forall eff. e -> Eff (dom :: DOM | eff) HTMLWindow
+      detail :: forall eff. e -> Eff (dom :: DOM | eff) Number
+
+    class UIEventTarget b where
+      addUIEventListener :: forall e t ta. (UIEvent e) => UIEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
+      removeUIEventListener :: forall e t ta. (UIEvent e) => UIEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
 
 
 ### Type Class Instances
 
-    instance eventTargetHTMLDocument :: EventTarget HTMLDocument
+    instance eventDOMEvent :: Event DOMEvent
 
-    instance eventTargetHTMLElement :: EventTarget HTMLElement
+    instance keyboardEventDOMEvent :: KeyboardEvent DOMEvent
 
-    instance eventTargetHTMLWindow :: EventTarget HTMLWindow
+    instance keyboardEventTargetHTMLDocument :: KeyboardEventTarget HTMLDocument
 
-    instance eventTargetXMLHttpRequest :: EventTarget XMLHttpRequest
+    instance keyboardEventTargetHTMLElement :: KeyboardEventTarget HTMLElement
+
+    instance keyboardEventTargetHTMLWindow :: KeyboardEventTarget HTMLWindow
+
+    instance keyboardEventTypeRead :: Read KeyboardEventType
+
+    instance keyboardEventTypeShow :: Show KeyboardEventType
+
+    instance mouseEventDOMEvent :: MouseEvent DOMEvent
+
+    instance mouseEventTargetHTMLDocument :: MouseEventTarget HTMLDocument
+
+    instance mouseEventTargetHTMLElement :: MouseEventTarget HTMLElement
+
+    instance mouseEventTargetHTMLWindow :: MouseEventTarget HTMLWindow
+
+    instance mouseEventTypeRead :: Read MouseEventType
+
+    instance mouseEventTypeShow :: Show MouseEventType
+
+    instance uiEventDOMEvent :: UIEvent DOMEvent
+
+    instance uiEventTargetHTMLWindow :: UIEventTarget HTMLWindow
+
+    instance uiEventTypeRead :: Read UIEventType
+
+    instance uiEventTypeShow :: Show UIEventType
 
 
 ### Values
 
-    eventTarget :: forall eff a. DOMEvent -> Eff (dom :: DOM | eff) a
-
-    preventDefault :: forall eff. DOMEvent -> Eff (dom :: DOM | eff) Unit
-
-    ready :: forall t ta. Eff (dom :: DOM | t) Unit -> Eff (dom :: DOM | ta) Unit
+    toKeyLocation :: Number -> KeyLocation
 
 
 ## Module Data.DOM.Simple.Sugar
@@ -168,6 +261,8 @@
 
     data JavascriptContext :: *
 
+    data Timeout :: *
+
     data XMLHttpRequest :: *
 
 
@@ -188,6 +283,8 @@
 
 ### Values
 
+    unsafeBlur :: forall eff a. a -> Eff (dom :: DOM | eff) Unit
+
     unsafeChildren :: forall eff a. a -> Eff (dom :: DOM | eff) [HTMLElement]
 
     unsafeClassAdd :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
@@ -198,7 +295,11 @@
 
     unsafeClassToggle :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
 
+    unsafeClick :: forall eff a. a -> Eff (dom :: DOM | eff) Unit
+
     unsafeContentWindow :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLWindow
+
+    unsafeFocus :: forall eff a. a -> Eff (dom :: DOM | eff) Unit
 
     unsafeGetAttribute :: forall eff a. String -> a -> Eff (dom :: DOM | eff) String
 
@@ -231,9 +332,27 @@
 
 ### Values
 
-    unsafeAddEventListener :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | eff) Unit
+    unsafeAddEventListener :: forall eff t e b. String -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | eff) Unit
 
-    unsafeRemoveEventListener :: forall eff t a b. String -> (DOMEvent -> Eff (dom :: DOM | t) a) -> b -> Eff (dom :: DOM | eff) Unit
+    unsafeEventBooleanProp :: forall eff. String -> DOMEvent -> Eff (dom :: DOM | eff) Boolean
+
+    unsafeEventKey :: forall eff. DOMEvent -> Eff (dom :: DOM | eff) String
+
+    unsafeEventKeyCode :: forall eff. DOMEvent -> Eff (dom :: DOM | eff) Number
+
+    unsafeEventNumberProp :: forall eff. String -> DOMEvent -> Eff (dom :: DOM | eff) Number
+
+    unsafeEventStringProp :: forall eff. String -> DOMEvent -> Eff (dom :: DOM | eff) String
+
+    unsafeEventTarget :: forall eff a. DOMEvent -> Eff (dom :: DOM | eff) a
+
+    unsafeEventView :: forall eff. DOMEvent -> Eff (dom :: DOM | eff) HTMLWindow
+
+    unsafePreventDefault :: forall eff. DOMEvent -> Eff (dom :: DOM | eff) Unit
+
+    unsafeRemoveEventListener :: forall eff t e b. String -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | eff) Unit
+
+    unsafeStopPropagation :: forall eff. DOMEvent -> Eff (dom :: DOM | eff) Unit
 
 
 ## Module Data.DOM.Simple.Unsafe.Sugar
@@ -256,15 +375,25 @@
 
 ### Values
 
+    unsafeClearTimeout :: forall eff b. b -> Timeout -> Eff (dom :: DOM | eff) Unit
+
     unsafeDocument :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLDocument
 
     unsafeGetLocation :: forall eff a. a -> Eff (dom :: DOM | eff) String
 
     unsafeGetSearchLocation :: forall eff a. a -> Eff (dom :: DOM | eff) String
 
+    unsafeInnerHeight :: forall eff b. b -> Eff (dom :: DOM | eff) Number
+
+    unsafeInnerWidth :: forall eff b. b -> Eff (dom :: DOM | eff) Number
+
     unsafeLocation :: forall eff a. a -> Eff (dom :: DOM | eff) DOMLocation
 
+    unsafeSetInterval :: forall eff b. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
+
     unsafeSetLocation :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
+
+    unsafeSetTimeout :: forall eff b. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
 
 
 ## Module Data.DOM.Simple.Window
@@ -279,6 +408,11 @@
     class Window b where
       document :: forall eff. b -> Eff (dom :: DOM | eff) HTMLDocument
       location :: forall eff. b -> Eff (dom :: DOM | eff) DOMLocation
+      setTimeout :: forall eff. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
+      setInterval :: forall eff. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
+      clearTimeout :: forall eff. b -> Timeout -> Eff (dom :: DOM | eff) Unit
+      innerWidth :: forall eff. b -> Eff (dom :: DOM | eff) Number
+      innerHeight :: forall eff. b -> Eff (dom :: DOM | eff) Number
 
 
 ### Type Class Instances
