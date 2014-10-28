@@ -2,25 +2,94 @@
 
 ## Module Data.DOM.Simple.Ajax
 
+### Types
+
+    data ArrayBuffer :: *
+
+    data ArrayBufferView :: *
+
+    data Blob :: *
+
+    data FormData :: *
+
+    data HttpData a where
+      NoData :: HttpData a
+      TextData :: String -> HttpData a
+      ArrayBufferData :: ArrayBuffer -> HttpData a
+      ArrayBufferViewData :: ArrayBufferView -> HttpData a
+      BlobData :: Blob -> HttpData a
+      FormData :: FormData -> HttpData a
+      DocumentData :: HTMLDocument -> HttpData a
+      JsonData :: a -> HttpData a
+
+    data HttpMethod where
+      GET :: HttpMethod
+      POST :: HttpMethod
+      PUT :: HttpMethod
+      DELETE :: HttpMethod
+      PATCH :: HttpMethod
+      HEAD :: HttpMethod
+      OPTIONS :: HttpMethod
+      JSONP :: HttpMethod
+      HttpMethod :: String -> HttpMethod
+
+    data ReadyState where
+      Unsent :: ReadyState
+      Opened :: ReadyState
+      HeadersReceived :: ReadyState
+      Loading :: ReadyState
+      Done :: ReadyState
+
+    data ResponseType where
+      Default :: ResponseType
+      ArrayBuffer :: ResponseType
+      Blob :: ResponseType
+      Document :: ResponseType
+      Json :: ResponseType
+      Text :: ResponseType
+      MozBlob :: ResponseType
+      MozChunkedText :: ResponseType
+      MozChunkedArrayBuffer :: ResponseType
+
+    type Url  = String
+
+
+### Type Class Instances
+
+    instance showHttpMethod :: Show HttpMethod
+
+    instance showResponseType :: Show ResponseType
+
+
 ### Values
 
     getAllResponseHeaders :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
 
-    getResponseHeader :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | eff) String
+    getResponseHeader :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | eff) (Maybe String)
 
     makeXMLHttpRequest :: forall eff. Eff (dom :: DOM | eff) XMLHttpRequest
 
-    open :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+    onReadyStateChange :: forall eff e. Eff e Unit -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 
-    overrideMimeType :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | eff) String
+    open :: forall eff. HttpMethod -> Url -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+
+    overrideMimeType :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+
+    readyState :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) ReadyState
+
+    response :: forall eff a. XMLHttpRequest -> Eff (dom :: DOM | eff) (HttpData a)
 
     responseText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
 
-    send :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+    responseType :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) ResponseType
 
-    sendWithPayload :: forall eff a. a -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+    send :: forall eff a. HttpData a -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 
     setRequestHeader :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+
+    setResponseType :: forall eff. ResponseType -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+
+    status :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Number
 
     statusText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
 
@@ -264,6 +333,29 @@
     data Timeout :: *
 
     data XMLHttpRequest :: *
+
+
+## Module Data.DOM.Simple.Unsafe.Ajax
+
+### Values
+
+    unsafeGetResponseHeader :: forall eff a. Fn2 XMLHttpRequest String (Eff (dom :: DOM | eff) String)
+
+    unsafeOnReadyStateChange :: forall eff e. Fn2 XMLHttpRequest (Eff e Unit) (Eff (dom :: DOM | eff) Unit)
+
+    unsafeOpen :: forall eff. Fn3 XMLHttpRequest String String (Eff (dom :: DOM | eff) Unit)
+
+    unsafeReadyState :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Number
+
+    unsafeResponse :: forall eff a. XMLHttpRequest -> Eff (dom :: DOM | eff) a
+
+    unsafeResponseType :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
+
+    unsafeSend :: forall eff. Fn1 XMLHttpRequest (Eff (dom :: DOM | eff) Unit)
+
+    unsafeSendWithPayload :: forall eff a. Fn2 XMLHttpRequest a (Eff (dom :: DOM | eff) Unit)
+
+    unsafeSetResponseType :: forall eff. Fn2 XMLHttpRequest String (Eff (dom :: DOM | eff) Unit)
 
 
 ## Module Data.DOM.Simple.Unsafe.Document
