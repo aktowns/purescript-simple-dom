@@ -22,7 +22,7 @@
     "purescript-maybe": "*",
     "purescript-foldable-traversable": "*",
     "purescript-tuples": "~0.2.1",
-    "purescript-strings": "~0.3.3"
+    "purescript-strings": "~0.4.0"
   },
   "devDependencies": {
     "purescript-math": "*",
