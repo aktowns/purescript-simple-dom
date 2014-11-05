@@ -30,7 +30,7 @@ foreign import unsafeSetLocation
   "function unsafeSetLocation(value) {  \
   \  return function (loc) {            \
   \    return function () {             \
-  \      location = value;              \
+  \      location.assign(value);        \
   \    };                               \
   \  };                                 \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
