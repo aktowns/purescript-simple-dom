@@ -27,6 +27,8 @@ class Element b where
   setInnerHTML           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
   textContent            :: forall eff. b -> (Eff (dom :: DOM | eff) String)
   setTextContent         :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  value                  :: forall eff. b -> (Eff (dom :: DOM | eff) String)
+  setValue               :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
   contentWindow          :: forall eff. b -> (Eff (dom :: DOM | eff) HTMLWindow)
   classRemove            :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
   classAdd               :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
@@ -48,6 +50,8 @@ instance htmlElement :: Element HTMLElement where
   setInnerHTML            = unsafeSetInnerHTML
   textContent             = unsafeTextContent
   setTextContent          = unsafeSetTextContent
+  value                   = unsafeValue
+  setValue                = unsafeSetValue
   contentWindow           = unsafeContentWindow
   classRemove             = unsafeClassRemove
   classAdd                = unsafeClassAdd

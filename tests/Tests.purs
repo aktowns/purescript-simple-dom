@@ -32,6 +32,10 @@ checkContents shouldBe element = do
   contents <- textContent (element :: HTMLElement)
   quickCheck' 1 $ contents == shouldBe
 
+checkValue shouldBe element = do
+  val <- value (element :: HTMLElement)
+  quickCheck' 1 $ val == shouldBe
+
 main = do
   doc <- document globalWindow
 
@@ -79,6 +83,15 @@ main = do
   setTextContent "Hello" testDiv1
 
   checkContents "Hello" testDiv1
+
+
+  trace "Able to modify a form element's value"
+
+  Just testInput1 <- getElementById "input1" doc
+
+  setValue "foo bar baz" testInput1
+
+  checkValue "foo bar baz" testInput1
 
 
   trace "Able to set an attribute on an element"

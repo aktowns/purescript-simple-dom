@@ -130,6 +130,23 @@ foreign import unsafeSetTextContent
   \  };                                     \
   \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
+foreign import unsafeValue
+  "function unsafeValue(src) {              \
+  \  return function () {                   \
+  \    return src.value;                    \
+  \  };                                     \
+  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
+
+foreign import unsafeSetValue
+  "function unsafeSetValue(value) {         \
+  \  return function (src) {                \
+  \    return function () {                 \
+  \      src.value = value;                 \
+  \      return {};                         \
+  \    };                                   \
+  \  };                                     \
+  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+
 foreign import unsafeContentWindow
   "function unsafeContentWindow(obj) {  \
   \  return function () {               \
