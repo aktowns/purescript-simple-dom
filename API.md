@@ -133,6 +133,8 @@
       setInnerHTML :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
       textContent :: forall eff. b -> Eff (dom :: DOM | eff) String
       setTextContent :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
+      value :: forall eff. b -> Eff (dom :: DOM | eff) String
+      setValue :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
       contentWindow :: forall eff. b -> Eff (dom :: DOM | eff) HTMLWindow
       classRemove :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
       classAdd :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
@@ -417,7 +419,11 @@
 
     unsafeSetTextContent :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
 
+    unsafeSetValue :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
+
     unsafeTextContent :: forall eff a. a -> Eff (dom :: DOM | eff) String
+
+    unsafeValue :: forall eff a. a -> Eff (dom :: DOM | eff) String
 
 
 ## Module Data.DOM.Simple.Unsafe.Events

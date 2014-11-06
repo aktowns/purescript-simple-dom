@@ -29,6 +29,8 @@ instance htmlDocumentElement :: Element HTMLDocument where
   setInnerHTML            = unsafeSetInnerHTML
   textContent             = unsafeTextContent
   setTextContent          = unsafeSetTextContent
+  value                   = unsafeValue
+  setValue                = unsafeSetValue
   contentWindow           = unsafeContentWindow
   classRemove             = unsafeClassRemove
   classAdd                = unsafeClassAdd
