@@ -2,16 +2,19 @@ module Data.DOM.Simple.Unsafe.Utils where
 
 import Data.Maybe
 
-forceImport = Just "a"
+foreign import ensure3
+  "function ensure3(nothing) { \
+  \  return function(just) { \
+  \    return function(v) { \
+  \      if (v === undefined || v === null) \
+  \        return nothing; \
+  \      else \
+  \        return just(v); \
+  \    } \
+  \ } \
+  \}" :: forall a. Maybe a -> (a -> Maybe a) -> a -> Maybe a
 
-foreign import ensure
-  "function ensure(v) {                         \
-  \  if (v === undefined || v === null) {       \
-  \    return new PS.Data_Maybe.Nothing;           \
-  \  } else {                                   \
-  \    return new PS.Data_Maybe.Just(v);           \
-  \  }                                          \
-  \}" :: forall a. a -> Maybe a
+ensure = ensure3 Nothing Just
 
 foreign import showImpl
   "function showImpl(v) {   \
