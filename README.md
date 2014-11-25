@@ -16,18 +16,18 @@ Module documentation is available [here](API.md)
 ```haskell
 setContents contents = do
   -- doc = window.document
-  doc <- getDocument globalWindow
+  doc <- document globalWindow
   -- iframe = doc.querySelector("#siteFrame")
   iframe <- querySelector "#siteFrame" doc
   -- iframeDoc = iframe.contentWindow.document
-  iframeDoc <- (contentWindow iframe) >>= getDocument
+  iframeDoc <- (contentWindow iframe) >>= document
   -- iframeDoc.querySelector("html").innerHTML = contents
   querySelector "html" iframeDoc >>= setInnerHTML contents
 
 -- or a little shorter
 setContents' contents = do
-  getDocument globalWindow >>= querySelector "#siteFrame" >>=
-    contentWindow >>= getDocument >>= querySelector "html" >>=
+  document globalWindow >>= querySelector "#siteFrame" >>=
+    contentWindow >>= document >>= querySelector "html" >>=
       setInnerHTML contents
 ```
 
@@ -67,7 +67,7 @@ makeGetRequest url callback = do
 -- retrieve the content and place it inside the div
 requestContent = do
   let url = "http://myendpoint.com/"
-  doc <- getDocument globalWindow
+  doc <- document globalWindow
 
   makeGetRequest url $ \resp -> do
     querySelector "#myDiv" doc >>= setInnerHtml resp
