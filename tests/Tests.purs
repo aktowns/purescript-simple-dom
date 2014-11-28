@@ -13,6 +13,7 @@ import Data.DOM.Simple.Window
 import Data.DOM.Simple.Encode
 import Data.DOM.Simple.Ajax
 import Data.DOM.Simple.Events
+import Data.DOM.Simple.Navigator
 
 import Test.QuickCheck
 
@@ -93,7 +94,6 @@ main = do
 
   checkValue "foo bar baz" testInput1
 
-
   trace "Able to set an attribute on an element"
 
   setAttribute "data-test" "hello" testDiv1
@@ -109,6 +109,16 @@ main = do
   removeAttribute "data-test" testDiv1
   testDiv1HasAttribute' <- hasAttribute "data-test" testDiv1
   quickCheck' 1 $ testDiv1HasAttribute' == false
+
+  navigator <- navigator globalWindow
+  trace "Able to receive the appName from navigator"
+  appName navigator >>= (\name -> quickCheck' 1 $ name == "Node.js jsDom")
+  trace "Able to receive the appVersion from navigator"
+  appVersion navigator >>= (\name -> quickCheck' 1 $ name == "Node.js jsDom")
+  trace "Able to receive the language from navigator"
+  language navigator >>= (\name -> quickCheck' 1 $ name == "en-US")
+  trace "Able to receive the userAgent from navigator"
+  userAgent navigator >>= (\name -> quickCheck' 1 $ name == "Mozilla/5.0 Chrome/10.0.613.0 Safari/534.15 Zombie.js/2.0.0-alpha31")
 
   -- Unavailable in Zombie
   -- trace "Able to add a class"
