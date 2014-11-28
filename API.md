@@ -51,7 +51,7 @@
       MozChunkedText :: ResponseType
       MozChunkedArrayBuffer :: ResponseType
 
-    type Url = String
+    type Url  = String
 
 
 ### Type Class Instances
@@ -293,6 +293,25 @@
     toKeyLocation :: Number -> KeyLocation
 
 
+## Module Data.DOM.Simple.Navigator
+
+### Type Classes
+
+    class Navigator b where
+      appName :: forall eff. b -> Eff (dom :: DOM | eff) String
+      appVersion :: forall eff. b -> Eff (dom :: DOM | eff) String
+      appCodeName :: forall eff. b -> Eff (dom :: DOM | eff) String
+      language :: forall eff. b -> Eff (dom :: DOM | eff) String
+      platform :: forall eff. b -> Eff (dom :: DOM | eff) String
+      product :: forall eff. b -> Eff (dom :: DOM | eff) String
+      userAgent :: forall eff. b -> Eff (dom :: DOM | eff) String
+
+
+### Type Class Instances
+
+    instance domNavigator :: Navigator DOMNavigator
+
+
 ## Module Data.DOM.Simple.Sugar
 
 ### Type Classes
@@ -323,6 +342,8 @@
     data DOMEvent :: *
 
     data DOMLocation :: *
+
+    data DOMNavigator :: *
 
     data HTMLDocument :: *
 
@@ -453,6 +474,25 @@
     unsafeStopPropagation :: forall eff. DOMEvent -> Eff (dom :: DOM | eff) Unit
 
 
+## Module Data.DOM.Simple.Unsafe.Navigator
+
+### Values
+
+    unsafeAppCodeName :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+
+    unsafeAppName :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+
+    unsafeAppVersion :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+
+    unsafeLanguage :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+
+    unsafePlatform :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+
+    unsafeProduct :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+
+    unsafeUserAgent :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+
+
 ## Module Data.DOM.Simple.Unsafe.Sugar
 
 ### Values
@@ -464,7 +504,7 @@
 
 ### Values
 
-    ensure :: forall a. a -> Maybe a
+    ensure3 :: forall a. Maybe a -> (a -> Maybe a) -> a -> Maybe a
 
     showImpl :: forall a. a -> String
 
@@ -487,6 +527,8 @@
 
     unsafeLocation :: forall eff a. a -> Eff (dom :: DOM | eff) DOMLocation
 
+    unsafeNavigator :: forall eff a. a -> Eff (dom :: DOM | eff) DOMNavigator
+
     unsafeSetInterval :: forall eff b. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
 
     unsafeSetLocation :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
@@ -505,6 +547,7 @@
 
     class Window b where
       document :: forall eff. b -> Eff (dom :: DOM | eff) HTMLDocument
+      navigator :: forall eff. b -> Eff (dom :: DOM | eff) DOMNavigator
       location :: forall eff. b -> Eff (dom :: DOM | eff) DOMLocation
       setTimeout :: forall eff. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
       setInterval :: forall eff. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
