@@ -16,6 +16,7 @@ class Location b where
 
 class Window b where
   document     :: forall eff. b -> (Eff (dom :: DOM | eff) HTMLDocument)
+  navigator    :: forall eff. b -> (Eff (dom :: DOM | eff) DOMNavigator)
   location     :: forall eff. b -> (Eff (dom :: DOM | eff) DOMLocation)
   setTimeout   :: forall eff. b -> Number -> Eff eff Unit -> (Eff (dom :: DOM | eff) Timeout)
   setInterval  :: forall eff. b -> Number -> Eff eff Unit -> (Eff (dom :: DOM | eff) Timeout)
@@ -25,6 +26,7 @@ class Window b where
 
 instance htmlWindow :: Window HTMLWindow where
   document = unsafeDocument
+  navigator = unsafeNavigator
   location = unsafeLocation
   setTimeout   = unsafeSetTimeout
   setInterval  = unsafeSetInterval
