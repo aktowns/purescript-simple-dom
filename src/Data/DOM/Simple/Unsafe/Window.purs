@@ -11,6 +11,13 @@ foreign import unsafeDocument
   \  };                              \
   \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLDocument)
 
+foreign import unsafeNavigator
+  "function unsafeNavigator(win) {   \
+  \  return function () {            \
+  \    return win.navigator;         \
+  \  };                              \
+  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) DOMNavigator)
+
 foreign import unsafeLocation
   "function unsafeLocation(win) {   \
   \  return function () {           \

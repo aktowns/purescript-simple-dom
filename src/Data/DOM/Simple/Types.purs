@@ -8,6 +8,7 @@ foreign import data HTMLElement       :: *
 foreign import data HTMLDocument      :: *
 foreign import data HTMLWindow        :: *
 foreign import data XMLHttpRequest    :: *
+foreign import data DOMNavigator      :: *
 foreign import data DOMEvent          :: *
 foreign import data DOMLocation       :: *
 foreign import data JavascriptContext :: *
