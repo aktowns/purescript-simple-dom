@@ -10,16 +10,18 @@ foreign import decodeURI :: String -> String
 
 -- | Given an object, convert it into URL parameters.
 foreign import paramatize
-  "function paramatize(obj) {                           \
-  \  return Object.keys(obj).map(function(key) {        \
-  \    return key + '=' + encodeURIComponent(obj[key]); \
-  \  }).join('&');                                      \
-  \}" :: forall a. a -> String
+  """
+  function paramatize(obj) {
+    return Object.keys(obj).map(function(key) {
+      return key + '=' + encodeURIComponent(obj[key]);
+    }).join('&');
+  }""" :: forall a. a -> String
 
 -- | Given an object, convert it into a JSON string
 foreign import toJsonString
-  "function toJsonString(obj) {        \
-  \  return function () {           \
-  \    return JSON.stringify(obj);  \
-  \  };                             \
-  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
+  """
+  function toJsonString(obj) {
+    return function () {
+      return JSON.stringify(obj);
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
