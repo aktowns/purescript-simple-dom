@@ -5,14 +5,16 @@ import Data.Function
 
 import Data.DOM.Simple.Types
 
-foreign import unsafeReadyState """
+foreign import unsafeReadyState
+  """
   function unsafeReadyState(obj) {
     return function () {
       return obj.readyState;
     };
   }""" :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Number
 
-foreign import unsafeOnReadyStateChange """
+foreign import unsafeOnReadyStateChange
+  """
   function unsafeOnReadyStateChange(obj, fn) {
     return function () {
       obj.onreadystatechange = fn;
@@ -20,7 +22,8 @@ foreign import unsafeOnReadyStateChange """
     };
   }""" :: forall eff e. Fn2 XMLHttpRequest (Eff e Unit) (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeOpen """
+foreign import unsafeOpen
+  """
   function unsafeOpen(obj, method, url) {
     return function () {
       obj.open(method, url);
@@ -28,7 +31,8 @@ foreign import unsafeOpen """
     };
   }""" :: forall eff. Fn3 XMLHttpRequest String String (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeSend """
+foreign import unsafeSend
+  """
   function unsafeSend(obj) {
     return function () {
       obj.send();
@@ -36,7 +40,8 @@ foreign import unsafeSend """
     };
   }""" :: forall eff. Fn1 XMLHttpRequest (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeSendWithPayload """
+foreign import unsafeSendWithPayload
+  """
   function unsafeSendWithPayload(obj, payload) {
     return function () {
       obj.send(payload);
@@ -44,7 +49,8 @@ foreign import unsafeSendWithPayload """
     };
   }""" :: forall eff a. Fn2 XMLHttpRequest a (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeSetResponseType """
+foreign import unsafeSetResponseType
+  """
   function unsafeSetResponseType(obj, rt) {
     return function () {
       obj.responseType = rt;
@@ -52,24 +58,26 @@ foreign import unsafeSetResponseType """
     };
   }""" :: forall eff. Fn2 XMLHttpRequest String (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeResponseType """
+foreign import unsafeResponseType
+  """
   function unsafeResponseType(obj) {
     return function () {
       return obj.responseType;
     };
   }""" :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
 
-foreign import unsafeResponse """
+foreign import unsafeResponse
+  """
   function unsafeResponse(obj) {
     return function () {
       return obj.response;
     };
   }""" :: forall eff a. XMLHttpRequest -> Eff (dom :: DOM | eff) a
 
-foreign import unsafeGetResponseHeader """
+foreign import unsafeGetResponseHeader
+  """
   function unsafeGetResponseHeader(obj, key) {
     return function () {
       return obj.getResponseHeader(key);
     };
   }""" :: forall eff a. Fn2 XMLHttpRequest String (Eff (dom :: DOM | eff) String)
-

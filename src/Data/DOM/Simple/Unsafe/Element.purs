@@ -5,196 +5,218 @@ import Control.Monad.Eff
 import Data.DOM.Simple.Types
 
 foreign import unsafeGetElementById
-  "function unsafeGetElementById(targ_id) {      \
-  \  return function (src) {                     \
-  \    return function () {                      \
-  \      return src.getElementById(targ_id);     \
-  \    };                                        \
-  \  };                                          \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
+  """
+  function unsafeGetElementById(targ_id) {
+    return function (src) {
+      return function () {
+        return src.getElementById(targ_id);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
 
 foreign import unsafeGetElementsByClassName
-  "function unsafeGetElementsByClassName(targ_id) {   \
-  \  return function (src) {                          \
-  \    return function () {                           \
-  \      return src.getElementsByClassName(targ_id);  \
-  \    };                                             \
-  \  }                                                \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
+  """
+  function unsafeGetElementsByClassName(targ_id) {
+    return function (src) {
+      return function () {
+        return src.getElementsByClassName(targ_id);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
 
 foreign import unsafeGetElementsByName
-  "function unsafeGetElementsByName(targ_id) {      \
-  \  return function (src) {                        \
-  \    return function () {                         \
-  \      return src.getElementsByName(targ_id);     \
-  \    };                                           \
-  \  };                                             \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
+  """
+  function unsafeGetElementsByName(targ_id) {
+    return function (src) {
+      return function () {
+        return src.getElementsByName(targ_id);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
 
 foreign import unsafeQuerySelector
-  "function unsafeQuerySelector(selector) {   \
-  \  return function (src) {                  \
-  \    return function () {                   \
-  \      return src.querySelector(selector);  \
-  \    };                                     \
-  \  };                                       \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
+  """
+  function unsafeQuerySelector(selector) {
+    return function (src) {
+      return function () {
+        return src.querySelector(selector);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
 
 foreign import unsafeQuerySelectorAll
-  "function unsafeQuerySelectorAll(selector) {  \
-  \  return function (src) {                    \
-  \    return function () {                     \
-  \      return src.querySelectorAll(selector); \
-  \    };                                       \
-  \  };                                         \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
+  """
+  function unsafeQuerySelectorAll(selector) {
+    return function (src) {
+      return function () {
+        return src.querySelectorAll(selector);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
 
 foreign import unsafeGetAttribute
-  "function unsafeGetAttribute(name) {      \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      return src.getAttribute(name);     \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) String)
+  """
+  function unsafeGetAttribute(name) {
+    return function (src) {
+      return function () {
+        return src.getAttribute(name);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) String)
 
 foreign import unsafeSetAttribute
-  "function unsafeSetAttribute(name) {      \
-  \  return function (value) {              \
-  \    return function (src) {              \
-  \      return function () {               \
-  \        src.setAttribute(name, value);   \
-  \        return {};                       \
-  \      };                                 \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> String -> a -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function unsafeSetAttribute(name) {
+    return function (value) {
+      return function (src) {
+        return function () {
+          src.setAttribute(name, value);
+          return {};
+        };
+      };
+    };
+  }""" :: forall eff a. String -> String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeHasAttribute
-  "function unsafeHasAttribute(name) {      \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      return src.hasAttribute(name);     \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Boolean)
+  """
+  function unsafeHasAttribute(name) {
+    return function (src) {
+      return function () {
+        return src.hasAttribute(name);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Boolean)
 
 foreign import unsafeRemoveAttribute
-  "function unsafeRemoveAttribute(name) {   \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.removeAttribute(name);         \
-  \      return {};                         \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function unsafeRemoveAttribute(name) {
+    return function (src) {
+      return function () {
+        src.removeAttribute(name);
+        return {};
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeChildren
-  "function unsafeChildren(src) {           \
-  \    return function () {                 \
-  \      return src.children;               \
-  \  };                                     \
-  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) [HTMLElement])
+  """
+  function unsafeChildren(src) {
+    return function () {
+      return src.children;
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) [HTMLElement])
 
 foreign import unsafeInnerHTML
-  "function unsafeInnerHTML(src) {          \
-  \  return function () {                   \
-  \    return src.innerHTML;                \
-  \  };                                     \
-  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
+  """
+  function unsafeInnerHTML(src) {
+    return function () {
+      return src.innerHTML;
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 
 foreign import unsafeSetInnerHTML
-  "function unsafeSetInnerHTML(value) {     \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.innerHTML = value;             \
-  \      return {};                         \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function unsafeSetInnerHTML(value) {
+    return function (src) {
+      return function () {
+        src.innerHTML = value;
+        return {};
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeTextContent
-  "function unsafeTextContent(src) {        \
-  \  return function () {                   \
-  \    return src.textContent;              \
-  \  };                                     \
-  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
+  """
+  function unsafeTextContent(src) {
+    return function () {
+      return src.textContent;
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 
 foreign import unsafeSetTextContent
-  "function unsafeSetTextContent(value) {   \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.textContent = value;           \
-  \      return {};                         \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function unsafeSetTextContent(value) {
+    return function (src) {
+      return function () {
+        src.textContent = value;
+        return {};
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeValue
-  "function unsafeValue(src) {              \
-  \  return function () {                   \
-  \    return src.value;                    \
-  \  };                                     \
-  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
+  """
+  function unsafeValue(src) {
+    return function () {
+      return src.value;
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 
 foreign import unsafeSetValue
-  "function unsafeSetValue(value) {         \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.value = value;                 \
-  \      return {};                         \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function unsafeSetValue(value) {
+    return function (src) {
+      return function () {
+        src.value = value;
+        return {};
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeContentWindow
-  "function unsafeContentWindow(obj) {  \
-  \  return function () {               \
-  \    return obj.contentWindow;        \
-  \  };                                 \
-  \}" :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLWindow)
+  """
+  function unsafeContentWindow(obj) {
+    return function () {
+      return obj.contentWindow;
+    };
+  }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLWindow)
 
 
 foreign import unsafeClassAdd
-  "function unsafeClassAdd(value) {         \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.classList.add(value);          \
-  \      return {};                         \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function unsafeClassAdd(value) {
+    return function (src) {
+      return function () {
+        src.classList.add(value);
+        return {};
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeClassRemove
-  "function unsafeClassRemove(value) {      \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.classList.remove(value);       \
-  \      return {};                         \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function unsafeClassRemove(value) {
+    return function (src) {
+      return function () {
+        src.classList.remove(value);
+        return {};
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeClassToggle
-  "function unsafeClassToggle(value) {      \
-  \  return function (src) {                \
-  \    return function () {                 \
-  \      src.classList.toggle(value);       \
-  \      return {};                         \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function unsafeClassToggle(value) {
+    return function (src) {
+      return function () {
+        src.classList.toggle(value);
+        return {};
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeClassContains
-  "function unsafeClassContains(value) {        \
-  \  return function (src) {                    \
-  \    return function () {                     \
-  \      return src.classList.contains(value);  \
-  \    };                                       \
-  \  };                                         \
-  \}" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Boolean)
+  """
+  function unsafeClassContains(value) {
+    return function (src) {
+      return function () {
+        return src.classList.contains(value);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Boolean)
 
-foreign import unsafeClick """
+foreign import unsafeClick
+  """
   function unsafeClick(src) {
     return function () {
       src.click();
@@ -202,7 +224,8 @@ foreign import unsafeClick """
     };
   }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeFocus """
+foreign import unsafeFocus
+  """
   function unsafeFocus(src) {
     return function () {
       src.focus();
@@ -210,7 +233,8 @@ foreign import unsafeFocus """
     };
   }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeBlur """
+foreign import unsafeBlur
+  """
   function unsafeBlur(src) {
     return function () {
       src.blur();

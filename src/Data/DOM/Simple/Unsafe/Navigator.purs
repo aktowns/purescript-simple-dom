@@ -10,8 +10,7 @@ foreign import unsafeAppName
     return function () {
       return navi.appName;
     };
-  }
-  """ ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+  }""" ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
 
 foreign import unsafeAppVersion
   """
@@ -19,7 +18,7 @@ foreign import unsafeAppVersion
     return function () {
       return navi.appName;
     };
-  } """ ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+  }""" ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
 
 foreign import unsafeAppCodeName
   """
@@ -27,7 +26,7 @@ foreign import unsafeAppCodeName
     return function () {
       return navi.appCodeName;
     };
-  } """ ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+  }""" ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
 
 foreign import unsafeLanguage
   """
@@ -35,7 +34,7 @@ foreign import unsafeLanguage
     return function () {
       return navi.language;
     };
-  } """ ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+  }""" ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
 
 foreign import unsafePlatform
   """
@@ -43,7 +42,7 @@ foreign import unsafePlatform
     return function () {
       return navi.platform;
     };
-  } """ ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+  }""" ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
 
 foreign import unsafeProduct
   """
@@ -51,7 +50,7 @@ foreign import unsafeProduct
     return function () {
       return navi.product;
     };
-  } """ ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+  }""" ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
 
 foreign import unsafeUserAgent
   """
@@ -59,4 +58,4 @@ foreign import unsafeUserAgent
     return function () {
       return navi.userAgent;
     };
-  } """ ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+  }""" ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String

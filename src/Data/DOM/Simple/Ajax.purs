@@ -78,7 +78,8 @@ instance showResponseType :: Show ResponseType where
   show MozChunkedText = "moz-chunked-text"
   show MozChunkedArrayBuffer = "moz-chunked-arraybuffer"
 
-foreign import maybeFn """
+foreign import maybeFn
+  """
   function maybeFn(nothing, just, a) {
     return a == null ? nothing : just(a);
   }""" :: forall a b. Fn3 b (a -> b) a b
@@ -87,9 +88,10 @@ maybe :: forall a. a -> Maybe a
 maybe = runFn3 maybeFn Nothing Just
 
 foreign import makeXMLHttpRequest
-  "function makeXMLHttpRequest() {  \
-  \  return new XMLHttpRequest();   \
-  \}" :: forall eff. (Eff (dom :: DOM | eff) XMLHttpRequest)
+  """
+  function makeXMLHttpRequest() {
+    return new XMLHttpRequest();
+  }""" :: forall eff. (Eff (dom :: DOM | eff) XMLHttpRequest)
 
 readyState :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) ReadyState
 readyState x = do
@@ -152,13 +154,15 @@ response x = do
     get t = runFn3 maybeFn NoData t <$> unsafeResponse x
 
 foreign import responseText
-  "function responseText(obj) {         \
-  \    return function () {             \
-  \      return obj.responseText;       \
-  \  };                                 \
-  \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
+  """
+  function responseText(obj) {
+      return function () {
+        return obj.responseText;
+    };
+  }""" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
 
-foreign import status """
+foreign import status
+  """
   function status(obj) {
     return function () {
       return obj.status;
@@ -166,40 +170,44 @@ foreign import status """
   }""" :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Number
 
 foreign import statusText
-  "function statusText(obj) {         \
-  \    return function () {           \
-  \      return obj.statusText;       \
-  \  };                               \
-  \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
+  """
+  function statusText(obj) {
+      return function () {
+        return obj.statusText;
+    };
+  }""" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
 
 foreign import setRequestHeader
-  "function setRequestHeader(key) {           \
-  \   return function (value) {               \
-  \     return function (obj) {               \
-  \       return function () {                \
-  \         obj.setRequestHeader(key, value); \
-  \         return {};                        \
-  \       }                                   \
-  \     }                                     \
-  \   }                                       \
-  \}" :: forall eff. String -> String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function setRequestHeader(key) {
+     return function (value) {
+       return function (obj) {
+         return function () {
+           obj.setRequestHeader(key, value);
+           return {};
+         };
+       };
+     };
+  }""" :: forall eff. String -> String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import getAllResponseHeaders
-  "function getAllResponseHeaders(obj) {     \
-  \  return function () {                    \
-  \    return obj.getAllResponseHeaders();   \
-  \  };                                      \
-  \}" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
+  """
+  function getAllResponseHeaders(obj) {
+    return function () {
+      return obj.getAllResponseHeaders();
+    };
+  }""" :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
 
 getResponseHeader :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | eff) (Maybe String)
 getResponseHeader k x = maybe <$> runFn2 unsafeGetResponseHeader x k
 
 foreign import overrideMimeType
-  "function overrideMimeType(mime) {        \
-  \  return function (obj) {                \
-  \    return function () {                 \
-  \      obj.overrideMimeType(mine); \
-  \      return {}; \
-  \    };                                   \
-  \  };                                     \
-  \}" :: forall eff. String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
+  """
+  function overrideMimeType(mime) {
+    return function (obj) {
+      return function () {
+        obj.overrideMimeType(mine);
+        return {};
+      };
+    };
+  }""" :: forall eff. String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
