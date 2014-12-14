@@ -1,5 +1,6 @@
 module Data.DOM.Simple.Unsafe.Ajax where
 
+import DOM
 import Control.Monad.Eff
 import Data.Function
 

@@ -1,5 +1,6 @@
 module Data.DOM.Simple.Unsafe.Events where
 
+import DOM
 import Control.Monad.Eff
 
 import Data.DOM.Simple.Types

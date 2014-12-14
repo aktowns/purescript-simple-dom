@@ -1,6 +1,7 @@
 module Data.DOM.Simple.Unsafe.Sugar where
 
 import Control.Monad.Eff
+import DOM
 
 import Data.DOM.Simple.Element
 import Data.DOM.Simple.Types

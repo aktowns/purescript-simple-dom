@@ -51,7 +51,7 @@
       MozChunkedText :: ResponseType
       MozChunkedArrayBuffer :: ResponseType
 
-    type Url  = String
+    type Url = String
 
 
 ### Type Class Instances
@@ -336,8 +336,6 @@
 ## Module Data.DOM.Simple.Types
 
 ### Types
-
-    data DOM :: !
 
     data DOMEvent :: *
 

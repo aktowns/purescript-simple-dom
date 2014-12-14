@@ -18,6 +18,7 @@
   ],
   "main": [],
   "dependencies": {
+    "purescript-dom": "*",
     "purescript-arrays": "*",
     "purescript-maybe": "*",
     "purescript-foldable-traversable": "*",
