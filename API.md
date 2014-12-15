@@ -51,7 +51,7 @@
       MozChunkedText :: ResponseType
       MozChunkedArrayBuffer :: ResponseType
 
-    type Url  = String
+    type Url = String
 
 
 ### Type Class Instances
@@ -529,11 +529,11 @@
 
     unsafeNavigator :: forall eff a. a -> Eff (dom :: DOM | eff) DOMNavigator
 
-    unsafeSetInterval :: forall eff b. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
+    unsafeSetInterval :: forall eff b. b -> Number -> Eff (dom :: DOM | eff) Unit -> Eff (dom :: DOM | eff) Timeout
 
     unsafeSetLocation :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
 
-    unsafeSetTimeout :: forall eff b. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
+    unsafeSetTimeout :: forall eff b. b -> Number -> Eff (dom :: DOM | eff) Unit -> Eff (dom :: DOM | eff) Timeout
 
 
 ## Module Data.DOM.Simple.Window
@@ -549,8 +549,8 @@
       document :: forall eff. b -> Eff (dom :: DOM | eff) HTMLDocument
       navigator :: forall eff. b -> Eff (dom :: DOM | eff) DOMNavigator
       location :: forall eff. b -> Eff (dom :: DOM | eff) DOMLocation
-      setTimeout :: forall eff. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
-      setInterval :: forall eff. b -> Number -> Eff eff Unit -> Eff (dom :: DOM | eff) Timeout
+      setTimeout :: forall eff. b -> Number -> Eff (dom :: DOM | eff) Unit -> Eff (dom :: DOM | eff) Timeout
+      setInterval :: forall eff. b -> Number -> Eff (dom :: DOM | eff) Unit -> Eff (dom :: DOM | eff) Timeout
       clearTimeout :: forall eff. b -> Timeout -> Eff (dom :: DOM | eff) Unit
       innerWidth :: forall eff. b -> Eff (dom :: DOM | eff) Number
       innerHeight :: forall eff. b -> Eff (dom :: DOM | eff) Number
