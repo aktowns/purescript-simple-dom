@@ -1,3 +1,5 @@
+[![Build Status](http://hades.avoidinspace.com:8080/api/badge/github.com/aktowns/purescript-simple-dom/status.svg?branch=master)](http://hades.avoidinspace.com:8080/github.com/aktowns/purescript-simple-dom)
+
 # purescript-simple-dom
 
 ### About
