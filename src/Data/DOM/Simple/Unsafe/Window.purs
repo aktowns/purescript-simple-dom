@@ -66,7 +66,7 @@ foreign import unsafeSetTimeout
         };
       };
     };
-  }""" :: forall eff b. b -> Number -> Eff eff Unit -> (Eff (dom :: DOM | eff) Timeout)
+  }""" :: forall eff b. b -> Number -> Eff (dom :: DOM | eff) Unit -> (Eff (dom :: DOM | eff) Timeout)
 
 foreign import unsafeSetInterval
   """
@@ -78,7 +78,7 @@ foreign import unsafeSetInterval
         };
       };
     };
-  }""" :: forall eff b. b -> Number -> Eff eff Unit -> (Eff (dom :: DOM | eff) Timeout)
+  }""" :: forall eff b. b -> Number -> Eff (dom :: DOM | eff) Unit -> (Eff (dom :: DOM | eff) Timeout)
 
 foreign import unsafeClearTimeout
   """
