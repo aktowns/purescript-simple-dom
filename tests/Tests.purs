@@ -14,6 +14,7 @@ import Data.DOM.Simple.Encode
 import Data.DOM.Simple.Ajax
 import Data.DOM.Simple.Events
 import Data.DOM.Simple.Navigator
+import qualified Data.DOM.Simple.NodeList as NL
 
 import Test.QuickCheck
 
@@ -78,6 +79,19 @@ main = do
   checkTagName "TEST3" testDiv3
   checkContents "testContent3" testDiv3
 
+  testDivs <- querySelectorAll "div" doc
+
+  trace "Able to count items in a nodelist"
+  NL.length testDivs >>= (\len -> quickCheck' 1 $ len == 2)
+
+  trace "Able to retrieve an item from a nodelist"
+  Just testDiv4 <- NL.item 0 testDivs
+  checkTagName "DIV" testDiv4
+
+  trace "Able to convert a nodelist into an array"
+  nl1 <- NL.nodeListToArray testDivs
+  nl2 <- NL.nodeListToArray' testDivs
+  quickCheck' 1 $ length nl1 == length nl2
 
   trace "Able to modify an elements contents"
 

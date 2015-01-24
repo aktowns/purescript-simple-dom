@@ -53,7 +53,7 @@ foreign import unsafeQuerySelectorAll
         return src.querySelectorAll(selector);
       };
     };
-  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) NodeList)
 
 foreign import unsafeGetAttribute
   """

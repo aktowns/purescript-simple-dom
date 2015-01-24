@@ -12,13 +12,12 @@ import Data.Maybe
 import qualified Data.Array as A
 import qualified Data.Tuple as T
 
-
 class Element b where
   getElementById         :: forall eff. String -> b -> (Eff (dom :: DOM | eff) (Maybe HTMLElement))
   getElementsByClassName :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
   getElementsByName      :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
   querySelector          :: forall eff. String -> b -> (Eff (dom :: DOM | eff) (Maybe HTMLElement))
-  querySelectorAll       :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
+  querySelectorAll       :: forall eff. String -> b -> (Eff (dom :: DOM | eff) NodeList)
   getAttribute           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) String)
   setAttribute           :: forall eff. String -> String -> b -> (Eff (dom :: DOM | eff) Unit)
   hasAttribute           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Boolean)

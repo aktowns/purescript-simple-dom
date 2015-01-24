@@ -123,7 +123,7 @@
       getElementsByClassName :: forall eff. String -> b -> Eff (dom :: DOM | eff) [HTMLElement]
       getElementsByName :: forall eff. String -> b -> Eff (dom :: DOM | eff) [HTMLElement]
       querySelector :: forall eff. String -> b -> Eff (dom :: DOM | eff) (Maybe HTMLElement)
-      querySelectorAll :: forall eff. String -> b -> Eff (dom :: DOM | eff) [HTMLElement]
+      querySelectorAll :: forall eff. String -> b -> Eff (dom :: DOM | eff) NodeList
       getAttribute :: forall eff. String -> b -> Eff (dom :: DOM | eff) String
       setAttribute :: forall eff. String -> String -> b -> Eff (dom :: DOM | eff) Unit
       hasAttribute :: forall eff. String -> b -> Eff (dom :: DOM | eff) Boolean
@@ -312,6 +312,27 @@
     instance domNavigator :: Navigator DOMNavigator
 
 
+## Module Data.DOM.Simple.NodeList
+
+### Type Classes
+
+    class NodeListInst b where
+      length :: forall eff. b -> Eff (dom :: DOM | eff) Number
+      item :: forall eff. Number -> b -> Eff (dom :: DOM | eff) (Maybe HTMLElement)
+
+
+### Type Class Instances
+
+    instance nodeList :: NodeListInst NodeList
+
+
+### Values
+
+    nodeListToArray :: forall eff. NodeList -> Eff (dom :: DOM | eff) [HTMLElement]
+
+    nodeListToArray' :: forall eff. NodeList -> Eff (dom :: DOM | eff) [HTMLElement]
+
+
 ## Module Data.DOM.Simple.Sugar
 
 ### Type Classes
@@ -428,7 +449,7 @@
 
     unsafeQuerySelector :: forall eff a. String -> a -> Eff (dom :: DOM | eff) HTMLElement
 
-    unsafeQuerySelectorAll :: forall eff a. String -> a -> Eff (dom :: DOM | eff) [HTMLElement]
+    unsafeQuerySelectorAll :: forall eff a. String -> a -> Eff (dom :: DOM | eff) NodeList
 
     unsafeRemoveAttribute :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
 
@@ -489,6 +510,17 @@
     unsafeProduct :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
 
     unsafeUserAgent :: forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
+
+
+## Module Data.DOM.Simple.Unsafe.NodeList
+
+### Values
+
+    unsafeNodeListItem :: forall eff. Number -> NodeList -> Eff (dom :: DOM | eff) HTMLElement
+
+    unsafeNodeListLength :: forall eff. NodeList -> Eff (dom :: DOM | eff) Number
+
+    unsafeNodeListToArray :: forall eff. NodeList -> Eff (dom :: DOM | eff) [HTMLElement]
 
 
 ## Module Data.DOM.Simple.Unsafe.Sugar
