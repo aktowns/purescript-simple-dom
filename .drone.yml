@@ -1,0 +1,9 @@
+image: biscarch/purescript:0.6.1.1
+git: 
+    path: github.com/aktowns/purescript-simple-dom
+script:
+    - sudo apt-get update 1> /dev/null 2> /dev/null
+    - npm install -g grunt-cli bower 
+    - npm install
+    - bower install
+    - grunt
