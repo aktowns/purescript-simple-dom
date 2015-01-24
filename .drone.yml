@@ -4,5 +4,5 @@ git:
 script:
     - npm install -g grunt-cli bower 
     - npm install
-    - bower install
+    - bower --allow-root install
     - grunt
