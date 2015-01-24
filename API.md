@@ -51,7 +51,7 @@
       MozChunkedText :: ResponseType
       MozChunkedArrayBuffer :: ResponseType
 
-    type Url  = String
+    type Url = String
 
 
 ### Type Class Instances

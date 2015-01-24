@@ -117,8 +117,6 @@ main = do
   appVersion navigator >>= (\name -> quickCheck' 1 $ name == "Node.js jsDom")
   trace "Able to receive the language from navigator"
   language navigator >>= (\name -> quickCheck' 1 $ name == "en-US")
-  trace "Able to receive the userAgent from navigator"
-  userAgent navigator >>= (\name -> quickCheck' 1 $ name == "Mozilla/5.0 Chrome/10.0.613.0 Safari/534.15 Zombie.js/2.0.0-alpha31")
 
   -- Unavailable in Zombie
   -- trace "Able to add a class"
