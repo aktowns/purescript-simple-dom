@@ -1,6 +1,7 @@
 {
   "name": "purescript-simple-dom",
-  "description": "learning",
+  "description": "A hopefully easy to use library for dealing with the DOM and general javascript APIs.",
+  "version": "0.0.1",
   "keywords": [
     "purescript"
   ],
