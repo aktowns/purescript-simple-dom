@@ -28,6 +28,7 @@ module Data.DOM.Simple.Ajax
 import Control.Monad.Eff
 import Data.Function
 import Data.Maybe (Maybe(..))
+import DOM
 
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Unsafe.Ajax

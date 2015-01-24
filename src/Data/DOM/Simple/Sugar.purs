@@ -21,6 +21,7 @@ import Data.DOM.Simple.Types
 import Data.DOM.Simple.Element
 import Data.DOM.Simple.Document
 import Data.DOM.Simple.Unsafe.Sugar
+import DOM
 
 class DOMArrows b where
   (#<-) :: forall eff. b -> (Tuple String String) -> (Eff (dom :: DOM | eff) Unit)

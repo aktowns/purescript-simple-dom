@@ -1,6 +1,7 @@
 module Data.DOM.Simple.Element where
 
 import Control.Monad.Eff
+import DOM
 
 import Data.DOM.Simple.Unsafe.Utils(ensure, showImpl)
 import Data.DOM.Simple.Unsafe.Element

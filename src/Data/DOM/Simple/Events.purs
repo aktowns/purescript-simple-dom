@@ -7,6 +7,7 @@ import Data.DOM.Simple.Types
 import Data.DOM.Simple.Window(document, globalWindow)
 import Data.DOM.Simple.Ajax
 import Data.DOM.Simple.Unsafe.Events
+import DOM
 
 -- XXX Should this be in the Prelude?
 class Read s where

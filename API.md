@@ -337,8 +337,6 @@
 
 ### Types
 
-    data DOM :: !
-
     data DOMEvent :: *
 
     data DOMLocation :: *
