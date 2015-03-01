@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks("grunt-execute")
+  grunt.loadNpmTasks("grunt-execute");
   grunt.loadNpmTasks("grunt-purescript");
 
   grunt.registerTask("test", ["pscMake:tests", "copy", "execute:tests"]);
