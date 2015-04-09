@@ -132,6 +132,9 @@ main = do
   trace "Able to receive the language from navigator"
   language navigator >>= (\name -> quickCheck' 1 $ name == "en-US")
 
+  trace "Able to append a child"
+  appendChild docBody testDiv1
+
   -- Unavailable in Zombie
   -- trace "Able to add a class"
 

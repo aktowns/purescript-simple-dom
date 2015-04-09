@@ -26,6 +26,7 @@ instance htmlDocumentElement :: Element HTMLDocument where
   hasAttribute            = unsafeHasAttribute
   removeAttribute         = unsafeRemoveAttribute
   children                = unsafeChildren
+  appendChild             = unsafeAppendChild
   innerHTML               = unsafeInnerHTML
   setInnerHTML            = unsafeSetInnerHTML
   textContent             = unsafeTextContent
