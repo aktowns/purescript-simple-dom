@@ -22,6 +22,8 @@ class Element b where
   setAttribute           :: forall eff. String -> String -> b -> (Eff (dom :: DOM | eff) Unit)
   hasAttribute           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Boolean)
   removeAttribute        :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
+  getStyleAttr           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) String)
+  setStyleAttr           :: forall eff. String -> String -> b -> (Eff (dom :: DOM | eff) Unit)
   children               :: forall eff. b -> (Eff (dom :: DOM | eff) [HTMLElement])
   innerHTML              :: forall eff. b -> (Eff (dom :: DOM | eff) String)
   setInnerHTML           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
@@ -45,6 +47,8 @@ instance htmlElement :: Element HTMLElement where
   setAttribute            = unsafeSetAttribute
   hasAttribute            = unsafeHasAttribute
   removeAttribute         = unsafeRemoveAttribute
+  getStyleAttr            = unsafeGetStyleAttr
+  setStyleAttr            = unsafeSetStyleAttr
   children                = unsafeChildren
   innerHTML               = unsafeInnerHTML
   setInnerHTML            = unsafeSetInnerHTML
@@ -63,6 +67,9 @@ instance showHtmlElement :: Show HTMLElement where
 
 setAttributes :: forall eff a. (Element a) => [(T.Tuple String String)] -> a -> (Eff (dom :: DOM | eff) Unit)
 setAttributes xs el = for_ xs (\kv -> setAttribute (T.fst kv) (T.snd kv) el)
+
+setStyleAttrs :: forall eff a. (Element a) => [(T.Tuple String String)] -> a -> (Eff (dom :: DOM | eff) Unit)
+setStyleAttrs xs el = for_ xs (\kv -> setStyleAttr (T.fst kv) (T.snd kv) el)
 
 click :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit
 click = unsafeClick

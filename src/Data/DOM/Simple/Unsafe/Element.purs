@@ -99,6 +99,29 @@ foreign import unsafeRemoveAttribute
     };
   }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
+foreign import unsafeGetStyleAttr
+  """
+  function unsafeGetStyleAttr(name) {
+    return function (src) {
+      return function () {
+        return src.style[name];
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) String)
+
+foreign import unsafeSetStyleAttr
+  """
+  function unsafeSetStyleAttr(name) {
+    return function (value) {
+      return function (src) {
+        return function () {
+          src.style[name] = value;
+          return {};
+        };
+      };
+    };
+  }""" :: forall eff a. String -> String -> a -> (Eff (dom :: DOM | eff) Unit)
+
 foreign import unsafeChildren
   """
   function unsafeChildren(src) {

@@ -124,6 +124,13 @@ main = do
   testDiv1HasAttribute' <- hasAttribute "data-test" testDiv1
   quickCheck' 1 $ testDiv1HasAttribute' == false
 
+  trace "Able to set a style attribute on an element"
+
+  setStyleAttr "color" "red" testDiv1
+  testDiv1StyleAttr <- getStyleAttr "color" testDiv1
+
+  quickCheck' 1 $ testDiv1StyleAttr == "red"
+
   navigator <- navigator globalWindow
   trace "Able to receive the appName from navigator"
   appName navigator >>= (\name -> quickCheck' 1 $ name == "Node.js jsDom")
