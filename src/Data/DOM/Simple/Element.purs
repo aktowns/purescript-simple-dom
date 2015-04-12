@@ -25,6 +25,7 @@ class Element b where
   getStyleAttr           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) String)
   setStyleAttr           :: forall eff. String -> String -> b -> (Eff (dom :: DOM | eff) Unit)
   children               :: forall eff. b -> (Eff (dom :: DOM | eff) [HTMLElement])
+  appendChild            :: forall eff. b -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
   innerHTML              :: forall eff. b -> (Eff (dom :: DOM | eff) String)
   setInnerHTML           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
   textContent            :: forall eff. b -> (Eff (dom :: DOM | eff) String)
@@ -50,6 +51,7 @@ instance htmlElement :: Element HTMLElement where
   getStyleAttr            = unsafeGetStyleAttr
   setStyleAttr            = unsafeSetStyleAttr
   children                = unsafeChildren
+  appendChild             = unsafeAppendChild
   innerHTML               = unsafeInnerHTML
   setInnerHTML            = unsafeSetInnerHTML
   textContent             = unsafeTextContent
