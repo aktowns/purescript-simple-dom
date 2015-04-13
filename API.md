@@ -267,6 +267,7 @@ class Element b where
   getStyleAttr :: forall eff. String -> b -> Eff (dom :: DOM | eff) String
   setStyleAttr :: forall eff. String -> String -> b -> Eff (dom :: DOM | eff) Unit
   children :: forall eff. b -> Eff (dom :: DOM | eff) [HTMLElement]
+  appendChild :: forall eff. b -> HTMLElement -> Eff (dom :: DOM | eff) Unit
   innerHTML :: forall eff. b -> Eff (dom :: DOM | eff) String
   setInnerHTML :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
   textContent :: forall eff. b -> Eff (dom :: DOM | eff) String
@@ -964,6 +965,13 @@ unsafeSetStyleAttr :: forall eff a. String -> String -> a -> Eff (dom :: DOM | e
 
 ``` purescript
 unsafeChildren :: forall eff a. a -> Eff (dom :: DOM | eff) [HTMLElement]
+```
+
+
+#### `unsafeAppendChild`
+
+``` purescript
+unsafeAppendChild :: forall eff a. a -> HTMLElement -> Eff (dom :: DOM | eff) Unit
 ```
 
 

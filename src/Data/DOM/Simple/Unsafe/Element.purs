@@ -130,6 +130,16 @@ foreign import unsafeChildren
     };
   }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) [HTMLElement])
 
+foreign import unsafeAppendChild
+  """
+  function unsafeAppendChild(src) {
+    return function (child) {
+      return function () {
+        return src.appendChild(child);
+      };
+    };
+  }""" :: forall eff a. a -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
+
 foreign import unsafeInnerHTML
   """
   function unsafeInnerHTML(src) {

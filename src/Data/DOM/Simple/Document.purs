@@ -28,6 +28,7 @@ instance htmlDocumentElement :: Element HTMLDocument where
   getStyleAttr            = unsafeGetStyleAttr
   setStyleAttr            = unsafeSetStyleAttr
   children                = unsafeChildren
+  appendChild             = unsafeAppendChild
   innerHTML               = unsafeInnerHTML
   setInnerHTML            = unsafeSetInnerHTML
   textContent             = unsafeTextContent
