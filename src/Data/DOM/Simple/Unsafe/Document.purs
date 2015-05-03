@@ -40,3 +40,13 @@ foreign import unsafeSetBody
       };
     };
   }""" :: forall eff a. HTMLElement -> a -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import unsafeCreateElement
+  """
+  function unsafeCreateElement(tagName) {
+    return function (src) {
+      return function () {
+        return src.createElement(tagName);
+      };
+    };
+  }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
