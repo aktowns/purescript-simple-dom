@@ -20,7 +20,7 @@ foreign import unsafeGetElementsByClassName
   function unsafeGetElementsByClassName(targ_id) {
     return function (src) {
       return function () {
-        return src.getElementsByClassName(targ_id);
+        return Array.prototype.slice.call(src.getElementsByClassName(targ_id));
       };
     };
   }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
@@ -30,7 +30,7 @@ foreign import unsafeGetElementsByName
   function unsafeGetElementsByName(targ_id) {
     return function (src) {
       return function () {
-        return src.getElementsByName(targ_id);
+        return Array.prototype.slice.call(src.getElementsByName(targ_id));
       };
     };
   }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) [HTMLElement])
@@ -126,7 +126,7 @@ foreign import unsafeChildren
   """
   function unsafeChildren(src) {
     return function () {
-      return src.children;
+      return Array.prototype.slice.call(src.children);
     };
   }""" :: forall eff a. a -> (Eff (dom :: DOM | eff) [HTMLElement])
 
