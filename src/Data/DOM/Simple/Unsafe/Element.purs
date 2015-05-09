@@ -249,6 +249,46 @@ foreign import unsafeClassContains
     };
   }""" :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Boolean)
 
+foreign import unsafeOffsetParent
+  """
+  function unsafeOffsetParent(src) {
+    return function () {
+      return src.offsetParent;
+    };
+  }""" :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLElement
+
+foreign import unsafeOffsetHeight
+  """
+  function unsafeOffsetHeight(src) {
+    return function () {
+      return src.offsetHeight;
+    };
+  }""" :: forall eff a. a -> Eff (dom :: DOM | eff) Number
+
+foreign import unsafeOffsetWidth
+  """
+  function unsafeOffsetWidth(src) {
+    return function () {
+      return src.offsetWidth;
+    };
+  }""" :: forall eff a. a -> Eff (dom :: DOM | eff) Number
+
+foreign import unsafeOffsetTop
+  """
+  function unsafeOffsetTop(src) {
+    return function () {
+      return src.offsetTop;
+    };
+  }""" :: forall eff a. a -> Eff (dom :: DOM | eff) Number
+
+foreign import unsafeOffsetLeft
+  """
+  function unsafeOffsetLeft(src) {
+    return function () {
+      return src.offsetLeft;
+    };
+  }""" :: forall eff a. a -> Eff (dom :: DOM | eff) Number
+
 foreign import unsafeClick
   """
   function unsafeClick(src) {
