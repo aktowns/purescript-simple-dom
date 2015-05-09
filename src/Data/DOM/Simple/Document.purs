@@ -40,6 +40,11 @@ instance htmlDocumentElement :: Element HTMLDocument where
   classAdd                = unsafeClassAdd
   classToggle             = unsafeClassToggle
   classContains           = unsafeClassContains
+  offsetParent el         = (unsafeOffsetParent el) >>= (ensure >>> return)
+  offsetHeight            = unsafeOffsetHeight
+  offsetWidth             = unsafeOffsetWidth
+  offsetTop               = unsafeOffsetTop
+  offsetLeft              = unsafeOffsetLeft
 
 instance htmlDocument :: Document HTMLDocument where
   title                   = unsafeTitle

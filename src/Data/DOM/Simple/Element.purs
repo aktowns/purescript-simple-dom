@@ -68,7 +68,7 @@ instance htmlElement :: Element HTMLElement where
   classAdd                = unsafeClassAdd
   classToggle             = unsafeClassToggle
   classContains           = unsafeClassContains
-  offsetParent            = unsafeOffsetParent >>= (ensure >>> return)
+  offsetParent el         = (unsafeOffsetParent el) >>= (ensure >>> return)
   offsetHeight            = unsafeOffsetHeight
   offsetWidth             = unsafeOffsetWidth
   offsetTop               = unsafeOffsetTop

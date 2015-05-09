@@ -79,7 +79,7 @@ main = do
   checkTagName "TEST3" testDiv3
   checkContents "testContent3" testDiv3
 
-  testDivs <- querySelectorAll "div" doc
+  testDivs <- querySelectorAll ".nodeListDiv" doc
 
   trace "Able to count items in a nodelist"
   NL.length testDivs >>= (\len -> quickCheck' 1 $ len == 2)
@@ -141,6 +141,33 @@ main = do
 
   trace "Able to append a child"
   appendChild docBody testDiv1
+
+  -- Tests for offset* properties of an element. These behave strangely
+  -- with Zombie.js, so these tests just ensure that a value is returned.
+
+  Just offsetDiv <- getElementById "testOffset" doc
+
+  trace "Able to get the offsetParent of an element"
+
+  -- HTMLElement.offsetParent is "undefined" in Zombie.js
+  noParent <- offsetParent offsetDiv
+  quickCheck' 1 $ isNothing noParent
+
+  trace "Able to get the offsetHeight of an element"
+  heightVal <- offsetHeight offsetDiv
+  quickCheck' 1 $ heightVal == 0
+
+  trace "Able to get the offsetWidth of an element"
+  widthVal <- offsetWidth offsetDiv
+  quickCheck' 1 $ widthVal == 0
+
+  trace "Able to get the offsetTop of an element"
+  topVal <- offsetTop offsetDiv
+  quickCheck' 1 $ topVal == 0
+
+  trace "Able to get the offsetLeft of an element"
+  leftVal <- offsetLeft offsetDiv
+  quickCheck' 1 $ leftVal == 0
 
   -- Unavailable in Zombie
   -- trace "Able to add a class"
