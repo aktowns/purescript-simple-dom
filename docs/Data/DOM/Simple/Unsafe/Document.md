@@ -24,4 +24,10 @@ unsafeBody :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLElement
 unsafeSetBody :: forall eff a. HTMLElement -> a -> Eff (dom :: DOM | eff) Unit
 ```
 
+#### `unsafeCreateElement`
+
+``` purescript
+unsafeCreateElement :: forall eff a. String -> a -> Eff (dom :: DOM | eff) HTMLElement
+```
+
 

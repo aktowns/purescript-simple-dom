@@ -27,3 +27,11 @@ exports.unsafeSetBody = function (value) {
         };
     };
 };
+
+exports.unsafeCreateElement = function (tagName) {
+    return function (src) {
+        return function () {
+            return src.createElement(tagName);
+        };
+    };
+};
