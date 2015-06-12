@@ -1,5 +1,7 @@
 module Data.DOM.Simple.Window where
 
+import Prelude
+
 import DOM
 import Control.Monad.Eff
 
@@ -40,9 +42,7 @@ instance domLocation :: Location DOMLocation where
   setLocation = unsafeSetLocation
   search = unsafeGetSearchLocation
 
-foreign import globalWindow
-  "var globalWindow = window;" :: HTMLWindow
-
+foreign import globalWindow :: HTMLWindow
 
 getLocationValue :: String -> String -> Maybe String
 getLocationValue input key =
@@ -50,6 +50,6 @@ getLocationValue input key =
         [x, y] | x == key -> Just y
         _ -> Nothing
     in
-  let sanitizedInput = if ((String.indexOf "?" input) == 0) then (String.drop 1 input) else input in
-    let kv = Array.map (String.split "=") (String.split "&" sanitizedInput) in
+  let sanitizedInput = if ((String.indexOf "?" input) == Just 0) then (String.drop 1 input) else input in
+    let kv = map (String.split "=") (String.split "&" sanitizedInput) in
       Array.head $ Array.mapMaybe kvParser kv
