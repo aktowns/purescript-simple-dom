@@ -28,21 +28,30 @@ instance eventDOMEvent :: Event DOMEvent where
 {- Mouse Events -}
 
 data MouseEventType = MouseMoveEvent | MouseOverEvent | MouseEnterEvent
-                    | MouseOutEvent | MouseLeaveEvent
+                    | MouseOutEvent | MouseLeaveEvent | MouseClickEvent
+                    | MouseDblClickEvent | MouseUpEvent | MouseDownEvent
 
 instance mouseEventTypeShow :: Show MouseEventType where
-  show MouseMoveEvent   = "mousemove"
-  show MouseOverEvent   = "mouseover"
-  show MouseEnterEvent  = "mouseenter"
-  show MouseOutEvent    = "mouseout"
-  show MouseLeaveEvent  = "mouseleave"
+  show MouseMoveEvent     = "mousemove"
+  show MouseOverEvent     = "mouseover"
+  show MouseEnterEvent    = "mouseenter"
+  show MouseOutEvent      = "mouseout"
+  show MouseLeaveEvent    = "mouseleave"
+  show MouseClickEvent    = "click"
+  show MouseDblClickEvent = "dblclick"
+  show MouseUpEvent       = "mouseup"
+  show MouseDownEvent     = "mousedown"
 
 instance mouseEventTypeRead :: Read MouseEventType where
-  read "mousemove"   = MouseMoveEvent
-  read "mouseover"   = MouseOverEvent
-  read "mouseenter"  = MouseEnterEvent
-  read "mouseout"    = MouseOutEvent
-  read "mouseleave"  = MouseLeaveEvent
+  read "mousemove"  = MouseMoveEvent
+  read "mouseover"  = MouseOverEvent
+  read "mouseenter" = MouseEnterEvent
+  read "mouseout"   = MouseOutEvent
+  read "mouseleave" = MouseLeaveEvent
+  read "click"      = MouseClickEvent
+  read "dblclick"   = MouseDblClickEvent
+  read "mouseup"    = MouseUpEvent
+  read "mousedown"  = MouseDownEvent
 
 class (Event e) <= MouseEvent e where
   mouseEventType :: forall eff. e -> (Eff (dom :: DOM | eff) MouseEventType)
