@@ -3,45 +3,44 @@
 
 // module Data.Dom.Simple.Unsafe.Navigator
 
+exports.unsafeAppName =  function (navi) {
+  return function () {
+    return navi.appName;
+  };
+};
 
-export unsafeAppName =  function (navi) {
-    return function () {
-	return navi.appName;
-    };
-}
+exports.unsafeAppVersion =  function (navi) {
+  return function () {
+    return navi.appName;
+  };
+};
 
-export unsafeAppVersion =  function (navi) {
-    return function () {
-	return navi.appName;
-    };
-}
+exports.unsafeAppCodeName =  function (navi) {
+  return function () {
+    return navi.appCodeName;
+  };
+};
 
-export unsafeAppCodeName =  function (navi) {
-    return function () {
-	return navi.appCodeName;
-    };
-}
+exports.unsafeLanguage =  function (navi) {
+  return function () {
+    return navi.language;
+  };
+};
 
-export unsafeLanguage =  function (navi) {
-    return function () {
-	return navi.language;
-    };
-}
+exports.unsafePlatform =  function (navi) {
+  return function () {
+    return navi.platform;
+  };
+};
 
-export unsafePlatform =  function (navi) {
-    return function () {
-	return navi.platform;
-    };
-}
+exports.unsafeProduct =  function (navi) {
+  return function () {
+    return navi.product;
+  };
+};
 
-export unsafeProduct =  function (navi) {
-    return function () {
-	return navi.product;
-    };
-}
-
-export unsafeUserAgent =  function (navi) {
-    return function () {
-	return navi.userAgent;
-    };
-}
+exports.unsafeUserAgent =  function (navi) {
+  return function () {
+    return navi.userAgent;
+  };
+};

@@ -3,87 +3,90 @@
 
 // module Data.Dom.Simple.Unsafe.Event
 
-export unsafeAddEventListener = function ) {
-    return function (cb) {
-	return function (src) {
-            return function () {
-		src.addEventListener(targ, function(evt) {
-		    cb(evt)();
-		});
-            };
-	};
+exports.unsafeAddEventListener = function (targ) {
+  return function (cb) {
+    return function (src) {
+      return function () {
+        src.addEventListener(targ, function (evt) {
+          cb(evt)();
+        });
+      };
     };
-}
+  };
+};
 
-export unsafeRemoveEventListener = function (targ) {
-    return function (cb) {
-	return function (src) {
-            return function () {
-		src.removeEventListener(targ, function (evt) {
-		    cb(evt)();
-		});
-            };
-	};
+exports.unsafeRemoveEventListener = function (targ) {
+  return function (cb) {
+    return function (src) {
+      return function () {
+        src.removeEventListener(targ, function (evt) {
+          cb(evt)();
+        });
+      };
     };
-}
+  };
+};
 
-export unsafeEventTarget = function (event) {
-    return function  event.target;
-    };
-}
+exports.unsafeEventTarget = function (event) {
+  return function () {
+    return event.target;
+  };
+};
 
-export unsafeStopPropagation = function (event) {
+exports.unsafeStopPropagation = function (event) {
+  return function () {
+    event.stopPropagation();
+  };
+};
+
+exports.unsafePreventDefault = function (event) {
+  return function () {
+    event.preventDefault();
+  };
+};
+
+exports.unsafeEventKey = function (event) {
+  return function () {
+    if (event.key === undefined) {
+      return String.fromCharCode(event.keyCode);
+    } else {
+      return event.key;
+    }
+  };
+};
+
+exports.unsafeEventKeyCode = function (event) {
+  return function () {
+    return event.keyCode;
+  };
+};
+
+exports.unsafeEventNumberProp = function (prop) {
+  return function (event) {
     return function () {
-	event.stopPropagation();
+      return event[prop];
     };
-}
+  };
+};
 
-export unsafePreventDefault = function (event) {
+exports.unsafeEventStringProp = function (prop) {
+  return function (event) {
     return function () {
-	event.preventDefault();
+      return event[prop];
     };
-}
+  };
+};
 
-export unsafeEventKey = function (event) {
-    return function() {
-	return event.key === undefined
-            ? String.fromCharCode(event.keyCode)
-            : event.key;
+exports.unsafeEventBooleanProp = function (prop) {
+  return function (event) {
+    return function () {
+      return !!event[prop];
     };
-}
+  };
+};
 
-export unsafeEventKeyCode = function (event) {
-    return function() {
-	return event.keyCode;
-    };
-}
-
-export unsafeEventNumberProp = function (prop) {
-    return function (event) {
-	return function() {
-            return event[prop];
-	};
-    };
-}
-
-export unsafeEventStringProp = function (prop) {
-    return function (event) {
-	return function() {
-            return event[prop];
-	};
-    };
-}
-
-export unsafeEventBooleanProp = function (prop) {
-    return function (event) {
-	return function() {
-            return !!event[prop];
-	};
-    };
-}
-
-export unsafeEventView = function (event) {
-    return function() {
-	return event.view;
-    };
-}
+exports.unsafeEventView = function (event) {
+  return function () {
+    return event.view;
+  };
+};

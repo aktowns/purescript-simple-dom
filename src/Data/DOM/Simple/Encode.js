@@ -3,32 +3,30 @@
 
 // module Data.Dom.Simple.Encode
 
-export encodeURIComponent = function (uri) {
-    return encodeURIComponent(uri);
-}
+exports.encodeURIComponent = function (uri) {
+  return encodeURIComponent(uri);
+};
 
-export decodeURIComponent = function (uri) {
-    return decodeURIComponent(uri);
-}
+exports.decodeURIComponent = function (uri) {
+  return decodeURIComponent(uri);
+};
 
-export encodeURI = function (uri) {
-    return encodeURI(uri);
-}
+exports.encodeURI = function (uri) {
+  return encodeURI(uri);
+};
 
-export decodeURI = function (uri) {
-    return decodeURI(uri);
-}
+exports.decodeURI = function (uri) {
+  return decodeURI(uri);
+};
 
-export paramatize = function (obj) {
-    return Object.keys(obj).map(function(key) {
-	return key + '=' + encodeURIComponent(obj[key]);
-    }).join('&');
-}
+exports.paramatize = function (obj) {
+  return Object.keys(obj).map(function (key) {
+    return key + "=" + encodeURIComponent(obj[key]);
+  }).join("&");
+};
 
-export toJsonString = function (obj) {
-    return function () {
-	return JSON.stringify(obj);
-    };
-}
-
-
+exports.toJsonString = function (obj) {
+  return function () {
+    return JSON.stringify(obj);
+  };
+};

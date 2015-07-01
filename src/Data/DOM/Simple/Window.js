@@ -3,4 +3,4 @@
 
 // module Data.Dom.Simple.Window
 
-export globalWindow = return window;
+exports.globalWindow = function f() {return window};

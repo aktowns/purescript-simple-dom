@@ -3,22 +3,22 @@
 
 // module Data.Dom.Simple.Unsafe.NodeList
 
-export unsafeNodeListLength = function (nl) {
+exports.unsafeNodeListLength = function (nl) {
   return function () {
     return nl.length;
-  }
-}
+  };
+};
 
-export unsafeNodeListItem = function (idx) {
+exports.unsafeNodeListItem = function (idx) {
   return function (nl) {
     return function () {
       return nl.item(idx);
-    }
-  }
-}
+    };
+  };
+};
 
-export unsafeNodeListToArray = function (nl) {
+exports.unsafeNodeListToArray = function (nl) {
   return function () {
     return Array.prototype.slice.call(nl);
   };
-}
+};

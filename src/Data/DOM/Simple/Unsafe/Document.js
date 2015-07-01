@@ -3,29 +3,30 @@
 
 // module Data.Dom.Simple.Unsafe.Document
 
-export unsafeTitle = function (src) {
+exports.unsafeTitle = function (src) {
+  return function () {
+    return src.title;
+  };
+};
+
+exports.unsafeSetTitle = function (value) {
+  return function (src) {
     return function () {
-	return src.title;
+      src.title = value;
     };
-}
+  };
+};
 
-export unsafeSetTitle = function (value) {
-    return function (src) {
-	return function .title = value;
-	};
-    };
-}
+exports.unsafeBody = function (src) {
+  return function () {
+    return src.body;
+  };
+};
 
-export unsafeBody = function (src) {
+exports.unsafeSetBody = function (value) {
+  return function (src) {
     return function () {
-	return src.body;
+      src.body = value;
     };
-}
-
-export unsafeSetBody = function (value) {
-    return function (src) {
-	return function () {
-            src.body = value;
-	};
-    };
-}
+  };
+};

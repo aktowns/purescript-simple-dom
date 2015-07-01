@@ -3,8 +3,8 @@
 
 // module Data.Dom.Simple.Unsafe.Sugar
 
-export dirtyKindDomRecast = function (_) {
-    return function id (x) {
-        return x;
-    };
-}
+exports.dirtyKindDomRecast = function (_) {
+  return function id (x) {
+    return x;
+  };
+};

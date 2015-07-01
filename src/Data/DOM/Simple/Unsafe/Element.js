@@ -3,217 +3,218 @@
 
 // module Data.Dom.Simple.Unsafe.Element
 
-  function unsafeGetElementById(targ_id) {
-    return function (src) {
-      return function () {
-        return src.getElementById(targ_id);
-      };
-    };
-  }
-function unsafeGetElementsByClassName(targ_id) {
-    return function (src) {
-      return function () {
-        return src.getElementsByClassName(targ_id);
-      };
-    };
-  }
-
-  function unsafeGetElementsByName(targ_id) {
-    return function (src) {
-      return function () {
-        return src.getElementsByName(targ_id);
-      };
-    };
-  }
-
-  function unsafeQuerySelector(selector) {
-    return function (src) {
-      return function () {
-        return src.querySelector(selector);
-      };
-    };
-  }
-
-  function unsafeQuerySelectorAll(selector) {
-    return function (src) {
-      return function () {
-        return src.querySelectorAll(selector);
-      };
-    };
-  }
-
-  function unsafeGetAttribute(name) {
-    return function (src) {
-      return function () {
-        return src.getAttribute(name);
-      };
-    };
-  }
-
-  function unsafeSetAttribute(name) {
-    return function (value) {
-      return function (src) {
-        return function () {
-          src.setAttribute(name, value);
-          return {};
-        };
-      };
-    };
-  }
-
-  function unsafeHasAttribute(name) {
-    return function (src) {
-      return function () {
-        return src.hasAttribute(name);
-      };
-    };
-  }
-
-  function unsafeRemoveAttribute(name) {
-    return function (src) {
-      return function () {
-        src.removeAttribute(name);
-        return {};
-      };
-    };
-  }
-
-  function unsafeGetStyleAttr(name) {
-    return function (src) {
-      return function () {
-        return src.style[name];
-      };
-    };
-  }
-
-  function unsafeSetStyleAttr(name) {
-    return function (value) {
-      return function (src) {
-        return function () {
-          src.style[name] = value;
-          return {};
-        };
-      };
-    };
-  }
-
-  function unsafeChildren(src) {
+exports.unsafeGetElementById = function (targId) {
+  return function (src) {
     return function () {
-      return src.children;
+      return src.getElementById(targId);
     };
-  }
+  };
+};
 
-  function unsafeAppendChild(src) {
-    return function (child) {
-      return function () {
-        return src.appendChild(child);
-      };
-    };
-  }
-
-  function unsafeInnerHTML(src) {
+exports.unsafeGetElementsByClassName = function (targId) {
+  return function (src) {
     return function () {
-      return src.innerHTML;
+      return src.getElementsByClassName(targId);
     };
-  }
+  };
+};
 
-  function unsafeSetInnerHTML(value) {
-    return function (src) {
-      return function () {
-        src.innerHTML = value;
-        return {};
-      };
-    };
-  }
-
-  function unsafeTextContent(src) {
+exports.unsafeGetElementsByName = function (targId) {
+  return function (src) {
     return function () {
-      return src.textContent;
+      return src.getElementsByName(targId);
     };
-  }
+  };
+};
 
-  function unsafeSetTextContent(value) {
-    return function (src) {
-      return function () {
-        src.textContent = value;
-        return {};
-      };
-    };
-  }
-
-function unsafeValue(src) {
+exports.unsafeQuerySelector = function (selector) {
+  return function (src) {
     return function () {
-      return src.value;
+      return src.querySelector(selector);
     };
-}
+  };
+};
 
-  function unsafeSetValue(value) {
-    return function (src) {
-      return function () {
-        src.value = value;
-        return {};
-      };
-    };
-  }
-
-  function unsafeContentWindow(obj) {
+exports.unsafeQuerySelectorAll = function (selector) {
+  return function (src) {
     return function () {
-      return obj.contentWindow;
+      return src.querySelectorAll(selector);
     };
-  }
+  };
+};
 
-  function unsafeClassAdd(value) {
-    return function (src) {
-      return function () {
-        src.classList.add(value);
-        return {};
-      };
-    };
-  }
-
-  function unsafeClassRemove(value) {
-    return function (src) {
-      return function () {
-        src.classList.remove(value);
-        return {};
-      };
-    };
-  }
-
-  function unsafeClassToggle(value) {
-    return function (src) {
-      return function () {
-        src.classList.toggle(value);
-        return {};
-      };
-    };
-  }
-
-  function unsafeClassContains(value) {
-    return function (src) {
-      return function () {
-        return src.classList.contains(value);
-      };
-    };
-  }
-
-  function unsafeClick(src) {
+exports.unsafeGetAttribute = function (name) {
+  return function (src) {
     return function () {
-      src.click();
+      return src.getAttribute(name);
+    };
+  };
+};
+
+exports.unsafeSetAttribute = function (name) {
+  return function (value) {
+    return function (src) {
+      return function () {
+        src.setAttribute(name, value);
+        return {};
+      };
+    };
+  };
+};
+
+exports.unsafeHasAttribute = function (name) {
+  return function (src) {
+    return function () {
+      return src.hasAttribute(name);
+    };
+  };
+};
+
+exports.unsafeRemoveAttribute = function (name) {
+  return function (src) {
+    return function () {
+      src.removeAttribute(name);
       return {};
     };
-  }
+  };
+};
 
-  function unsafeFocus(src) {
+exports.unsafeGetStyleAttr = function (name) {
+  return function (src) {
     return function () {
-      src.focus();
+      return src.style[name];
+    };
+  };
+};
+
+exports.unsafeSetStyleAttr = function (name) {
+  return function (value) {
+    return function (src) {
+      return function () {
+        src.style[name] = value;
+        return {};
+      };
+    };
+  };
+};
+
+exports.unsafeChildren = function (src) {
+  return function () {
+    return src.children;
+  };
+};
+
+exports.unsafeAppendChild = function (src) {
+  return function (child) {
+    return function () {
+      return src.appendChild(child);
+    };
+  };
+};
+
+exports.unsafeInnerHTML = function (src) {
+  return function () {
+    return src.innerHTML;
+  };
+};
+
+exports.unsafeSetInnerHTML = function (value) {
+  return function (src) {
+    return function () {
+      src.innerHTML = value;
       return {};
     };
-  }
+  };
+};
 
-  function unsafeBlur(src) {
+exports.unsafeTextContent = function (src) {
+  return function () {
+    return src.textContent;
+  };
+};
+
+exports.unsafeSetTextContent = function (value) {
+  return function (src) {
     return function () {
-      src.blur();
+      src.textContent = value;
       return {};
     };
-  }
+  };
+};
+
+exports.unsafeValue = function (src) {
+  return function () {
+    return src.value;
+  };
+};
+
+exports.unsafeSetValue = function (value) {
+  return function (src) {
+    return function () {
+      src.value = value;
+      return {};
+    };
+  };
+};
+
+exports.unsafeContentWindow = function (obj) {
+  return function () {
+    return obj.contentWindow;
+  };
+};
+
+exports.unsafeClassAdd = function (value) {
+  return function (src) {
+    return function () {
+      src.classList.add(value);
+      return {};
+    };
+  };
+};
+
+exports.unsafeClassRemove = function (value) {
+  return function (src) {
+    return function () {
+      src.classList.remove(value);
+      return {};
+    };
+  };
+};
+
+exports.unsafeClassToggle = function (value) {
+  return function (src) {
+    return function () {
+      src.classList.toggle(value);
+      return {};
+    };
+  };
+};
+
+exports.unsafeClassContains = function (value) {
+  return function (src) {
+    return function () {
+      return src.classList.contains(value);
+    };
+  };
+};
+
+exports.unsafeClick = function (src) {
+  return function () {
+    src.click();
+    return {};
+  };
+};
+
+exports.unsafeFocus = function (src) {
+  return function () {
+    src.focus();
+    return {};
+  };
+};
+
+exports.unsafeBlur = function (src) {
+  return function () {
+    src.blur();
+    return {};
+  };
+};
