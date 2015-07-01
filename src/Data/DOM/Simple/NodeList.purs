@@ -1,9 +1,10 @@
 module Data.DOM.Simple.NodeList where
 
+import Prelude
 import DOM
 import Control.Monad.Eff
 import Data.Maybe
-import Data.Array(map, range, catMaybes)
+import Data.Array(range, catMaybes)
 import Data.Traversable(sequence)
 
 import Data.DOM.Simple.Unsafe.NodeList
@@ -18,11 +19,11 @@ instance nodeList :: NodeListInst NodeList where
   length = unsafeNodeListLength
   item idx el = (unsafeNodeListItem idx el) >>= (ensure >>> return)
 
-nodeListToArray :: forall eff. NodeList -> (Eff (dom :: DOM | eff) [HTMLElement])
+nodeListToArray :: forall eff. NodeList -> (Eff (dom :: DOM | eff) (Array HTMLElement))
 nodeListToArray nl = do
   len <- length nl
   xs <- sequence (map (\i -> item i nl) $ range 0 len)
   return $ catMaybes xs
 
-nodeListToArray' :: forall eff. NodeList -> (Eff (dom :: DOM | eff) [HTMLElement])
+nodeListToArray' :: forall eff. NodeList -> (Eff (dom :: DOM | eff) (Array HTMLElement))
 nodeListToArray' = unsafeNodeListToArray

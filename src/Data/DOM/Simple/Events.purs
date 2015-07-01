@@ -1,5 +1,6 @@
 module Data.DOM.Simple.Events where
 
+import Prelude
 import Control.Monad.Eff
 import Control.Monad
 

@@ -1,5 +1,6 @@
 module Data.DOM.Simple.Element where
 
+import Prelude
 import Control.Monad.Eff
 import DOM
 
@@ -14,8 +15,8 @@ import qualified Data.Tuple as T
 
 class Element b where
   getElementById         :: forall eff. String -> b -> (Eff (dom :: DOM | eff) (Maybe HTMLElement))
-  getElementsByClassName :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
-  getElementsByName      :: forall eff. String -> b -> (Eff (dom :: DOM | eff) [HTMLElement])
+  getElementsByClassName :: forall eff. String -> b -> (Eff (dom :: DOM | eff) (Array HTMLElement))
+  getElementsByName      :: forall eff. String -> b -> (Eff (dom :: DOM | eff) (Array HTMLElement))
   querySelector          :: forall eff. String -> b -> (Eff (dom :: DOM | eff) (Maybe HTMLElement))
   querySelectorAll       :: forall eff. String -> b -> (Eff (dom :: DOM | eff) NodeList)
   getAttribute           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) String)
@@ -24,7 +25,7 @@ class Element b where
   removeAttribute        :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
   getStyleAttr           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) String)
   setStyleAttr           :: forall eff. String -> String -> b -> (Eff (dom :: DOM | eff) Unit)
-  children               :: forall eff. b -> (Eff (dom :: DOM | eff) [HTMLElement])
+  children               :: forall eff. b -> (Eff (dom :: DOM | eff) (Array HTMLElement))
   appendChild            :: forall eff. b -> HTMLElement -> (Eff (dom :: DOM | eff) Unit)
   innerHTML              :: forall eff. b -> (Eff (dom :: DOM | eff) String)
   setInnerHTML           :: forall eff. String -> b -> (Eff (dom :: DOM | eff) Unit)
@@ -67,10 +68,10 @@ instance htmlElement :: Element HTMLElement where
 instance showHtmlElement :: Show HTMLElement where
   show = showImpl
 
-setAttributes :: forall eff a. (Element a) => [(T.Tuple String String)] -> a -> (Eff (dom :: DOM | eff) Unit)
+setAttributes :: forall eff a. (Element a) => (Array (T.Tuple String String)) -> a -> (Eff (dom :: DOM | eff) Unit)
 setAttributes xs el = for_ xs (\kv -> setAttribute (T.fst kv) (T.snd kv) el)
 
-setStyleAttrs :: forall eff a. (Element a) => [(T.Tuple String String)] -> a -> (Eff (dom :: DOM | eff) Unit)
+setStyleAttrs :: forall eff a. (Element a) => (Array (T.Tuple String String)) -> a -> (Eff (dom :: DOM | eff) Unit)
 setStyleAttrs xs el = for_ xs (\kv -> setStyleAttr (T.fst kv) (T.snd kv) el)
 
 click :: forall eff. HTMLElement -> Eff (dom :: DOM | eff) Unit

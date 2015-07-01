@@ -1,5 +1,6 @@
 module Data.DOM.Simple.Document where
 
+import Prelude
 import DOM
 import Control.Monad.Eff
 
