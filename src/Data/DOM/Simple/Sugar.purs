@@ -14,6 +14,7 @@ module Data.DOM.Simple.Sugar where
 
 import Control.Monad.Eff
 
+import Prelude
 import Data.Tuple
 import Data.Maybe
 import Data.Foldable

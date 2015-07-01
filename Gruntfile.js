@@ -9,6 +9,10 @@ module.exports = function(grunt) {
       "bower_components/purescript-*/src/**/*.purs"
     ],
 
+    ffiFiles: [
+      "src/**/*.js"
+    ],
+
     clean: ["tmp", "output"],
 
     pscMake: {
