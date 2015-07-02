@@ -2,6 +2,8 @@
 "use strict";
 
 var gulp = require("gulp");
+var jshint = require("gulp-jshint");
+var jscs = require("gulp-jscs");
 var plumber = require("gulp-plumber");
 var purescript = require("gulp-purescript");
 var run = require("gulp-run");
@@ -27,7 +29,7 @@ gulp.task("clean-output", function (cb) {
 
 gulp.task("clean", ["clean-docs", "clean-output"]);
 
-gulp.task("make", function() {
+gulp.task("make", ["lint"], function() {
   return gulp.src(sources)
     .pipe(plumber())
     .pipe(purescript.psc({ ffi: foreigns }));
@@ -64,6 +66,13 @@ gulp.task("dotpsci", function () {
   return gulp.src(sources)
     .pipe(plumber())
     .pipe(purescript.dotPsci());
+});
+
+gulp.task("lint", function() {
+  return gulp.src("src/**/*.js")
+    .pipe(jshint())
+    .pipe(jshint.reporter())
+    .pipe(jscs());
 });
 
 gulp.task("default", ["make", "docs", "dotpsci"]);
