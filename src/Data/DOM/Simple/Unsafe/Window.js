@@ -30,7 +30,7 @@ exports.unsafeGetLocation = function (loc) {
 exports.unsafeSetLocation = function (value) {
   return function (loc) {
     return function () {
-      location.assign(value);
+      loc.assign(value);
     };
   };
 };
