@@ -1,4 +1,4 @@
-/* global exports */
+/* global exports, window */
 "use strict";
 
 // module Data.DOM.Simple.Window

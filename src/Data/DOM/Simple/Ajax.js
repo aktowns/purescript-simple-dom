@@ -1,5 +1,5 @@
 /* jshint maxparams: false */
-/* global exports */
+/* global exports, XMLHttpRequest */
 "use strict";
 
 // module Data.DOM.Simple.Ajax
