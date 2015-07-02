@@ -1,3 +1,4 @@
+/* jshint maxparams: false */
 /* global exports */
 "use strict";
 
