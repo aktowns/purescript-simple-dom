@@ -30,7 +30,7 @@ gulp.task("clean", ["clean-docs", "clean-output"]);
 gulp.task("make", function() {
   return gulp.src(sources)
     .pipe(plumber())
-    .pipe(purescript.pscMake({ ffi: foreigns }));
+    .pipe(purescript.psc({ ffi: foreigns }));
 });
 
 gulp.task("docs", ["clean-docs"], function () {
