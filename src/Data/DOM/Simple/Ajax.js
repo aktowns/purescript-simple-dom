@@ -49,7 +49,7 @@ exports.getAllResponseHeaders = function (obj) {
 exports.overrideMimeType = function (mime) {
   return function (obj) {
     return function () {
-      obj.overrideMimeType(mine);
+      obj.overrideMimeType(mime);
       return {};
     };
   };
