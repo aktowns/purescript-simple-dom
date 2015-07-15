@@ -54,9 +54,8 @@ gulp.task("test-copy", function() {
 });
 
 gulp.task("docs", ["clean-docs"], function () {
-  return gulp.src(sources)
-    .pipe(plumber())
-    .pipe(purescript.pscDocs({
+  return purescript.pscDocs({
+      src: sources,
       docgen: {
         "Data.DOM.Simple.Ajax" :              "docs/Data/DOM/Simple/Ajax.md",
         "Data.DOM.Simple.Document" :          "docs/Data/DOM/Simple/Document.md",
@@ -77,7 +76,7 @@ gulp.task("docs", ["clean-docs"], function () {
         "Data.DOM.Simple.Unsafe.Sugar" :      "docs/Data/DOM/Simple/Unsafe/Sugar.md",
         "Data.DOM.Simple.Unsafe.Window" :     "docs/Data/DOM/Simple/Unsafe/Window.md"
       }
-    }));
+    });
 });
 
 gulp.task("dotpsci", function () {
