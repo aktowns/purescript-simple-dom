@@ -1,10 +1,12 @@
 module Main where
 
+import Prelude
+
 import Data.Array
 import Data.Maybe
 
 import Control.Monad.Eff
-import Debug.Trace
+import Control.Monad.Eff.Console
 
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Element
@@ -18,13 +20,9 @@ import qualified Data.DOM.Simple.NodeList as NL
 
 import Test.QuickCheck
 
-foreign import inspect
-  "function inspect(msg) { console.log(msg); }"
-  :: forall a. a -> Unit
+foreign import inspect :: forall a. a -> Unit
 
-foreign import tagname
-  "function tagname(obj) { return obj.tagName; }"
-  :: forall a. a -> String
+foreign import tagname :: forall a. a -> String
 
 checkTagName shouldBe element = do
   let name = tagname element
@@ -41,14 +39,14 @@ checkValue shouldBe element = do
 main = do
   doc <- document globalWindow
 
-  trace "Able to get the title of a document"
+  log "Able to get the title of a document"
 
   docTitle <- title doc
   quickCheck' 1 $ docTitle == "testTitle"
 
   -- attrib <- "#testDiv1" `getAttribute` "hello"
 
-  trace "Able to set the title of a document"
+  log "Able to set the title of a document"
 
   setTitle "modifiedTitle" doc
   docTitle1 <- title doc
@@ -56,13 +54,13 @@ main = do
   quickCheck' 1 $ docTitle1 == "modifiedTitle"
 
 
-  trace "Able to get the body element of a document"
+  log "Able to get the body element of a document"
 
   docBody <- body doc
 
   checkTagName "BODY" docBody
 
-  trace "Able to look up elements"
+  log "Able to look up elements"
 
   Just testDiv1 <- getElementById "test1" doc
 
@@ -81,26 +79,26 @@ main = do
 
   testDivs <- querySelectorAll "div" doc
 
-  trace "Able to count items in a nodelist"
+  log "Able to count items in a nodelist"
   NL.length testDivs >>= (\len -> quickCheck' 1 $ len == 2)
 
-  trace "Able to retrieve an item from a nodelist"
+  log "Able to retrieve an item from a nodelist"
   Just testDiv4 <- NL.item 0 testDivs
   checkTagName "DIV" testDiv4
 
-  trace "Able to convert a nodelist into an array"
+  log "Able to convert a nodelist into an array"
   nl1 <- NL.nodeListToArray testDivs
   nl2 <- NL.nodeListToArray' testDivs
   quickCheck' 1 $ length nl1 == length nl2
 
-  trace "Able to modify an elements contents"
+  log "Able to modify an elements contents"
 
   setTextContent "Hello" testDiv1
 
   checkContents "Hello" testDiv1
 
 
-  trace "Able to modify a form element's value"
+  log "Able to modify a form element's value"
 
   Just testInput1 <- getElementById "input1" doc
 
@@ -108,7 +106,7 @@ main = do
 
   checkValue "foo bar baz" testInput1
 
-  trace "Able to set an attribute on an element"
+  log "Able to set an attribute on an element"
 
   setAttribute "data-test" "hello" testDiv1
   testDiv1Attribute <- getAttribute "data-test" testDiv1
@@ -116,7 +114,7 @@ main = do
   quickCheck' 1 $ testDiv1Attribute == "hello"
 
 
-  trace "Able to remove an attribute from an element"
+  log "Able to remove an attribute from an element"
 
   testDiv1HasAttribute <- hasAttribute "data-test" testDiv1
   quickCheck' 1 $ testDiv1HasAttribute == true
@@ -124,7 +122,7 @@ main = do
   testDiv1HasAttribute' <- hasAttribute "data-test" testDiv1
   quickCheck' 1 $ testDiv1HasAttribute' == false
 
-  trace "Able to set a style attribute on an element"
+  log "Able to set a style attribute on an element"
 
   setStyleAttr "color" "red" testDiv1
   testDiv1StyleAttr <- getStyleAttr "color" testDiv1
@@ -132,18 +130,18 @@ main = do
   quickCheck' 1 $ testDiv1StyleAttr == "red"
 
   navigator <- navigator globalWindow
-  trace "Able to receive the appName from navigator"
+  log "Able to receive the appName from navigator"
   appName navigator >>= (\name -> quickCheck' 1 $ name == "Node.js jsDom")
-  trace "Able to receive the appVersion from navigator"
+  log "Able to receive the appVersion from navigator"
   appVersion navigator >>= (\name -> quickCheck' 1 $ name == "Node.js jsDom")
-  trace "Able to receive the language from navigator"
+  log "Able to receive the language from navigator"
   language navigator >>= (\name -> quickCheck' 1 $ name == "en-US")
 
-  trace "Able to append a child"
+  log "Able to append a child"
   appendChild docBody testDiv1
 
   -- Unavailable in Zombie
-  -- trace "Able to add a class"
+  -- log "Able to add a class"
 
   --hasTestClass1 <- classContains "testClass" testDiv1
   -- quickCheck' 1 $ hasTestClass1 == false

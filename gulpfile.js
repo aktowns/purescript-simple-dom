@@ -19,6 +19,10 @@ var foreigns = [
   "bower_components/purescript-*/src/**/*.js"
 ];
 
+var testSources = ["tests/Tests.purs"].concat(sources);
+
+var testForeigns = ["tests/Tests.js"].concat(foreigns);
+
 gulp.task("clean-docs", function (cb) {
   rimraf("docs", cb);
 });
@@ -30,15 +34,28 @@ gulp.task("clean-output", function (cb) {
 gulp.task("clean", ["clean-docs", "clean-output"]);
 
 gulp.task("make", ["lint"], function() {
-  return gulp.src(sources)
-    .pipe(plumber())
-    .pipe(purescript.psc({ ffi: foreigns }));
+  return purescript.psc({ src: sources, ffi: foreigns });
+});
+
+gulp.task("test", ["test-make"], function() {
+  require("./tmp/index");
+});
+
+gulp.task("test-make", ["test-copy"], function() {
+  return purescript.psc({ src: testSources, ffi: testForeigns });
+});
+
+gulp.task("test-copy", function() {
+  gulp.src("output/**/*js")
+    .pipe(gulp.dest("tmp/node_modules/"));
+
+  gulp.src("js/index.js")
+    .pipe(gulp.dest("tmp/"));
 });
 
 gulp.task("docs", ["clean-docs"], function () {
-  return gulp.src(sources)
-    .pipe(plumber())
-    .pipe(purescript.pscDocs({
+  return purescript.pscDocs({
+      src: sources,
       docgen: {
         "Data.DOM.Simple.Ajax" :              "docs/Data/DOM/Simple/Ajax.md",
         "Data.DOM.Simple.Document" :          "docs/Data/DOM/Simple/Document.md",
@@ -59,7 +76,7 @@ gulp.task("docs", ["clean-docs"], function () {
         "Data.DOM.Simple.Unsafe.Sugar" :      "docs/Data/DOM/Simple/Unsafe/Sugar.md",
         "Data.DOM.Simple.Unsafe.Window" :     "docs/Data/DOM/Simple/Unsafe/Window.md"
       }
-    }));
+    });
 });
 
 gulp.task("dotpsci", function () {
@@ -75,4 +92,4 @@ gulp.task("lint", function() {
     .pipe(jscs());
 });
 
-gulp.task("default", ["make", "docs", "dotpsci"]);
+gulp.task("default", ["make", "test", "docs", "dotpsci"]);
