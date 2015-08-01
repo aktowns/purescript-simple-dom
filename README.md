@@ -1,5 +1,7 @@
 # purescript-simple-dom
 
+[![Build Status](https://travis-ci.org/aktowns/purescript-simple-dom.svg?branch=travis)](https://travis-ci.org/aktowns/purescript-simple-dom)
+
 ### About
 
 An easy to use library for dealing with the DOM and general javascript APIs.
