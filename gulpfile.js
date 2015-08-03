@@ -11,17 +11,15 @@ var rimraf = require("rimraf");
 
 var sources = [
   "src/**/*.purs",
-  "bower_components/purescript-*/src/**/*.purs"
+  "bower_components/purescript-*/src/**/*.purs",
+  "tests/Tests.purs"
 ];
 
 var foreigns = [
   "src/**/*.js",
-  "bower_components/purescript-*/src/**/*.js"
+  "bower_components/purescript-*/src/**/*.js",
+  "tests/Tests.js"
 ];
-
-var testSources = ["tests/Tests.purs"].concat(sources);
-
-var testForeigns = ["tests/Tests.js"].concat(foreigns);
 
 gulp.task("clean-docs", function (cb) {
   rimraf("docs", cb);
@@ -31,25 +29,21 @@ gulp.task("clean-output", function (cb) {
   rimraf("output", cb);
 });
 
-gulp.task("clean", ["clean-docs", "clean-output"]);
-
-gulp.task("make", ["lint"], function() {
+gulp.task("make", ["clean-output", "lint"], function() {
   return purescript.psc({ src: sources, ffi: foreigns });
 });
 
-gulp.task("test", ["test-make"], function() {
+gulp.task("test", ["test-copy-modules", "test-copy-runner"], function() {
   require("./tmp/index");
 });
 
-gulp.task("test-make", ["test-copy"], function() {
-  return purescript.psc({ src: testSources, ffi: testForeigns });
+gulp.task("test-copy-modules", ["make"], function() {
+  return gulp.src("output/**/*.js")
+    .pipe(gulp.dest("tmp/node_modules/"));
 });
 
-gulp.task("test-copy", function() {
-  gulp.src("output/**/*js")
-    .pipe(gulp.dest("tmp/node_modules/"));
-
-  gulp.src("js/index.js")
+gulp.task("test-copy-runner", function() {
+  return gulp.src("js/index.js")
     .pipe(gulp.dest("tmp/"));
 });
 
@@ -79,12 +73,6 @@ gulp.task("docs", ["clean-docs"], function () {
     });
 });
 
-gulp.task("dotpsci", function () {
-  return gulp.src(sources)
-    .pipe(plumber())
-    .pipe(purescript.dotPsci());
-});
-
 gulp.task("lint", function() {
   return gulp.src("src/**/*.js")
     .pipe(jshint())
@@ -92,4 +80,4 @@ gulp.task("lint", function() {
     .pipe(jscs());
 });
 
-gulp.task("default", ["make", "test", "docs", "dotpsci"]);
+gulp.task("default", ["make", "test", "docs"]);
