@@ -143,24 +143,24 @@ main = do
   -- Tests for offset* properties of an element. These behave strangely
   -- with Zombie.js, so these tests just ensure that a value is returned.
 
-  trace "Able to get the offsetParent of an element"
+  log "Able to get the offsetParent of an element"
   -- HTMLElement.offsetParent is "undefined" in Zombie.js
   noParent <- offsetParent testDiv1
   quickCheck' 1 $ isNothing noParent
 
-  trace "Able to get the offsetHeight of an element"
+  log "Able to get the offsetHeight of an element"
   heightVal <- offsetHeight testDiv1
   quickCheck' 1 $ heightVal == 0
 
-  trace "Able to get the offsetWidth of an element"
+  log "Able to get the offsetWidth of an element"
   widthVal <- offsetWidth testDiv1
   quickCheck' 1 $ widthVal == 0
 
-  trace "Able to get the offsetTop of an element"
+  log "Able to get the offsetTop of an element"
   topVal <- offsetTop testDiv1
   quickCheck' 1 $ topVal == 0
 
-  trace "Able to get the offsetLeft of an element"
+  log "Able to get the offsetLeft of an element"
   leftVal <- offsetLeft testDiv1
   quickCheck' 1 $ leftVal == 0
 
