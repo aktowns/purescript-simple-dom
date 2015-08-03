@@ -140,6 +140,30 @@ main = do
   log "Able to append a child"
   appendChild docBody testDiv1
 
+  -- Tests for offset* properties of an element. These behave strangely
+  -- with Zombie.js, so these tests just ensure that a value is returned.
+
+  log "Able to get the offsetParent of an element"
+  -- HTMLElement.offsetParent is "undefined" in Zombie.js
+  noParent <- offsetParent testDiv1
+  quickCheck' 1 $ isNothing noParent
+
+  log "Able to get the offsetHeight of an element"
+  heightVal <- offsetHeight testDiv1
+  quickCheck' 1 $ heightVal == 0
+
+  log "Able to get the offsetWidth of an element"
+  widthVal <- offsetWidth testDiv1
+  quickCheck' 1 $ widthVal == 0
+
+  log "Able to get the offsetTop of an element"
+  topVal <- offsetTop testDiv1
+  quickCheck' 1 $ topVal == 0
+
+  log "Able to get the offsetLeft of an element"
+  leftVal <- offsetLeft testDiv1
+  quickCheck' 1 $ leftVal == 0
+
   -- Unavailable in Zombie
   -- log "Able to add a class"
 

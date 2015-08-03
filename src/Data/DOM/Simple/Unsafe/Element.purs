@@ -60,3 +60,13 @@ foreign import unsafeClick :: forall eff a. a -> (Eff (dom :: DOM | eff) Unit)
 foreign import unsafeFocus :: forall eff a. a -> (Eff (dom :: DOM | eff) Unit)
 
 foreign import unsafeBlur :: forall eff a. a -> (Eff (dom :: DOM | eff) Unit)
+
+foreign import unsafeOffsetParent :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLElement)
+
+foreign import unsafeOffsetHeight :: forall eff a. a -> (Eff (dom :: DOM | eff) Int)
+
+foreign import unsafeOffsetWidth :: forall eff a. a -> (Eff (dom :: DOM | eff) Int)
+
+foreign import unsafeOffsetTop :: forall eff a. a -> (Eff (dom :: DOM | eff) Int)
+
+foreign import unsafeOffsetLeft :: forall eff a. a -> (Eff (dom :: DOM | eff) Int)
