@@ -50,7 +50,6 @@ setContents' contents = do
 ```
 
 
-
 #### Change all a href's on a page and add the original link as a data attribute
 
 ```purescript
