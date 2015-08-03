@@ -218,3 +218,33 @@ exports.unsafeBlur = function (src) {
     return {};
   };
 };
+
+exports.unsafeOffsetParent = function (src) {
+  return function () {
+    return src.offsetParent;
+  };
+};
+
+exports.unsafeOffsetHeight = function (src) {
+  return function () {
+    return src.offsetHeight;
+  };
+};
+
+exports.unsafeOffsetWidth = function (src) {
+  return function () {
+    return src.offsetWidth;
+  };
+};
+
+exports.unsafeOffsetTop = function (src) {
+  return function () {
+    return src.offsetTop;
+  };
+};
+
+exports.unsafeOffsetLeft = function (src) {
+  return function () {
+    return src.offsetLeft;
+  };
+};
