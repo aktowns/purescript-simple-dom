@@ -6,3 +6,5 @@ before_script:
 
 script:
   gulp test
+
+sudo: false
