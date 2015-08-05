@@ -1,6 +1,6 @@
 # purescript-simple-dom
 
-[![Build Status](https://travis-ci.org/aktowns/purescript-simple-dom.svg?branch=travis)](https://travis-ci.org/aktowns/purescript-simple-dom)
+[![Build Status](https://travis-ci.org/aktowns/purescript-simple-dom.svg?branch=master)](https://travis-ci.org/aktowns/purescript-simple-dom)
 
 ### About
 
