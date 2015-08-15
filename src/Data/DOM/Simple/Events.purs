@@ -59,11 +59,15 @@ class (Event e) <= MouseEvent e where
   mouseEventType :: forall eff. e -> (Eff (dom :: DOM | eff) MouseEventType)
   screenX :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
   screenY :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
+  clientX :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
+  clientY :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
 
 instance mouseEventDOMEvent :: MouseEvent DOMEvent where
   mouseEventType ev = read <$> unsafeEventStringProp "type" ev
   screenX = unsafeEventNumberProp "screenX"
   screenY = unsafeEventNumberProp "screenY"
+  clientX = unsafeEventNumberProp "clientX"
+  clientY = unsafeEventNumberProp "clientY"
 
 class MouseEventTarget b where
   addMouseEventListener :: forall e t ta. (MouseEvent e) =>
