@@ -2,15 +2,19 @@ module Data.DOM.Simple.Window where
 
 import Prelude
 
-import DOM
 import Control.Monad.Eff
+import DOM
 
-import Data.DOM.Simple.Types
 import Data.DOM.Simple.Unsafe.Window
+import Data.DOM.Simple.Types ( DOMNavigator()
+                             , DOMLocation()
+                             , Timeout() )
 
-import Data.Maybe
 import qualified Data.Array as Array
+import           Data.Maybe
 import qualified Data.String as String
+import DOM.HTML.Types (HTMLDocument(), Window())
+
 
 class Location b where
   getLocation :: forall eff. b -> (Eff (dom :: DOM | eff) String)
@@ -27,7 +31,7 @@ class Window b where
   innerWidth   :: forall eff. b -> (Eff (dom :: DOM | eff) Number)
   innerHeight  :: forall eff. b -> (Eff (dom :: DOM | eff) Number)
 
-instance htmlWindow :: Window HTMLWindow where
+instance htmlWindow :: Window Window where
   document = unsafeDocument
   navigator = unsafeNavigator
   location = unsafeLocation
@@ -42,7 +46,7 @@ instance domLocation :: Location DOMLocation where
   setLocation = unsafeSetLocation
   search = unsafeGetSearchLocation
 
-foreign import globalWindow :: HTMLWindow
+foreign import globalWindow :: Window
 
 getLocationValue :: String -> String -> Maybe String
 getLocationValue input key =

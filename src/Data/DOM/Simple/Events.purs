@@ -2,14 +2,15 @@ module Data.DOM.Simple.Events where
 
 import Prelude
 
-import Control.Monad.Eff
 import Control.Monad
-
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Window(document, globalWindow)
-import Data.DOM.Simple.Ajax
-import Data.DOM.Simple.Unsafe.Events
+import Control.Monad.Eff
 import DOM
+import DOM.HTML.Types (Window(), HTMLElement(), HTMLDocument())
+
+import Data.DOM.Simple.Ajax
+import Data.DOM.Simple.Types (DOMEvent())
+import Data.DOM.Simple.Unsafe.Events
+import Data.DOM.Simple.Window(document, globalWindow)
 
 -- XXX Should this be in the Prelude?
 class Read s where
@@ -82,7 +83,7 @@ class MouseEventTarget b where
                                   -> b
                                   -> (Eff (dom :: DOM | ta) Unit)
 
-instance mouseEventTargetHTMLWindow :: MouseEventTarget HTMLWindow where
+instance mouseEventTargetWindow :: MouseEventTarget Window where
   addMouseEventListener typ    = unsafeAddEventListener (show typ)
   removeMouseEventListener typ = unsafeRemoveEventListener (show typ)
 
@@ -153,7 +154,7 @@ class KeyboardEventTarget b where
                                      -> b
                                      -> (Eff (dom :: DOM | ta) Unit)
 
-instance keyboardEventTargetHTMLWindow :: KeyboardEventTarget HTMLWindow where
+instance keyboardEventTargetWindow :: KeyboardEventTarget Window where
   addKeyboardEventListener typ    = unsafeAddEventListener (show typ)
   removeKeyboardEventListener typ = unsafeRemoveEventListener (show typ)
 
@@ -197,7 +198,7 @@ instance uiEventTypeRead :: Read UIEventType where
 
 class (Event e) <= UIEvent e where
   -- XXX this should really be returning an HTMLAbstractView...
-  view   :: forall eff. e -> (Eff (dom :: DOM | eff) HTMLWindow)
+  view   :: forall eff. e -> (Eff (dom :: DOM | eff) Window)
   detail :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
 
 instance uiEventDOMEvent :: UIEvent DOMEvent where
@@ -217,7 +218,7 @@ class UIEventTarget b where
                                -> b
                                -> (Eff (dom :: DOM | ta) Unit)
 
-instance uiEventTargetHTMLWindow :: UIEventTarget HTMLWindow where
+instance uiEventTargetWindow :: UIEventTarget Window where
   addUIEventListener typ    = unsafeAddEventListener (show typ)
   removeUIEventListener typ = unsafeRemoveEventListener (show typ)
 

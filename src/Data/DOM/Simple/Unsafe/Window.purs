@@ -2,8 +2,9 @@ module Data.DOM.Simple.Unsafe.Window where
 
 import Prelude
 
-import DOM
 import Control.Monad.Eff
+import DOM
+import DOM.HTML.Types (HTMLDocument(), Window())
 
 import Data.DOM.Simple.Types
 

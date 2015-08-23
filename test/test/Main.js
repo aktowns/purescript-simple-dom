@@ -1,7 +1,7 @@
 /* global exports */
 "use strict";
 
-// module Main
+// module Test.Main
 
 exports.inspect = function (msg) {
   console.log(msg);

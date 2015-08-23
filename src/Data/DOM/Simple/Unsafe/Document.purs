@@ -5,7 +5,7 @@ import Prelude
 import DOM
 import Control.Monad.Eff
 
-import Data.DOM.Simple.Types
+import DOM.HTML.Types (HTMLElement())
 
 foreign import unsafeTitle :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 
