@@ -4,6 +4,7 @@ import Prelude
 
 import DOM
 import Control.Monad.Eff
+import DOM.HTML.Types (Window())
 
 import Data.DOM.Simple.Types
 
@@ -27,4 +28,4 @@ foreign import unsafeEventStringProp :: forall eff. String -> DOMEvent -> (Eff (
 
 foreign import unsafeEventBooleanProp :: forall eff. String -> DOMEvent -> (Eff (dom :: DOM | eff) Boolean)
 
-foreign import unsafeEventView :: forall eff. DOMEvent -> (Eff (dom :: DOM | eff) HTMLWindow)
+foreign import unsafeEventView :: forall eff. DOMEvent -> (Eff (dom :: DOM | eff) Window)

@@ -3,6 +3,8 @@ module Data.DOM.Simple.NodeList where
 import Prelude
 
 import DOM
+import DOM.Node.Types (NodeList())
+import DOM.HTML.Types (HTMLElement())
 import Control.Monad.Eff
 import Data.Maybe
 import Data.Array(range, catMaybes)

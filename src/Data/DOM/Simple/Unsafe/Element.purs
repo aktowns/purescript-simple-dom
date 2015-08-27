@@ -2,10 +2,10 @@ module Data.DOM.Simple.Unsafe.Element where
 
 import Prelude
 
-import DOM
 import Control.Monad.Eff
-
-import Data.DOM.Simple.Types
+import DOM
+import DOM.Node.Types (NodeList())
+import DOM.HTML.Types (HTMLElement(), Window())
 
 foreign import unsafeGetElementById :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
 
@@ -45,7 +45,7 @@ foreign import unsafeValue :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 
 foreign import unsafeSetValue :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
-foreign import unsafeContentWindow :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLWindow)
+foreign import unsafeContentWindow :: forall eff a. a -> (Eff (dom :: DOM | eff) Window) --TODO: look up wtf is contntWindow :D
 
 foreign import unsafeClassAdd :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 
