@@ -9,6 +9,7 @@ data ReadyState
   | HeadersReceived
   | Loading
   | Done
+  | Unknown Int
 ```
 
 #### `Url`

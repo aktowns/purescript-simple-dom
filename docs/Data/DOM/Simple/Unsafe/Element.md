@@ -1,5 +1,16 @@
 ## Module Data.DOM.Simple.Unsafe.Element
 
+#### `HTMLElement`
+
+``` purescript
+data HTMLElement :: *
+```
+
+##### Instances
+``` purescript
+instance showHtmlElement :: Show HTMLElement
+```
+
 #### `unsafeGetElementById`
 
 ``` purescript

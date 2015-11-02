@@ -1,5 +1,18 @@
 ## Module Data.DOM.Simple.Document
 
+#### `HTMLDocument`
+
+``` purescript
+data HTMLDocument :: *
+```
+
+##### Instances
+``` purescript
+instance htmlDocumentElement :: Element HTMLDocument
+instance htmlDocument :: Document HTMLDocument
+instance showHtmlDocument :: Show HTMLDocument
+```
+
 #### `Document`
 
 ``` purescript

@@ -1,17 +1,5 @@
 ## Module Data.DOM.Simple.Types
 
-#### `HTMLElement`
-
-``` purescript
-data HTMLElement :: *
-```
-
-#### `HTMLDocument`
-
-``` purescript
-data HTMLDocument :: *
-```
-
 #### `HTMLWindow`
 
 ``` purescript

@@ -41,6 +41,7 @@ data MouseEventType
   | MouseDblClickEvent
   | MouseUpEvent
   | MouseDownEvent
+  | MouseUnknownEvent String
 ```
 
 ##### Instances
@@ -87,6 +88,7 @@ data KeyboardEventType
   = KeydownEvent
   | KeypressEvent
   | KeyupEvent
+  | KeyUnknownEvent String
 ```
 
 ##### Instances
@@ -103,6 +105,7 @@ data KeyLocation
   | KeyLocationLeft
   | KeyLocationRight
   | KeyLocationNumpad
+  | KeyLocationUnknown Int
 ```
 
 #### `toKeyLocation`
@@ -156,6 +159,7 @@ data UIEventType
   | SelectEvent
   | ResizeEvent
   | ScrollEvent
+  | UnknownEvent String
 ```
 
 ##### Instances
