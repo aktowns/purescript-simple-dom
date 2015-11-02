@@ -29,5 +29,8 @@
   "devDependencies": {
     "purescript-math": "^0.2.0",
     "purescript-quickcheck": "^0.6.0"
+  },
+  "resolutions": {
+    "purescript-strings": "^0.7.0"
   }
 }
