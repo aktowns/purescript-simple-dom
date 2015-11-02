@@ -4,6 +4,7 @@ import DOM
 import Control.Monad.Eff
 
 import Data.DOM.Simple.Types
+import Data.DOM.Simple.Unsafe.Element
 
 foreign import unsafeNodeListLength :: forall eff. NodeList -> Eff (dom :: DOM | eff) Int
 

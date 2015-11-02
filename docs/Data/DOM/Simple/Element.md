@@ -28,6 +28,11 @@ class Element b where
   classAdd :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
   classToggle :: forall eff. String -> b -> Eff (dom :: DOM | eff) Unit
   classContains :: forall eff. String -> b -> Eff (dom :: DOM | eff) Boolean
+  offsetParent :: forall eff. b -> Eff (dom :: DOM | eff) (Maybe HTMLElement)
+  offsetHeight :: forall eff. b -> Eff (dom :: DOM | eff) Int
+  offsetWidth :: forall eff. b -> Eff (dom :: DOM | eff) Int
+  offsetTop :: forall eff. b -> Eff (dom :: DOM | eff) Int
+  offsetLeft :: forall eff. b -> Eff (dom :: DOM | eff) Int
 ```
 
 ##### Instances

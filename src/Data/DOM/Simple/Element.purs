@@ -76,9 +76,6 @@ instance htmlElement :: Element HTMLElement where
   offsetTop               = unsafeOffsetTop
   offsetLeft              = unsafeOffsetLeft
 
-instance showHtmlElement :: Show HTMLElement where
-  show = showImpl
-
 setAttributes :: forall eff a. (Element a) => Array (T.Tuple String String) -> a -> (Eff (dom :: DOM | eff) Unit)
 setAttributes xs el = for_ xs (\kv -> setAttribute (T.fst kv) (T.snd kv) el)
 

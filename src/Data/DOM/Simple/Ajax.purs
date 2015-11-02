@@ -34,8 +34,9 @@ import DOM
 
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Unsafe.Ajax
+import Data.DOM.Simple.Document
 
-data ReadyState = Unsent | Opened | HeadersReceived | Loading | Done
+data ReadyState = Unsent | Opened | HeadersReceived | Loading | Done | Unknown Int
 
 type Url = String
 
@@ -97,6 +98,7 @@ readyState x = do
     2 -> HeadersReceived
     3 -> Loading
     4 -> Done
+    _ -> Unknown r
 
 onReadyStateChange :: forall eff e. Eff e Unit -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 onReadyStateChange f x = runFn2 unsafeOnReadyStateChange x f
@@ -121,7 +123,6 @@ responseType :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) ResponseTyp
 responseType obj = do
   r <- unsafeResponseType obj
   return $ case r of
-    "" -> Default
     "arraybuffer" -> ArrayBuffer
     "blob" -> Blob
     "document" -> Document
@@ -130,6 +131,7 @@ responseType obj = do
     "moz-blob" -> MozBlob
     "moz-chunked-test" -> MozChunkedText
     "moz-chunked-arraybuffer" -> MozChunkedArrayBuffer
+    _ -> Default
 
 response :: forall eff a. XMLHttpRequest -> Eff (dom :: DOM | eff) (HttpData a)
 response x = do

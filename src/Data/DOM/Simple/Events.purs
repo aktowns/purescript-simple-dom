@@ -9,6 +9,8 @@ import Data.DOM.Simple.Types
 import Data.DOM.Simple.Window(document, globalWindow)
 import Data.DOM.Simple.Ajax
 import Data.DOM.Simple.Unsafe.Events
+import Data.DOM.Simple.Unsafe.Element
+import Data.DOM.Simple.Document
 import DOM
 
 -- XXX Should this be in the Prelude?
@@ -32,17 +34,19 @@ instance eventDOMEvent :: Event DOMEvent where
 data MouseEventType = MouseMoveEvent | MouseOverEvent | MouseEnterEvent
                     | MouseOutEvent | MouseLeaveEvent | MouseClickEvent
                     | MouseDblClickEvent | MouseUpEvent | MouseDownEvent
+                    | MouseUnknownEvent String
 
 instance mouseEventTypeShow :: Show MouseEventType where
-  show MouseMoveEvent     = "mousemove"
-  show MouseOverEvent     = "mouseover"
-  show MouseEnterEvent    = "mouseenter"
-  show MouseOutEvent      = "mouseout"
-  show MouseLeaveEvent    = "mouseleave"
-  show MouseClickEvent    = "click"
-  show MouseDblClickEvent = "dblclick"
-  show MouseUpEvent       = "mouseup"
-  show MouseDownEvent     = "mousedown"
+  show MouseMoveEvent        = "mousemove"
+  show MouseOverEvent        = "mouseover"
+  show MouseEnterEvent       = "mouseenter"
+  show MouseOutEvent         = "mouseout"
+  show MouseLeaveEvent       = "mouseleave"
+  show MouseClickEvent       = "click"
+  show MouseDblClickEvent    = "dblclick"
+  show MouseUpEvent          = "mouseup"
+  show MouseDownEvent        = "mousedown"
+  show (MouseUnknownEvent x) = "unknown event: " ++ x
 
 instance mouseEventTypeRead :: Read MouseEventType where
   read "mousemove"  = MouseMoveEvent
@@ -54,6 +58,7 @@ instance mouseEventTypeRead :: Read MouseEventType where
   read "dblclick"   = MouseDblClickEvent
   read "mouseup"    = MouseUpEvent
   read "mousedown"  = MouseDownEvent
+  read x            = MouseUnknownEvent x
 
 class (Event e) <= MouseEvent e where
   mouseEventType :: forall eff. e -> (Eff (dom :: DOM | eff) MouseEventType)
@@ -97,25 +102,28 @@ instance mouseEventTargetHTMLElement :: MouseEventTarget HTMLElement where
 
 {- Keyboard Events -}
 
-data KeyboardEventType = KeydownEvent | KeypressEvent | KeyupEvent
+data KeyboardEventType = KeydownEvent | KeypressEvent | KeyupEvent | KeyUnknownEvent String
 
 instance keyboardEventTypeShow :: Show KeyboardEventType where
-  show KeydownEvent     = "keydown"
+  show KeydownEvent        = "keydown"
   show KeypressEvent       = "keypress"
-  show KeyupEvent       = "keyup"
+  show KeyupEvent          = "keyup"
+  show (KeyUnknownEvent x) = "unknown key event:" ++ x
 
 instance keyboardEventTypeRead :: Read KeyboardEventType where
   read "keydown"  = KeydownEvent
   read "keypress" = KeypressEvent
   read "keyup"    = KeyupEvent
+  read x          = KeyUnknownEvent x
 
-data KeyLocation = KeyLocationStandard | KeyLocationLeft | KeyLocationRight | KeyLocationNumpad
+data KeyLocation = KeyLocationStandard | KeyLocationLeft | KeyLocationRight | KeyLocationNumpad | KeyLocationUnknown Int
 
 toKeyLocation :: Int -> KeyLocation
 toKeyLocation 0 = KeyLocationStandard
 toKeyLocation 1 = KeyLocationLeft
 toKeyLocation 2 = KeyLocationRight
 toKeyLocation 3 = KeyLocationNumpad
+toKeyLocation x = KeyLocationUnknown x
 
 class (Event e) <= KeyboardEvent e where
   keyboardEventType :: forall eff. e -> (Eff (dom :: DOM | eff) KeyboardEventType)
@@ -175,16 +183,17 @@ instance keyboardEventTargetHTMLElement :: KeyboardEventTarget HTMLElement where
 
 data UIEventType = LoadEvent | UnloadEvent | AbortEvent
                  | ErrorEvent | SelectEvent | ResizeEvent
-                 | ScrollEvent
+                 | ScrollEvent | UnknownEvent String
 
 instance uiEventTypeShow :: Show UIEventType where
-  show LoadEvent    = "load"
-  show UnloadEvent  = "unload"
-  show AbortEvent   = "abort"
-  show ErrorEvent   = "error"
-  show SelectEvent  = "select"
-  show ResizeEvent  = "resize"
-  show ScrollEvent  = "scroll"
+  show LoadEvent        = "load"
+  show UnloadEvent      = "unload"
+  show AbortEvent       = "abort"
+  show ErrorEvent       = "error"
+  show SelectEvent      = "select"
+  show ResizeEvent      = "resize"
+  show ScrollEvent      = "scroll"
+  show (UnknownEvent x) = "unknown uievent:" ++ x
 
 instance uiEventTypeRead :: Read UIEventType where
   read "load"     = LoadEvent
@@ -194,6 +203,7 @@ instance uiEventTypeRead :: Read UIEventType where
   read "select"   = SelectEvent
   read "resize"   = ResizeEvent
   read "scroll"   = ScrollEvent
+  read x          = UnknownEvent x
 
 class (Event e) <= UIEvent e where
   -- XXX this should really be returning an HTMLAbstractView...

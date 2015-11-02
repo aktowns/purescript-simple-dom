@@ -6,6 +6,9 @@ import DOM
 import Control.Monad.Eff
 
 import Data.DOM.Simple.Types
+import Data.DOM.Simple.Unsafe.Utils(showImpl)
+
+foreign import data HTMLElement       :: *
 
 foreign import unsafeGetElementById :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
 
@@ -70,3 +73,6 @@ foreign import unsafeOffsetWidth :: forall eff a. a -> (Eff (dom :: DOM | eff) I
 foreign import unsafeOffsetTop :: forall eff a. a -> (Eff (dom :: DOM | eff) Int)
 
 foreign import unsafeOffsetLeft :: forall eff a. a -> (Eff (dom :: DOM | eff) Int)
+
+instance showHtmlElement :: Show HTMLElement where
+  show = showImpl

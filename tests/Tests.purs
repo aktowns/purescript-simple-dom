@@ -8,6 +8,7 @@ import Data.Maybe
 import Control.Monad.Eff
 import Control.Monad.Eff.Console
 
+import Data.DOM.Simple.Unsafe.Element(HTMLElement(..))
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Element
 import Data.DOM.Simple.Document

@@ -162,4 +162,34 @@ unsafeFocus :: forall eff a. a -> Eff (dom :: DOM | eff) Unit
 unsafeBlur :: forall eff a. a -> Eff (dom :: DOM | eff) Unit
 ```
 
+#### `unsafeOffsetParent`
+
+``` purescript
+unsafeOffsetParent :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLElement
+```
+
+#### `unsafeOffsetHeight`
+
+``` purescript
+unsafeOffsetHeight :: forall eff a. a -> Eff (dom :: DOM | eff) Int
+```
+
+#### `unsafeOffsetWidth`
+
+``` purescript
+unsafeOffsetWidth :: forall eff a. a -> Eff (dom :: DOM | eff) Int
+```
+
+#### `unsafeOffsetTop`
+
+``` purescript
+unsafeOffsetTop :: forall eff a. a -> Eff (dom :: DOM | eff) Int
+```
+
+#### `unsafeOffsetLeft`
+
+``` purescript
+unsafeOffsetLeft :: forall eff a. a -> Eff (dom :: DOM | eff) Int
+```
+
 

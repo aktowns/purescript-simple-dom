@@ -7,6 +7,7 @@ import Control.Monad.Eff
 
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Unsafe.Window
+import Data.DOM.Simple.Document
 
 import Data.Maybe
 import qualified Data.Array as Array

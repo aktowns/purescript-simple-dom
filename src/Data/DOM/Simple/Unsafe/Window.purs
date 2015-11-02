@@ -6,6 +6,7 @@ import DOM
 import Control.Monad.Eff
 
 import Data.DOM.Simple.Types
+import Data.DOM.Simple.Document
 
 foreign import unsafeDocument :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLDocument)
 

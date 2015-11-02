@@ -11,6 +11,7 @@ import Data.Traversable(sequence)
 import Data.DOM.Simple.Unsafe.NodeList
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Unsafe.Utils(ensure)
+import Data.DOM.Simple.Unsafe.Element
 
 class NodeListInst b where
   length  :: forall eff. b -> (Eff (dom :: DOM | eff) Int)
