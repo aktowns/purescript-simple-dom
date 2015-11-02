@@ -4,6 +4,7 @@ import Prelude
 
 import Control.Monad.Eff
 import DOM
+import DOM.Node.Types
 
 import Data.DOM.Simple.Unsafe.Utils(ensure, showImpl)
 import Data.DOM.Simple.Unsafe.Element

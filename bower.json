@@ -18,7 +18,7 @@
   ],
   "main": [],
   "dependencies": {
-    "purescript-dom": "^0.1.0",
+    "purescript-dom": "^0.2.8",
     "purescript-arrays": "^0.4.3",
     "purescript-maybe": "^0.3.4",
     "purescript-foldable-traversable": "^0.4.1",
