@@ -98,7 +98,7 @@ readyState x = do
     2 -> HeadersReceived
     3 -> Loading
     4 -> Done
-    _ -> Unknown r
+    _ -> UnknownState r
 
 onReadyStateChange :: forall eff e. Eff e Unit -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
 onReadyStateChange f x = runFn2 unsafeOnReadyStateChange x f
