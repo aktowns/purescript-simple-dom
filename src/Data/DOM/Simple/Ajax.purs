@@ -36,7 +36,7 @@ import Data.DOM.Simple.Types
 import Data.DOM.Simple.Unsafe.Ajax
 import Data.DOM.Simple.Document
 
-data ReadyState = Unsent | Opened | HeadersReceived | Loading | Done | Unknown Int
+data ReadyState = Unsent | Opened | HeadersReceived | Loading | Done | UnknownState Int
 
 type Url = String
 
