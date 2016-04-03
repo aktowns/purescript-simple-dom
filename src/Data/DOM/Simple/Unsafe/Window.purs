@@ -30,3 +30,7 @@ foreign import unsafeClearTimeout :: forall eff b. b -> Timeout -> (Eff (dom :: 
 foreign import unsafeInnerWidth :: forall eff b. b -> (Eff (dom :: DOM | eff) Number)
 
 foreign import unsafeInnerHeight :: forall eff b. b -> (Eff (dom :: DOM | eff) Number)
+
+foreign import unsafePageXOffset :: forall eff b. b -> (Eff (dom :: DOM | eff) Number)
+
+foreign import unsafePageYOffset :: forall eff b. b -> (Eff (dom :: DOM | eff) Number)
