@@ -27,6 +27,8 @@ class Window b where
   clearTimeout :: forall eff. b -> Timeout -> (Eff (dom :: DOM | eff) Unit)
   innerWidth   :: forall eff. b -> (Eff (dom :: DOM | eff) Number)
   innerHeight  :: forall eff. b -> (Eff (dom :: DOM | eff) Number)
+  pageXOffset  :: forall eff. b -> (Eff (dom :: DOM | eff) Number)
+  pageYOffset  :: forall eff. b -> (Eff (dom :: DOM | eff) Number)
 
 instance htmlWindow :: Window HTMLWindow where
   document = unsafeDocument
@@ -37,6 +39,8 @@ instance htmlWindow :: Window HTMLWindow where
   clearTimeout = unsafeClearTimeout
   innerWidth   = unsafeInnerWidth
   innerHeight  = unsafeInnerHeight
+  pageXOffset  = unsafePageXOffset
+  pageYOffset  = unsafePageYOffset
 
 instance domLocation :: Location DOMLocation where
   getLocation = unsafeGetLocation

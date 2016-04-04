@@ -80,3 +80,15 @@ exports.unsafeInnerHeight = function (win) {
     return win.innerHeight;
   };
 };
+
+exports.unsafePageXOffset = function (win) {
+  return function () {
+    return win.pageXOffset;
+  };
+};
+
+exports.unsafePageYOffset = function (win) {
+  return function () {
+    return win.pageYOffset;
+  };
+};
