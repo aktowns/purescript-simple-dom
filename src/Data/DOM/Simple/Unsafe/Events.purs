@@ -28,3 +28,5 @@ foreign import unsafeEventStringProp :: forall eff. String -> DOMEvent -> (Eff (
 foreign import unsafeEventBooleanProp :: forall eff. String -> DOMEvent -> (Eff (dom :: DOM | eff) Boolean)
 
 foreign import unsafeEventView :: forall eff. DOMEvent -> (Eff (dom :: DOM | eff) HTMLWindow)
+
+foreign import unsafeEventProp :: forall v eff. String -> DOMEvent -> (Eff (dom :: DOM | eff) v)
