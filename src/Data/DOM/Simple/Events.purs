@@ -262,6 +262,12 @@ class (Event e) <= ProgressEvent e where
     loaded            :: forall eff. e -> (Eff (dom :: DOM | eff) Number)
     total             :: forall eff. e -> (Eff (dom :: DOM | eff) Number)
 
+instance progressEventDOMEvent :: ProgressEvent DOMEvent where
+    progressEventType ev = readProgressEventType <$> unsafeEventProp "type" ev
+    lengthComputable     = unsafeEventProp "lengthComputable"
+    loaded               = unsafeEventProp "loaded"
+    total                = unsafeEventProp "total"
+
 class ProgressEventTarget b where
     addProgressEventListener :: forall e t ta. (ProgressEvent e) =>
                                 ProgressEventType
