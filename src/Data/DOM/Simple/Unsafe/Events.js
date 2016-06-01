@@ -90,3 +90,11 @@ exports.unsafeEventView = function (event) {
     return event.view;
   };
 };
+
+exports.unsafeEventProp = function (prop) {
+  return function (event) {
+    return function () {
+      return event[prop];
+    };
+  };
+};

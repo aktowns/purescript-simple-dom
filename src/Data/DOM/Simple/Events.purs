@@ -231,6 +231,61 @@ instance uiEventTargetHTMLWindow :: UIEventTarget HTMLWindow where
   addUIEventListener typ    = unsafeAddEventListener (show typ)
   removeUIEventListener typ = unsafeRemoveEventListener (show typ)
 
+data ProgressEventType = ProgressAbortEvent
+                       | ProgressErrorEvent
+                       | ProgressLoadEvent
+                       | ProgressLoadEndEvent
+                       | ProgressLoadStartEvent
+                       | ProgressProgressEvent
+                       | ProgressTimeoutEvent
+
+instance showProgressEventType :: Show ProgressEventType where
+    show ProgressAbortEvent     = "abort"
+    show ProgressErrorEvent     = "error"
+    show ProgressLoadEvent      = "load"
+    show ProgressLoadEndEvent   = "loadend"
+    show ProgressLoadStartEvent = "loadstart"
+    show ProgressProgressEvent  = "progress"
+    show ProgressTimeoutEvent   = "timeout"
+
+readProgressEventType "abort"     = ProgressAbortEvent
+readProgressEventType "error"     = ProgressErrorEvent
+readProgressEventType "load"      = ProgressLoadEvent
+readProgressEventType "loadend"   = ProgressLoadEndEvent
+readProgressEventType "loadstart" = ProgressLoadStartEvent
+readProgressEventType "progress"  = ProgressProgressEvent
+readProgressEventType "timeout"   = ProgressTimeoutEvent
+
+class (Event e) <= ProgressEvent e where
+    progressEventType :: forall eff. e -> (Eff (dom :: DOM | eff) ProgressEventType)
+    lengthComputable  :: forall eff. e -> (Eff (dom :: DOM | eff) Boolean)
+    loaded            :: forall eff. e -> (Eff (dom :: DOM | eff) Number)
+    total             :: forall eff. e -> (Eff (dom :: DOM | eff) Number)
+
+instance progressEventDOMEvent :: ProgressEvent DOMEvent where
+    progressEventType ev = readProgressEventType <$> unsafeEventProp "type" ev
+    lengthComputable     = unsafeEventProp "lengthComputable"
+    loaded               = unsafeEventProp "loaded"
+    total                = unsafeEventProp "total"
+
+class ProgressEventTarget b where
+    addProgressEventListener :: forall e t ta. (ProgressEvent e) =>
+                                ProgressEventType
+                                    -> (e -> Eff (dom :: DOM | t) Unit)
+                                    -> b
+                                    -> (Eff (dom :: DOM | ta) Unit)
+
+    removeProgressEventListener :: forall e t ta. (ProgressEvent e) =>
+                                   ProgressEventType
+                                       -> (e -> Eff (dom :: DOM | t) Unit)
+                                       -> b
+                                       -> (Eff (dom :: DOM | ta) Unit)
+
+instance progressEventTargetXMLHttpRequest :: ProgressEventTarget XMLHttpRequest where
+    addProgressEventListener typ    = unsafeAddEventListener (show typ)
+    removeProgressEventListener typ = unsafeRemoveEventListener (show typ)
+
+
 {-
 instance eventTargetXMLHttpRequest :: EventTarget XMLHttpRequest where
   addEventListener = unsafeAddEventListener
