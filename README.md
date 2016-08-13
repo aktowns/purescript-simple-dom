@@ -1,5 +1,10 @@
 # purescript-simple-dom
 
+## WARNING:
+
+purescript-simple-dom does not compile with the 0.9.x versions of the PureScript compiler and will create dependency conflicts in a 0.9.x project.
+
+
 [![Build Status](https://travis-ci.org/aktowns/purescript-simple-dom.svg?branch=master)](https://travis-ci.org/aktowns/purescript-simple-dom)
 
 ### About
