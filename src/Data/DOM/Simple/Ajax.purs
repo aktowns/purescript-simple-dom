@@ -28,7 +28,7 @@ module Data.DOM.Simple.Ajax
 import Prelude
 
 import Control.Monad.Eff
-import Data.Function
+import Data.Function.Uncurried
 import Data.Maybe (Maybe(..))
 import DOM
 
@@ -92,7 +92,7 @@ foreign import makeXMLHttpRequest :: forall eff. (Eff (dom :: DOM | eff) XMLHttp
 readyState :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) ReadyState
 readyState x = do
   r <- unsafeReadyState x
-  return $ case r of
+  pure $ case r of
     0 -> Unsent
     1 -> Opened
     2 -> HeadersReceived
@@ -122,7 +122,7 @@ setResponseType rt x = runFn2 unsafeSetResponseType x (show rt)
 responseType :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) ResponseType
 responseType obj = do
   r <- unsafeResponseType obj
-  return $ case r of
+  pure $ case r of
     "arraybuffer" -> ArrayBuffer
     "blob" -> Blob
     "document" -> Document

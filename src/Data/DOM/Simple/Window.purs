@@ -10,8 +10,8 @@ import Data.DOM.Simple.Unsafe.Window
 import Data.DOM.Simple.Document
 
 import Data.Maybe
-import qualified Data.Array as Array
-import qualified Data.String as String
+import Data.Array as Array
+import Data.String as String
 
 class Location b where
   getLocation :: forall eff. b -> (Eff (dom :: DOM | eff) String)

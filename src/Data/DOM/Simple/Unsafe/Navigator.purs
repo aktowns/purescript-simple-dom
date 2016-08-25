@@ -1,9 +1,9 @@
 module Data.DOM.Simple.Unsafe.Navigator where
 
-import DOM
-import Control.Monad.Eff
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
+import Data.DOM.Simple.Types (DOMNavigator)
 
 foreign import unsafeAppName ::forall eff. DOMNavigator -> Eff (dom :: DOM | eff) String
 

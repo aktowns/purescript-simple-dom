@@ -1,12 +1,11 @@
 module Data.DOM.Simple.Unsafe.Document where
 
-import Prelude
+import Prelude (Unit)
 
-import DOM
-import Control.Monad.Eff
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Unsafe.Element
+import Data.DOM.Simple.Unsafe.Element (HTMLElement)
 
 foreign import unsafeTitle :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 
