@@ -1,5 +1,6 @@
-.psci
-output/
-node_modules/
-bower_components/
-tmp/
+/bower_components/
+/node_modules/
+/.pulp-cache/
+/output/
+/.psci*
+/src/.webpack.js
