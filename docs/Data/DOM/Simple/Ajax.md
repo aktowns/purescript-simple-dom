@@ -9,7 +9,7 @@ data ReadyState
   | HeadersReceived
   | Loading
   | Done
-  | Unknown Int
+  | UnknownState Int
 ```
 
 #### `Url`
@@ -35,7 +35,7 @@ data HttpMethod
 
 ##### Instances
 ``` purescript
-instance showHttpMethod :: Show HttpMethod
+Show HttpMethod
 ```
 
 #### `ResponseType`
@@ -55,7 +55,7 @@ data ResponseType
 
 ##### Instances
 ``` purescript
-instance showResponseType :: Show ResponseType
+Show ResponseType
 ```
 
 #### `ArrayBuffer`
@@ -99,7 +99,7 @@ data HttpData a
 #### `makeXMLHttpRequest`
 
 ``` purescript
-makeXMLHttpRequest :: forall eff. Eff (dom :: DOM | eff) XMLHttpRequest
+makeXMLHttpRequest :: forall eff. (Eff (dom :: DOM | eff) XMLHttpRequest)
 ```
 
 #### `readyState`
@@ -147,7 +147,7 @@ response :: forall eff a. XMLHttpRequest -> Eff (dom :: DOM | eff) (HttpData a)
 #### `responseText`
 
 ``` purescript
-responseText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
+responseText :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
 ```
 
 #### `status`
@@ -159,19 +159,19 @@ status :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Int
 #### `statusText`
 
 ``` purescript
-statusText :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
+statusText :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
 ```
 
 #### `setRequestHeader`
 
 ``` purescript
-setRequestHeader :: forall eff. String -> String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+setRequestHeader :: forall eff. String -> String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
 ```
 
 #### `getAllResponseHeaders`
 
 ``` purescript
-getAllResponseHeaders :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) String
+getAllResponseHeaders :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
 ```
 
 #### `getResponseHeader`
@@ -183,7 +183,7 @@ getResponseHeader :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | e
 #### `overrideMimeType`
 
 ``` purescript
-overrideMimeType :: forall eff. String -> XMLHttpRequest -> Eff (dom :: DOM | eff) Unit
+overrideMimeType :: forall eff. String -> XMLHttpRequest -> (Eff (dom :: DOM | eff) Unit)
 ```
 
 

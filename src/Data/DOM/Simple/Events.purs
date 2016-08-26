@@ -1,17 +1,15 @@
 module Data.DOM.Simple.Events where
 
-import Prelude
+import Prelude (class Show, Unit, show, (<$>), (<>), (>>>))
+import Partial.Unsafe (unsafePartial)
 
-import Control.Monad.Eff
-import Control.Monad
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Window(document, globalWindow)
-import Data.DOM.Simple.Ajax
+import Data.DOM.Simple.Types (XMLHttpRequest, DOMEvent, HTMLWindow)
 import Data.DOM.Simple.Unsafe.Events
-import Data.DOM.Simple.Unsafe.Element
-import Data.DOM.Simple.Document
-import DOM
+import Data.DOM.Simple.Unsafe.Element (HTMLElement)
+import Data.DOM.Simple.Document (HTMLDocument)
+import DOM (DOM)
 
 -- XXX Should this be in the Prelude?
 class Read s where
@@ -46,7 +44,7 @@ instance mouseEventTypeShow :: Show MouseEventType where
   show MouseDblClickEvent    = "dblclick"
   show MouseUpEvent          = "mouseup"
   show MouseDownEvent        = "mousedown"
-  show (MouseUnknownEvent x) = "unknown event: " ++ x
+  show (MouseUnknownEvent x) = "unknown event: " <> x
 
 instance mouseEventTypeRead :: Read MouseEventType where
   read "mousemove"  = MouseMoveEvent
@@ -108,7 +106,7 @@ instance keyboardEventTypeShow :: Show KeyboardEventType where
   show KeydownEvent        = "keydown"
   show KeypressEvent       = "keypress"
   show KeyupEvent          = "keyup"
-  show (KeyUnknownEvent x) = "unknown key event:" ++ x
+  show (KeyUnknownEvent x) = "unknown key event:" <> x
 
 instance keyboardEventTypeRead :: Read KeyboardEventType where
   read "keydown"  = KeydownEvent
@@ -193,7 +191,7 @@ instance uiEventTypeShow :: Show UIEventType where
   show SelectEvent      = "select"
   show ResizeEvent      = "resize"
   show ScrollEvent      = "scroll"
-  show (UnknownEvent x) = "unknown uievent:" ++ x
+  show (UnknownEvent x) = "unknown uievent:" <> x
 
 instance uiEventTypeRead :: Read UIEventType where
   read "load"     = LoadEvent
@@ -248,6 +246,7 @@ instance showProgressEventType :: Show ProgressEventType where
     show ProgressProgressEvent  = "progress"
     show ProgressTimeoutEvent   = "timeout"
 
+readProgressEventType :: (Partial) => String -> ProgressEventType
 readProgressEventType "abort"     = ProgressAbortEvent
 readProgressEventType "error"     = ProgressErrorEvent
 readProgressEventType "load"      = ProgressLoadEvent
@@ -263,7 +262,7 @@ class (Event e) <= ProgressEvent e where
     total             :: forall eff. e -> (Eff (dom :: DOM | eff) Number)
 
 instance progressEventDOMEvent :: ProgressEvent DOMEvent where
-    progressEventType ev = readProgressEventType <$> unsafeEventProp "type" ev
+    progressEventType ev = unsafePartial readProgressEventType <$> unsafeEventProp "type" ev
     lengthComputable     = unsafeEventProp "lengthComputable"
     loaded               = unsafeEventProp "loaded"
     total                = unsafeEventProp "total"

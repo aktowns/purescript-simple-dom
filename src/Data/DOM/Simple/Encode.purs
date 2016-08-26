@@ -1,8 +1,7 @@
 module Data.DOM.Simple.Encode where
 
-import DOM
-import Control.Monad.Eff
-import Data.DOM.Simple.Types
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
 foreign import encodeURIComponent :: String -> String
 foreign import decodeURIComponent :: String -> String

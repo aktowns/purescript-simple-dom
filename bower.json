@@ -18,19 +18,17 @@
   ],
   "main": [],
   "dependencies": {
-    "purescript-dom": "^0.2.8",
-    "purescript-arrays": "^0.4.3",
-    "purescript-maybe": "^0.3.4",
-    "purescript-foldable-traversable": "^0.4.1",
-    "purescript-tuples": "^0.4.0",
-    "purescript-strings": "^0.7.0",
-    "purescript-sets": "^0.5.2"
+    "purescript-dom": "^2.0.1",
+    "purescript-arrays": "^1.1.0",
+    "purescript-maybe": "^1.0.0",
+    "purescript-foldable-traversable": "^1.0.0",
+    "purescript-tuples": "^1.0.0",
+    "purescript-strings": "^1.1.0",
+    "purescript-sets": "^1.0.0"
   },
   "devDependencies": {
-    "purescript-math": "^0.2.0",
-    "purescript-quickcheck": "^0.6.0"
-  },
-  "resolutions": {
-    "purescript-strings": "^0.7.0"
+    "purescript-math": "*",
+    "purescript-spec": "^0.8.0",
+    "purescript-aff": "*"
   }
 }

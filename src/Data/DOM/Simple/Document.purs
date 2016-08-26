@@ -21,10 +21,10 @@ class Document b where
   createElement :: forall eff. String -> b -> (Eff (dom :: DOM | eff) HTMLElement)
 
 instance htmlDocumentElement :: Element HTMLDocument where
-  getElementById id el    = (unsafeGetElementById id el) >>= (return <<< ensure)
+  getElementById id el    = (unsafeGetElementById id el) >>= (pure <<< ensure)
   getElementsByClassName  = unsafeGetElementsByClassName
   getElementsByName       = unsafeGetElementsByName
-  querySelector sel el    = (unsafeQuerySelector sel el) >>= (return <<< ensure)
+  querySelector sel el    = (unsafeQuerySelector sel el) >>= (pure <<< ensure)
   querySelectorAll        = unsafeQuerySelectorAll
   getAttribute            = unsafeGetAttribute
   setAttribute            = unsafeSetAttribute
@@ -45,7 +45,7 @@ instance htmlDocumentElement :: Element HTMLDocument where
   classAdd                = unsafeClassAdd
   classToggle             = unsafeClassToggle
   classContains           = unsafeClassContains
-  offsetParent el         = (unsafeOffsetParent el) >>= (ensure >>> return)
+  offsetParent el         = (unsafeOffsetParent el) >>= (ensure >>> pure)
   offsetHeight            = unsafeOffsetHeight
   offsetWidth             = unsafeOffsetWidth
   offsetTop               = unsafeOffsetTop

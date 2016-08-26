@@ -3,67 +3,79 @@
 #### `unsafeDocument`
 
 ``` purescript
-unsafeDocument :: forall eff a. a -> Eff (dom :: DOM | eff) HTMLDocument
+unsafeDocument :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLDocument)
 ```
 
 #### `unsafeNavigator`
 
 ``` purescript
-unsafeNavigator :: forall eff a. a -> Eff (dom :: DOM | eff) DOMNavigator
+unsafeNavigator :: forall eff a. a -> (Eff (dom :: DOM | eff) DOMNavigator)
 ```
 
 #### `unsafeLocation`
 
 ``` purescript
-unsafeLocation :: forall eff a. a -> Eff (dom :: DOM | eff) DOMLocation
+unsafeLocation :: forall eff a. a -> (Eff (dom :: DOM | eff) DOMLocation)
 ```
 
 #### `unsafeGetLocation`
 
 ``` purescript
-unsafeGetLocation :: forall eff a. a -> Eff (dom :: DOM | eff) String
+unsafeGetLocation :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 ```
 
 #### `unsafeSetLocation`
 
 ``` purescript
-unsafeSetLocation :: forall eff a. String -> a -> Eff (dom :: DOM | eff) Unit
+unsafeSetLocation :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) Unit)
 ```
 
 #### `unsafeGetSearchLocation`
 
 ``` purescript
-unsafeGetSearchLocation :: forall eff a. a -> Eff (dom :: DOM | eff) String
+unsafeGetSearchLocation :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 ```
 
 #### `unsafeSetTimeout`
 
 ``` purescript
-unsafeSetTimeout :: forall eff b. b -> Number -> Eff (dom :: DOM | eff) Unit -> Eff (dom :: DOM | eff) Timeout
+unsafeSetTimeout :: forall eff b. b -> Number -> Eff (dom :: DOM | eff) Unit -> (Eff (dom :: DOM | eff) Timeout)
 ```
 
 #### `unsafeSetInterval`
 
 ``` purescript
-unsafeSetInterval :: forall eff b. b -> Number -> Eff (dom :: DOM | eff) Unit -> Eff (dom :: DOM | eff) Timeout
+unsafeSetInterval :: forall eff b. b -> Number -> Eff (dom :: DOM | eff) Unit -> (Eff (dom :: DOM | eff) Timeout)
 ```
 
 #### `unsafeClearTimeout`
 
 ``` purescript
-unsafeClearTimeout :: forall eff b. b -> Timeout -> Eff (dom :: DOM | eff) Unit
+unsafeClearTimeout :: forall eff b. b -> Timeout -> (Eff (dom :: DOM | eff) Unit)
 ```
 
 #### `unsafeInnerWidth`
 
 ``` purescript
-unsafeInnerWidth :: forall eff b. b -> Eff (dom :: DOM | eff) Number
+unsafeInnerWidth :: forall eff b. b -> (Eff (dom :: DOM | eff) Number)
 ```
 
 #### `unsafeInnerHeight`
 
 ``` purescript
-unsafeInnerHeight :: forall eff b. b -> Eff (dom :: DOM | eff) Number
+unsafeInnerHeight :: forall eff b. b -> (Eff (dom :: DOM | eff) Number)
+```
+
+#### `unsafePageXOffset`
+
+``` purescript
+unsafePageXOffset :: forall eff b. b -> (Eff (dom :: DOM | eff) Number)
+```
+
+#### `unsafePageYOffset`
+
+``` purescript
+unsafePageYOffset :: forall eff b. b -> (Eff (dom :: DOM | eff) Number)
 ```
 
 

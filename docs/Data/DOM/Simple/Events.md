@@ -9,23 +9,23 @@ class Read s where
 
 ##### Instances
 ``` purescript
-instance mouseEventTypeRead :: Read MouseEventType
-instance keyboardEventTypeRead :: Read KeyboardEventType
-instance uiEventTypeRead :: Read UIEventType
+Read MouseEventType
+Read KeyboardEventType
+Read UIEventType
 ```
 
 #### `Event`
 
 ``` purescript
 class Event e where
-  eventTarget :: forall eff a. e -> Eff (dom :: DOM | eff) a
-  stopPropagation :: forall eff. e -> Eff (dom :: DOM | eff) Unit
-  preventDefault :: forall eff. e -> Eff (dom :: DOM | eff) Unit
+  eventTarget :: forall eff a. e -> (Eff (dom :: DOM | eff) a)
+  stopPropagation :: forall eff. e -> (Eff (dom :: DOM | eff) Unit)
+  preventDefault :: forall eff. e -> (Eff (dom :: DOM | eff) Unit)
 ```
 
 ##### Instances
 ``` purescript
-instance eventDOMEvent :: Event DOMEvent
+Event DOMEvent
 ```
 
 #### `MouseEventType`
@@ -46,39 +46,39 @@ data MouseEventType
 
 ##### Instances
 ``` purescript
-instance mouseEventTypeShow :: Show MouseEventType
-instance mouseEventTypeRead :: Read MouseEventType
+Show MouseEventType
+Read MouseEventType
 ```
 
 #### `MouseEvent`
 
 ``` purescript
 class (Event e) <= MouseEvent e where
-  mouseEventType :: forall eff. e -> Eff (dom :: DOM | eff) MouseEventType
-  screenX :: forall eff. e -> Eff (dom :: DOM | eff) Int
-  screenY :: forall eff. e -> Eff (dom :: DOM | eff) Int
-  clientX :: forall eff. e -> Eff (dom :: DOM | eff) Int
-  clientY :: forall eff. e -> Eff (dom :: DOM | eff) Int
+  mouseEventType :: forall eff. e -> (Eff (dom :: DOM | eff) MouseEventType)
+  screenX :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
+  screenY :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
+  clientX :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
+  clientY :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
 ```
 
 ##### Instances
 ``` purescript
-instance mouseEventDOMEvent :: MouseEvent DOMEvent
+MouseEvent DOMEvent
 ```
 
 #### `MouseEventTarget`
 
 ``` purescript
 class MouseEventTarget b where
-  addMouseEventListener :: forall e t ta. (MouseEvent e) => MouseEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
-  removeMouseEventListener :: forall e t ta. (MouseEvent e) => MouseEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
+  addMouseEventListener :: forall e t ta. MouseEvent e => MouseEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | ta) Unit)
+  removeMouseEventListener :: forall e t ta. MouseEvent e => MouseEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | ta) Unit)
 ```
 
 ##### Instances
 ``` purescript
-instance mouseEventTargetHTMLWindow :: MouseEventTarget HTMLWindow
-instance mouseEventTargetHTMLDocument :: MouseEventTarget HTMLDocument
-instance mouseEventTargetHTMLElement :: MouseEventTarget HTMLElement
+MouseEventTarget HTMLWindow
+MouseEventTarget HTMLDocument
+MouseEventTarget HTMLElement
 ```
 
 #### `KeyboardEventType`
@@ -93,8 +93,8 @@ data KeyboardEventType
 
 ##### Instances
 ``` purescript
-instance keyboardEventTypeShow :: Show KeyboardEventType
-instance keyboardEventTypeRead :: Read KeyboardEventType
+Show KeyboardEventType
+Read KeyboardEventType
 ```
 
 #### `KeyLocation`
@@ -118,34 +118,34 @@ toKeyLocation :: Int -> KeyLocation
 
 ``` purescript
 class (Event e) <= KeyboardEvent e where
-  keyboardEventType :: forall eff. e -> Eff (dom :: DOM | eff) KeyboardEventType
-  key :: forall eff. e -> Eff (dom :: DOM | eff) String
-  keyCode :: forall eff. e -> Eff (dom :: DOM | eff) Int
-  keyLocation :: forall eff. e -> Eff (dom :: DOM | eff) KeyLocation
-  altKey :: forall eff. e -> Eff (dom :: DOM | eff) Boolean
-  ctrlKey :: forall eff. e -> Eff (dom :: DOM | eff) Boolean
-  metaKey :: forall eff. e -> Eff (dom :: DOM | eff) Boolean
-  shiftKey :: forall eff. e -> Eff (dom :: DOM | eff) Boolean
+  keyboardEventType :: forall eff. e -> (Eff (dom :: DOM | eff) KeyboardEventType)
+  key :: forall eff. e -> (Eff (dom :: DOM | eff) String)
+  keyCode :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
+  keyLocation :: forall eff. e -> (Eff (dom :: DOM | eff) KeyLocation)
+  altKey :: forall eff. e -> (Eff (dom :: DOM | eff) Boolean)
+  ctrlKey :: forall eff. e -> (Eff (dom :: DOM | eff) Boolean)
+  metaKey :: forall eff. e -> (Eff (dom :: DOM | eff) Boolean)
+  shiftKey :: forall eff. e -> (Eff (dom :: DOM | eff) Boolean)
 ```
 
 ##### Instances
 ``` purescript
-instance keyboardEventDOMEvent :: KeyboardEvent DOMEvent
+KeyboardEvent DOMEvent
 ```
 
 #### `KeyboardEventTarget`
 
 ``` purescript
 class KeyboardEventTarget b where
-  addKeyboardEventListener :: forall e t ta. (KeyboardEvent e) => KeyboardEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
-  removeKeyboardEventListener :: forall e t ta. (KeyboardEvent e) => KeyboardEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
+  addKeyboardEventListener :: forall e t ta. KeyboardEvent e => KeyboardEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | ta) Unit)
+  removeKeyboardEventListener :: forall e t ta. KeyboardEvent e => KeyboardEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | ta) Unit)
 ```
 
 ##### Instances
 ``` purescript
-instance keyboardEventTargetHTMLWindow :: KeyboardEventTarget HTMLWindow
-instance keyboardEventTargetHTMLDocument :: KeyboardEventTarget HTMLDocument
-instance keyboardEventTargetHTMLElement :: KeyboardEventTarget HTMLElement
+KeyboardEventTarget HTMLWindow
+KeyboardEventTarget HTMLDocument
+KeyboardEventTarget HTMLElement
 ```
 
 #### `UIEventType`
@@ -164,34 +164,86 @@ data UIEventType
 
 ##### Instances
 ``` purescript
-instance uiEventTypeShow :: Show UIEventType
-instance uiEventTypeRead :: Read UIEventType
+Show UIEventType
+Read UIEventType
 ```
 
 #### `UIEvent`
 
 ``` purescript
 class (Event e) <= UIEvent e where
-  view :: forall eff. e -> Eff (dom :: DOM | eff) HTMLWindow
-  detail :: forall eff. e -> Eff (dom :: DOM | eff) Int
+  view :: forall eff. e -> (Eff (dom :: DOM | eff) HTMLWindow)
+  detail :: forall eff. e -> (Eff (dom :: DOM | eff) Int)
 ```
 
 ##### Instances
 ``` purescript
-instance uiEventDOMEvent :: UIEvent DOMEvent
+UIEvent DOMEvent
 ```
 
 #### `UIEventTarget`
 
 ``` purescript
 class UIEventTarget b where
-  addUIEventListener :: forall e t ta. (UIEvent e) => UIEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
-  removeUIEventListener :: forall e t ta. (UIEvent e) => UIEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> Eff (dom :: DOM | ta) Unit
+  addUIEventListener :: forall e t ta. UIEvent e => UIEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | ta) Unit)
+  removeUIEventListener :: forall e t ta. UIEvent e => UIEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | ta) Unit)
 ```
 
 ##### Instances
 ``` purescript
-instance uiEventTargetHTMLWindow :: UIEventTarget HTMLWindow
+UIEventTarget HTMLWindow
+```
+
+#### `ProgressEventType`
+
+``` purescript
+data ProgressEventType
+  = ProgressAbortEvent
+  | ProgressErrorEvent
+  | ProgressLoadEvent
+  | ProgressLoadEndEvent
+  | ProgressLoadStartEvent
+  | ProgressProgressEvent
+  | ProgressTimeoutEvent
+```
+
+##### Instances
+``` purescript
+Show ProgressEventType
+```
+
+#### `readProgressEventType`
+
+``` purescript
+readProgressEventType :: Partial => String -> ProgressEventType
+```
+
+#### `ProgressEvent`
+
+``` purescript
+class (Event e) <= ProgressEvent e where
+  progressEventType :: forall eff. e -> (Eff (dom :: DOM | eff) ProgressEventType)
+  lengthComputable :: forall eff. e -> (Eff (dom :: DOM | eff) Boolean)
+  loaded :: forall eff. e -> (Eff (dom :: DOM | eff) Number)
+  total :: forall eff. e -> (Eff (dom :: DOM | eff) Number)
+```
+
+##### Instances
+``` purescript
+ProgressEvent DOMEvent
+```
+
+#### `ProgressEventTarget`
+
+``` purescript
+class ProgressEventTarget b where
+  addProgressEventListener :: forall e t ta. ProgressEvent e => ProgressEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | ta) Unit)
+  removeProgressEventListener :: forall e t ta. ProgressEvent e => ProgressEventType -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | ta) Unit)
+```
+
+##### Instances
+``` purescript
+ProgressEventTarget XMLHttpRequest
 ```
 
 
