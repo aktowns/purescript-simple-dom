@@ -1,6 +1,6 @@
 module Test.Main where
 
-import Prelude (Unit, bind, (==), ($), (>>=))
+import Prelude (bind)
 
 import Data.Array (length)
 import Data.Maybe (Maybe(..), isNothing)
@@ -17,8 +17,6 @@ import Test.Spec                  (describe, it)
 import Test.Spec.Runner           (run)
 import Test.Spec.Assertions       (shouldEqual)
 import Test.Spec.Reporter.Console (consoleReporter)
-
-foreign import inspect :: forall a. a -> Unit
 
 foreign import tagname :: forall a. a -> String
 
@@ -53,19 +51,19 @@ main = run [consoleReporter] do
       it "Able to look up element by id" do
         doc <- liftEff (document globalWindow)
         Just testDiv <- liftEff (getElementById "test1" doc)
-        tagname     testDiv `shouldEqual` "DIV"
+        tagname testDiv `shouldEqual` "DIV"
         content <- liftEff (textContent testDiv)
         content `shouldEqual` "testContent1"
       it "Able to look up element by class name" do
         doc <- liftEff (document globalWindow)
         Just testDiv <- liftEff (querySelector ".test2" doc)
-        tagname     testDiv `shouldEqual` "DIV"
+        tagname testDiv `shouldEqual` "DIV"
         content <- liftEff (textContent testDiv)
         content `shouldEqual` "testContent2"
       it "Able to look up element by tag name" do
         doc <- liftEff (document globalWindow)
         Just testDiv <- liftEff (querySelector "test3" doc)
-        tagname     testDiv `shouldEqual` "DIV"
+        tagname testDiv `shouldEqual` "DIV"
         content <- liftEff (textContent testDiv)
         content `shouldEqual` "testContent3"
       it "Able to count items in a nodelist" do
