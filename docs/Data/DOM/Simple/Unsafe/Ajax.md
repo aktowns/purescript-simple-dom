@@ -51,7 +51,7 @@ unsafeResponse :: forall eff a. XMLHttpRequest -> Eff (dom :: DOM | eff) a
 #### `unsafeGetResponseHeader`
 
 ``` purescript
-unsafeGetResponseHeader :: forall eff a. Fn2 XMLHttpRequest String (Eff (dom :: DOM | eff) String)
+unsafeGetResponseHeader :: forall eff. Fn2 XMLHttpRequest String (Eff (dom :: DOM | eff) String)
 ```
 
 

@@ -35,7 +35,7 @@ Given an object, convert it into URL parameters.
 #### `toJsonString`
 
 ``` purescript
-toJsonString :: forall eff a. a -> Eff (dom :: DOM | eff) String
+toJsonString :: forall eff a. a -> (Eff (dom :: DOM | eff) String)
 ```
 
 Given an object, convert it into a JSON string
