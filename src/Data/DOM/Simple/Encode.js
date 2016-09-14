@@ -3,8 +3,6 @@
 
 // module Data.DOM.Simple.Encode
 
-// testing
-
 exports.encodeURIComponent = window.encodeURIComponent;
 exports.decodeURIComponent = window.decodeURIComponent;
 exports.encodeURI = window.encodeURI;
