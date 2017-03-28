@@ -10,8 +10,8 @@ import Data.DOM.Simple.Unsafe.Window
 import Data.DOM.Simple.Document
 
 import Data.Maybe
-import qualified Data.Array as Array
-import qualified Data.String as String
+import Data.Array as Array
+import Data.String as String
 
 class Location b where
   getLocation :: forall eff. b -> (Eff (dom :: DOM | eff) String)
@@ -55,6 +55,6 @@ getLocationValue input key =
         [x, y] | x == key -> Just y
         _ -> Nothing
     in
-  let sanitizedInput = if ((String.indexOf "?" input) == Just 0) then (String.drop 1 input) else input in
-    let kv = map (String.split "=") (String.split "&" sanitizedInput) in
+  let sanitizedInput = if ((String.indexOf (String.Pattern "?") input) == Just 0) then (String.drop 1 input) else input in
+    let kv = map (String.split (String.Pattern "=")) (String.split (String.Pattern "&") sanitizedInput) in
       Array.head $ Array.mapMaybe kvParser kv

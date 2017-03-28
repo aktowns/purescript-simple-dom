@@ -46,7 +46,7 @@ instance mouseEventTypeShow :: Show MouseEventType where
   show MouseDblClickEvent    = "dblclick"
   show MouseUpEvent          = "mouseup"
   show MouseDownEvent        = "mousedown"
-  show (MouseUnknownEvent x) = "unknown event: " ++ x
+  show (MouseUnknownEvent x) = "unknown event: " <> x
 
 instance mouseEventTypeRead :: Read MouseEventType where
   read "mousemove"  = MouseMoveEvent
@@ -108,7 +108,7 @@ instance keyboardEventTypeShow :: Show KeyboardEventType where
   show KeydownEvent        = "keydown"
   show KeypressEvent       = "keypress"
   show KeyupEvent          = "keyup"
-  show (KeyUnknownEvent x) = "unknown key event:" ++ x
+  show (KeyUnknownEvent x) = "unknown key event:" <> x
 
 instance keyboardEventTypeRead :: Read KeyboardEventType where
   read "keydown"  = KeydownEvent
@@ -193,7 +193,7 @@ instance uiEventTypeShow :: Show UIEventType where
   show SelectEvent      = "select"
   show ResizeEvent      = "resize"
   show ScrollEvent      = "scroll"
-  show (UnknownEvent x) = "unknown uievent:" ++ x
+  show (UnknownEvent x) = "unknown uievent:" <> x
 
 instance uiEventTypeRead :: Read UIEventType where
   read "load"     = LoadEvent
@@ -255,6 +255,7 @@ readProgressEventType "loadend"   = ProgressLoadEndEvent
 readProgressEventType "loadstart" = ProgressLoadStartEvent
 readProgressEventType "progress"  = ProgressProgressEvent
 readProgressEventType "timeout"   = ProgressTimeoutEvent
+readProgressEventType _           = ProgressAbortEvent
 
 class (Event e) <= ProgressEvent e where
     progressEventType :: forall eff. e -> (Eff (dom :: DOM | eff) ProgressEventType)

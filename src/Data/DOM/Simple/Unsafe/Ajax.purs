@@ -4,7 +4,7 @@ import Prelude
 
 import DOM
 import Control.Monad.Eff
-import Data.Function
+import Data.Function.Uncurried
 
 import Data.DOM.Simple.Types
 
