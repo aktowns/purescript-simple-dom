@@ -45,10 +45,10 @@ data HttpMethod = GET | POST | PUT | DELETE | PATCH | HEAD | OPTIONS | JSONP | H
 data ResponseType = Default | ArrayBuffer | Blob | Document | Json | Text | MozBlob | MozChunkedText | MozChunkedArrayBuffer
 
 -- These could be given more complete interfaces somewhere:
-foreign import data ArrayBuffer :: *
-foreign import data ArrayBufferView :: *
-foreign import data Blob :: *
-foreign import data FormData :: *
+foreign import data ArrayBuffer :: Type
+foreign import data ArrayBufferView :: Type
+foreign import data Blob :: Type
+foreign import data FormData :: Type
 
 data HttpData a
   = NoData

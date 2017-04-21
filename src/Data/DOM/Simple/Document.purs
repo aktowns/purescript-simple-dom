@@ -11,7 +11,7 @@ import Data.DOM.Simple.Unsafe.Utils(ensure, showImpl)
 import Data.DOM.Simple.Unsafe.Element
 import Data.DOM.Simple.Unsafe.Document
 
-foreign import data HTMLDocument      :: *
+foreign import data HTMLDocument      :: Type
 
 class Document b where
   title         :: forall eff. b -> (Eff (dom :: DOM | eff) String)

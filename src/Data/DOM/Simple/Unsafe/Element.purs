@@ -10,7 +10,7 @@ import Control.Monad.Eff
 import Data.DOM.Simple.Types
 import Data.DOM.Simple.Unsafe.Utils(showImpl)
 
-foreign import data HTMLElement       :: *
+foreign import data HTMLElement       :: Type
 
 foreign import unsafeGetElementById :: forall eff a. String -> a -> (Eff (dom :: DOM | eff) HTMLElement)
 
