@@ -1,13 +1,13 @@
 module Data.DOM.Simple.Unsafe.Element where
 
-import Prelude
+import Prelude (class Show, Unit)
 
-import DOM
-import DOM.Node.Types
+import DOM (DOM)
+import DOM.Node.Types (NodeList)
 
-import Control.Monad.Eff
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
+import Data.DOM.Simple.Types (HTMLWindow)
 import Data.DOM.Simple.Unsafe.Utils(showImpl)
 
 foreign import data HTMLElement       :: Type

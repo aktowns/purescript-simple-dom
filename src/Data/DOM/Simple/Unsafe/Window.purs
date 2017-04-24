@@ -1,12 +1,12 @@
 module Data.DOM.Simple.Unsafe.Window where
 
-import Prelude
+import Prelude (Unit)
 
-import DOM
-import Control.Monad.Eff
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Document
+import Data.DOM.Simple.Types (DOMLocation, DOMNavigator, Timeout)
+import Data.DOM.Simple.Document (HTMLDocument)
 
 foreign import unsafeDocument :: forall eff a. a -> (Eff (dom :: DOM | eff) HTMLDocument)
 

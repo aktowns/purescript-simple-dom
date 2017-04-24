@@ -1,7 +1,5 @@
 module Data.DOM.Simple.Types where
 
-import Control.Monad.Eff
-
 foreign import data HTMLWindow        :: Type
 foreign import data XMLHttpRequest    :: Type
 foreign import data DOMNavigator      :: Type

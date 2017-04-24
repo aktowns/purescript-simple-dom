@@ -25,16 +25,16 @@ module Data.DOM.Simple.Ajax
   , overrideMimeType
   ) where
 
-import Prelude
+import Prelude (class Show, Unit, bind, pure, show, ($), (<$>))
 
-import Control.Monad.Eff
-import Data.Function.Uncurried
+import Control.Monad.Eff (Eff)
+import Data.Function.Uncurried (Fn3, runFn1, runFn2, runFn3)
 import Data.Maybe (Maybe(..))
-import DOM
+import DOM (DOM)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Unsafe.Ajax
-import Data.DOM.Simple.Document
+import Data.DOM.Simple.Types (XMLHttpRequest)
+import Data.DOM.Simple.Unsafe.Ajax (unsafeGetResponseHeader, unsafeOnReadyStateChange, unsafeOpen, unsafeReadyState, unsafeResponse, unsafeResponseType, unsafeSend, unsafeSendWithPayload, unsafeSetResponseType)
+import Data.DOM.Simple.Document (HTMLDocument)
 
 data ReadyState = Unsent | Opened | HeadersReceived | Loading | Done | UnknownState Int
 

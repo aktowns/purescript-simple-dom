@@ -1,15 +1,14 @@
 module Data.DOM.Simple.Document where
 
-import Prelude
+import Prelude (class Show, Unit, pure, (<<<), (>>=), (>>>))
 
-import DOM
-import Control.Monad.Eff
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Element
+import Data.DOM.Simple.Element (class Element)
 import Data.DOM.Simple.Unsafe.Utils(ensure, showImpl)
-import Data.DOM.Simple.Unsafe.Element
-import Data.DOM.Simple.Unsafe.Document
+import Data.DOM.Simple.Unsafe.Element (HTMLElement, unsafeAppendChild, unsafeChildren, unsafeClassAdd, unsafeClassContains, unsafeClassRemove, unsafeClassToggle, unsafeContentWindow, unsafeGetAttribute, unsafeGetElementById, unsafeGetElementsByClassName, unsafeGetElementsByName, unsafeGetStyleAttr, unsafeHasAttribute, unsafeInnerHTML, unsafeOffsetHeight, unsafeOffsetLeft, unsafeOffsetParent, unsafeOffsetTop, unsafeOffsetWidth, unsafeQuerySelector, unsafeQuerySelectorAll, unsafeRemoveAttribute, unsafeSetAttribute, unsafeSetInnerHTML, unsafeSetStyleAttr, unsafeSetTextContent, unsafeSetValue, unsafeTextContent, unsafeValue)
+import Data.DOM.Simple.Unsafe.Document (unsafeBody, unsafeCreateElement, unsafeSetBody, unsafeSetTitle, unsafeTitle)
 
 foreign import data HTMLDocument      :: Type
 

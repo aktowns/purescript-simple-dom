@@ -1,12 +1,11 @@
 module Data.DOM.Simple.Navigator where
 
-import DOM
-import Control.Monad.Eff
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Unsafe.Navigator
+import Data.DOM.Simple.Unsafe.Navigator (unsafeAppCodeName, unsafeAppName, unsafeAppVersion, unsafeLanguage, unsafePlatform, unsafeProduct, unsafeUserAgent)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Element
+import Data.DOM.Simple.Types (DOMNavigator)
 
 class Navigator b where
   appName     :: forall eff. b -> (Eff (dom :: DOM | eff) String)

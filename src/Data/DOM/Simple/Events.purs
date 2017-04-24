@@ -1,17 +1,14 @@
 module Data.DOM.Simple.Events where
 
-import Prelude
+import Prelude (class Show, Unit, show, (<$>), (<>))
 
-import Control.Monad.Eff
-import Control.Monad
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Window(document, globalWindow)
-import Data.DOM.Simple.Ajax
-import Data.DOM.Simple.Unsafe.Events
-import Data.DOM.Simple.Unsafe.Element
-import Data.DOM.Simple.Document
-import DOM
+import Data.DOM.Simple.Types (DOMEvent, HTMLWindow, XMLHttpRequest)
+import Data.DOM.Simple.Unsafe.Events (unsafeAddEventListener, unsafeEventBooleanProp, unsafeEventKey, unsafeEventKeyCode, unsafeEventNumberProp, unsafeEventProp, unsafeEventStringProp, unsafeEventTarget, unsafeEventView, unsafePreventDefault, unsafeRemoveEventListener, unsafeStopPropagation)
+import Data.DOM.Simple.Unsafe.Element (HTMLElement)
+import Data.DOM.Simple.Document (HTMLDocument)
+import DOM (DOM)
 
 -- XXX Should this be in the Prelude?
 class Read s where

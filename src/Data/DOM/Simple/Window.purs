@@ -1,15 +1,15 @@
 module Data.DOM.Simple.Window where
 
-import Prelude
+import Prelude (Unit, map, ($), (==))
 
-import DOM
-import Control.Monad.Eff
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Unsafe.Window
-import Data.DOM.Simple.Document
+import Data.DOM.Simple.Types (DOMLocation, DOMNavigator, HTMLWindow, Timeout)
+import Data.DOM.Simple.Unsafe.Window (unsafeClearTimeout, unsafeDocument, unsafeGetLocation, unsafeGetSearchLocation, unsafeInnerHeight, unsafeInnerWidth, unsafeLocation, unsafeNavigator, unsafePageXOffset, unsafePageYOffset, unsafeSetInterval, unsafeSetLocation, unsafeSetTimeout)
+import Data.DOM.Simple.Document (HTMLDocument)
 
-import Data.Maybe
+import Data.Maybe (Maybe(..))
 import Data.Array as Array
 import Data.String as String
 

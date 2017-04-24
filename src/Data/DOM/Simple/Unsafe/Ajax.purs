@@ -1,12 +1,12 @@
 module Data.DOM.Simple.Unsafe.Ajax where
 
-import Prelude
+import Prelude (Unit)
 
-import DOM
-import Control.Monad.Eff
-import Data.Function.Uncurried
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
+import Data.Function.Uncurried (Fn1, Fn2, Fn3)
 
-import Data.DOM.Simple.Types
+import Data.DOM.Simple.Types (XMLHttpRequest)
 
 foreign import unsafeReadyState :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) Int
 

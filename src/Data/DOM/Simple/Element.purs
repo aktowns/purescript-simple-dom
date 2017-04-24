@@ -1,18 +1,17 @@
 module Data.DOM.Simple.Element where
 
-import Prelude
+import Prelude (Unit, pure, (>>=), (>>>))
 
-import Control.Monad.Eff
-import DOM
-import DOM.Node.Types
+import Control.Monad.Eff (Eff)
+import DOM (DOM)
+import DOM.Node.Types (NodeList)
 
-import Data.DOM.Simple.Unsafe.Utils(ensure, showImpl)
-import Data.DOM.Simple.Unsafe.Element
-import Data.DOM.Simple.Types
+import Data.DOM.Simple.Unsafe.Utils (ensure)
+import Data.DOM.Simple.Unsafe.Element (HTMLElement, unsafeAppendChild, unsafeBlur, unsafeChildren, unsafeClassAdd, unsafeClassContains, unsafeClassRemove, unsafeClassToggle, unsafeClick, unsafeContentWindow, unsafeFocus, unsafeGetAttribute, unsafeGetElementById, unsafeGetElementsByClassName, unsafeGetElementsByName, unsafeGetStyleAttr, unsafeHasAttribute, unsafeInnerHTML, unsafeOffsetHeight, unsafeOffsetLeft, unsafeOffsetParent, unsafeOffsetTop, unsafeOffsetWidth, unsafeQuerySelector, unsafeQuerySelectorAll, unsafeRemoveAttribute, unsafeSetAttribute, unsafeSetInnerHTML, unsafeSetStyleAttr, unsafeSetTextContent, unsafeSetValue, unsafeTextContent, unsafeValue)
+import Data.DOM.Simple.Types (HTMLWindow)
 
 import Data.Foldable(for_)
-import Data.Maybe
-import Data.Array as A
+import Data.Maybe (Maybe)
 import Data.Tuple as T
 
 class Element b where
