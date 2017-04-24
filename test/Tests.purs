@@ -1,25 +1,20 @@
-module Main where
+module Test.Main where
 
-import Prelude
+import Prelude (Unit, bind, discard, ($), (==), (>>=))
 
-import Data.Array
-import Data.Maybe
+import Data.Array (length)
+import Data.Maybe (Maybe(..), isNothing)
 
-import Control.Monad.Eff
-import Control.Monad.Eff.Console
+import Control.Monad.Eff.Console (log)
 
-import Data.DOM.Simple.Unsafe.Element(HTMLElement(..))
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Element
-import Data.DOM.Simple.Document
-import Data.DOM.Simple.Window
-import Data.DOM.Simple.Encode
-import Data.DOM.Simple.Ajax
-import Data.DOM.Simple.Events
-import Data.DOM.Simple.Navigator
-import qualified Data.DOM.Simple.NodeList as NL
+import Data.DOM.Simple.Unsafe.Element (HTMLElement)
+import Data.DOM.Simple.Element (appendChild, getAttribute, getElementById, getStyleAttr, hasAttribute, offsetHeight, offsetLeft, offsetParent, offsetTop, offsetWidth, querySelector, querySelectorAll, removeAttribute, setAttribute, setStyleAttr, setTextContent, setValue, textContent, value)
+import Data.DOM.Simple.Document (body, setTitle, title)
+import Data.DOM.Simple.Window (document, globalWindow, navigator)
+import Data.DOM.Simple.Navigator (appName, appVersion, language)
+import Data.DOM.Simple.NodeList as NL
 
-import Test.QuickCheck
+import Test.QuickCheck (quickCheck')
 
 foreign import inspect :: forall a. a -> Unit
 
