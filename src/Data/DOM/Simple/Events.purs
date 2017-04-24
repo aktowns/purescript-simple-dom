@@ -245,6 +245,7 @@ instance showProgressEventType :: Show ProgressEventType where
     show ProgressProgressEvent  = "progress"
     show ProgressTimeoutEvent   = "timeout"
 
+readProgressEventType :: String -> ProgressEventType
 readProgressEventType "abort"     = ProgressAbortEvent
 readProgressEventType "error"     = ProgressErrorEvent
 readProgressEventType "load"      = ProgressLoadEvent

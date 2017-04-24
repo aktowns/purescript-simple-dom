@@ -24,4 +24,4 @@ foreign import unsafeResponseType :: forall eff. XMLHttpRequest -> Eff (dom :: D
 
 foreign import unsafeResponse :: forall eff a. XMLHttpRequest -> Eff (dom :: DOM | eff) a
 
-foreign import unsafeGetResponseHeader :: forall eff a. Fn2 XMLHttpRequest String (Eff (dom :: DOM | eff) String)
+foreign import unsafeGetResponseHeader :: forall eff. Fn2 XMLHttpRequest String (Eff (dom :: DOM | eff) String)

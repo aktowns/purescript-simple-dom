@@ -147,7 +147,7 @@ response x = do
     MozChunkedText        -> get TextData
     MozChunkedArrayBuffer -> get ArrayBufferData
   where
-    get :: forall eff a o. (a -> HttpData o) -> Eff (dom :: DOM | eff) (HttpData o)
+    get :: forall eff2 b o. (b -> HttpData o) -> Eff (dom :: DOM | eff2) (HttpData o)
     get t = runFn3 maybeFn NoData t <$> unsafeResponse x
 
 foreign import responseText :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)
