@@ -1,11 +1,10 @@
 module Data.DOM.Simple.Unsafe.NodeList where
 
-import DOM
-import DOM.Node.Types
-import Control.Monad.Eff
+import DOM (DOM)
+import DOM.Node.Types (NodeList)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Unsafe.Element
+import Data.DOM.Simple.Unsafe.Element (HTMLElement)
 
 foreign import unsafeNodeListLength :: forall eff. NodeList -> Eff (dom :: DOM | eff) Int
 

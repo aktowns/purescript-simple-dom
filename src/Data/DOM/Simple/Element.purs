@@ -1,19 +1,18 @@
 module Data.DOM.Simple.Element where
 
-import Prelude
+import Prelude (Unit, pure, (>>=), (>>>))
 
-import Control.Monad.Eff
-import DOM
-import DOM.Node.Types
+import Control.Monad.Eff (Eff)
+import DOM (DOM)
+import DOM.Node.Types (NodeList)
 
-import Data.DOM.Simple.Unsafe.Utils(ensure, showImpl)
-import Data.DOM.Simple.Unsafe.Element
-import Data.DOM.Simple.Types
+import Data.DOM.Simple.Unsafe.Utils (ensure)
+import Data.DOM.Simple.Unsafe.Element (HTMLElement, unsafeAppendChild, unsafeBlur, unsafeChildren, unsafeClassAdd, unsafeClassContains, unsafeClassRemove, unsafeClassToggle, unsafeClick, unsafeContentWindow, unsafeFocus, unsafeGetAttribute, unsafeGetElementById, unsafeGetElementsByClassName, unsafeGetElementsByName, unsafeGetStyleAttr, unsafeHasAttribute, unsafeInnerHTML, unsafeOffsetHeight, unsafeOffsetLeft, unsafeOffsetParent, unsafeOffsetTop, unsafeOffsetWidth, unsafeQuerySelector, unsafeQuerySelectorAll, unsafeRemoveAttribute, unsafeSetAttribute, unsafeSetInnerHTML, unsafeSetStyleAttr, unsafeSetTextContent, unsafeSetValue, unsafeTextContent, unsafeValue)
+import Data.DOM.Simple.Types (HTMLWindow)
 
 import Data.Foldable(for_)
-import Data.Maybe
-import qualified Data.Array as A
-import qualified Data.Tuple as T
+import Data.Maybe (Maybe)
+import Data.Tuple as T
 
 class Element b where
   getElementById         :: forall eff. String -> b -> (Eff (dom :: DOM | eff) (Maybe HTMLElement))
@@ -47,10 +46,10 @@ class Element b where
   offsetLeft             :: forall eff. b -> (Eff (dom :: DOM | eff) Int)
 
 instance htmlElement :: Element HTMLElement where
-  getElementById id el    = (unsafeGetElementById id el) >>= (ensure >>> return)
+  getElementById id el    = (unsafeGetElementById id el) >>= (ensure >>> pure)
   getElementsByClassName  = unsafeGetElementsByClassName
   getElementsByName       = unsafeGetElementsByName
-  querySelector sel el    = (unsafeQuerySelector sel el) >>= (ensure >>> return)
+  querySelector sel el    = (unsafeQuerySelector sel el) >>= (ensure >>> pure)
   querySelectorAll        = unsafeQuerySelectorAll
   getAttribute            = unsafeGetAttribute
   setAttribute            = unsafeSetAttribute
@@ -71,7 +70,7 @@ instance htmlElement :: Element HTMLElement where
   classAdd                = unsafeClassAdd
   classToggle             = unsafeClassToggle
   classContains           = unsafeClassContains
-  offsetParent el         = (unsafeOffsetParent el) >>= (ensure >>> return)
+  offsetParent el         = (unsafeOffsetParent el) >>= (ensure >>> pure)
   offsetHeight            = unsafeOffsetHeight
   offsetWidth             = unsafeOffsetWidth
   offsetTop               = unsafeOffsetTop

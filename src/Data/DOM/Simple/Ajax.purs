@@ -25,16 +25,16 @@ module Data.DOM.Simple.Ajax
   , overrideMimeType
   ) where
 
-import Prelude
+import Prelude (class Show, Unit, bind, pure, show, ($), (<$>))
 
-import Control.Monad.Eff
-import Data.Function
+import Control.Monad.Eff (Eff)
+import Data.Function.Uncurried (Fn3, runFn1, runFn2, runFn3)
 import Data.Maybe (Maybe(..))
-import DOM
+import DOM (DOM)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Unsafe.Ajax
-import Data.DOM.Simple.Document
+import Data.DOM.Simple.Types (XMLHttpRequest)
+import Data.DOM.Simple.Unsafe.Ajax (unsafeGetResponseHeader, unsafeOnReadyStateChange, unsafeOpen, unsafeReadyState, unsafeResponse, unsafeResponseType, unsafeSend, unsafeSendWithPayload, unsafeSetResponseType)
+import Data.DOM.Simple.Document (HTMLDocument)
 
 data ReadyState = Unsent | Opened | HeadersReceived | Loading | Done | UnknownState Int
 
@@ -45,10 +45,10 @@ data HttpMethod = GET | POST | PUT | DELETE | PATCH | HEAD | OPTIONS | JSONP | H
 data ResponseType = Default | ArrayBuffer | Blob | Document | Json | Text | MozBlob | MozChunkedText | MozChunkedArrayBuffer
 
 -- These could be given more complete interfaces somewhere:
-foreign import data ArrayBuffer :: *
-foreign import data ArrayBufferView :: *
-foreign import data Blob :: *
-foreign import data FormData :: *
+foreign import data ArrayBuffer :: Type
+foreign import data ArrayBufferView :: Type
+foreign import data Blob :: Type
+foreign import data FormData :: Type
 
 data HttpData a
   = NoData
@@ -92,7 +92,7 @@ foreign import makeXMLHttpRequest :: forall eff. (Eff (dom :: DOM | eff) XMLHttp
 readyState :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) ReadyState
 readyState x = do
   r <- unsafeReadyState x
-  return $ case r of
+  pure $ case r of
     0 -> Unsent
     1 -> Opened
     2 -> HeadersReceived
@@ -122,7 +122,7 @@ setResponseType rt x = runFn2 unsafeSetResponseType x (show rt)
 responseType :: forall eff. XMLHttpRequest -> Eff (dom :: DOM | eff) ResponseType
 responseType obj = do
   r <- unsafeResponseType obj
-  return $ case r of
+  pure $ case r of
     "arraybuffer" -> ArrayBuffer
     "blob" -> Blob
     "document" -> Document
@@ -147,7 +147,7 @@ response x = do
     MozChunkedText        -> get TextData
     MozChunkedArrayBuffer -> get ArrayBufferData
   where
-    get :: forall eff a o. (a -> HttpData o) -> Eff (dom :: DOM | eff) (HttpData o)
+    get :: forall eff2 b o. (b -> HttpData o) -> Eff (dom :: DOM | eff2) (HttpData o)
     get t = runFn3 maybeFn NoData t <$> unsafeResponse x
 
 foreign import responseText :: forall eff. XMLHttpRequest -> (Eff (dom :: DOM | eff) String)

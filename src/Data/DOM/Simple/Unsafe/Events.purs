@@ -1,11 +1,11 @@
 module Data.DOM.Simple.Unsafe.Events where
 
-import Prelude
+import Prelude (Unit)
 
-import DOM
-import Control.Monad.Eff
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
+import Data.DOM.Simple.Types (DOMEvent, HTMLWindow)
 
 foreign import unsafeAddEventListener :: forall eff t e b. String -> (e -> Eff (dom :: DOM | t) Unit) -> b -> (Eff (dom :: DOM | eff) Unit)
 

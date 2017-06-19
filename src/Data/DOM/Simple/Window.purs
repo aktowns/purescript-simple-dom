@@ -1,17 +1,17 @@
 module Data.DOM.Simple.Window where
 
-import Prelude
+import Prelude (Unit, map, ($), (==))
 
-import DOM
-import Control.Monad.Eff
+import DOM (DOM)
+import Control.Monad.Eff (Eff)
 
-import Data.DOM.Simple.Types
-import Data.DOM.Simple.Unsafe.Window
-import Data.DOM.Simple.Document
+import Data.DOM.Simple.Types (DOMLocation, DOMNavigator, HTMLWindow, Timeout)
+import Data.DOM.Simple.Unsafe.Window (unsafeClearTimeout, unsafeDocument, unsafeGetLocation, unsafeGetSearchLocation, unsafeInnerHeight, unsafeInnerWidth, unsafeLocation, unsafeNavigator, unsafePageXOffset, unsafePageYOffset, unsafeSetInterval, unsafeSetLocation, unsafeSetTimeout)
+import Data.DOM.Simple.Document (HTMLDocument)
 
-import Data.Maybe
-import qualified Data.Array as Array
-import qualified Data.String as String
+import Data.Maybe (Maybe(..))
+import Data.Array as Array
+import Data.String as String
 
 class Location b where
   getLocation :: forall eff. b -> (Eff (dom :: DOM | eff) String)
@@ -55,6 +55,6 @@ getLocationValue input key =
         [x, y] | x == key -> Just y
         _ -> Nothing
     in
-  let sanitizedInput = if ((String.indexOf "?" input) == Just 0) then (String.drop 1 input) else input in
-    let kv = map (String.split "=") (String.split "&" sanitizedInput) in
+  let sanitizedInput = if ((String.indexOf (String.Pattern "?") input) == Just 0) then (String.drop 1 input) else input in
+    let kv = map (String.split (String.Pattern "=")) (String.split (String.Pattern "&") sanitizedInput) in
       Array.head $ Array.mapMaybe kvParser kv
